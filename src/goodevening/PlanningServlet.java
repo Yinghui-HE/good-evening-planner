@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/PlanningServlet")
 public class PlanningServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public final static int UNPREFERRED_SCORE = 1;
-    public final static int NORMAL_SCORE = 3;
-    public final static int PREFERRED_SCORE = 9;
+
     private ArrayList<Event> options;
     private int eveningStart;
     private int eveningEnd;
@@ -36,7 +34,6 @@ public class PlanningServlet extends HttpServlet {
         options.removeIf(e -> e.isTimeDependent() &&
                 (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd));
         //remove all invalid options
-        //TODO: needs significant modification here. How to represent time?
         plan();
     }
 
@@ -44,7 +41,7 @@ public class PlanningServlet extends HttpServlet {
     private void plan() {
         for(int i = 0; i < options.length(); i++) {
             Event temp = options.get(i);
-            int duration = temp.getDuration();  //should return duration in minutes
+            int duration = temp.getDuration();
 
             if(!(temp.isTimeDependent)) {
                 //if event does not depend on time, try every possible interval
@@ -115,7 +112,7 @@ public class AlgorithmThread extends Thread {
 
             ArrayList<Event> evening = new ArrayList<>();
             getEveningEvent(events.length() - 1, evening);
-            //TODO: send to front end
+            //TODO: send to front end and database
 
         }
         catch(InterruptedException ie) {
