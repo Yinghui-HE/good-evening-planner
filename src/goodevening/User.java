@@ -1,4 +1,4 @@
-package java_classes;
+package goodevening;
 
 public class User {
 	private int userID;
