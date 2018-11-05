@@ -39,7 +39,3 @@ CREATE TABLE EveningHistory(
     FOREIGN KEY eid4 (eventID1) REFERENCES EveningEvents(eventID),
     FOREIGN KEY eid5 (eventID1) REFERENCES EveningEvents(eventID)
 );
-
-
-
-
