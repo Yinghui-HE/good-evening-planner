@@ -54,7 +54,8 @@ public class PlanningServlet extends HttpServlet {
                     currentEnd = currentStart + duration;
                     AlgorithmThread t = new AlgorithmThread(options);
                     t.start();
-                    currentStart = addTime(currentStart, 20);
+                    currentStart = addTime(currentStart, 10);
+					currentEnd = addTime(currentStart, duration);
                 }
             }
         }
@@ -62,7 +63,7 @@ public class PlanningServlet extends HttpServlet {
     }
 
 	//add time (in minutes) to start time
-	private addTime(int start, int time) {
+	private int addTime(int start, int time) {
 		int end = start + time / 60 * 100 + time % 60;
 		return end + (end % 100 / 60) * (100 - 60);
 	}
@@ -107,7 +108,10 @@ public class AlgorithmThread extends Thread {
                 int scoreWith = events.get(i).getScore();
                 if(compatible[i] > -1) scoreWith += OPT[compataible[i]];
                 int scoreWithout = OPT[i - 1];
-                OPT[i] = scoreWith > scoreWithout ? scoreWith : scoreWithout;
+				if(scoreWith > scoreWithout) {
+					OPT[i] = scoreWith;
+				}
+                else OPT[i] =  scoreWithout;
             }
 
             ArrayList<Event> evening = new ArrayList<>();
