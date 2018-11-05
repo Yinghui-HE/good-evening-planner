@@ -8,10 +8,10 @@ public class Event {
 	private int duration;
 	private String location;
 	private Boolean timeDependent;
-	private int schedulingWeight;
-	
-	
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, int schedulingWeight) {
+	private int score;
+
+
+	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, int score) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
 		this.startTime = startTime;
@@ -19,12 +19,14 @@ public class Event {
 		this.getDuration = duration;
 		this.location = location;
 		this.timeDependent = timeDependent;
-		this.schedulingWeight = schedulingWeight;
+		this.score = score;
 	}
-	
-	public int getStartTime() {}
-	
-	public int getEndTime() {}
-	
-	public int getDuration
+
+	public int getStartTime() { return startTime; }
+
+	public int getEndTime() { return endTime; }
+
+	public int getDuration() {return duration; }
+
+	public int getScore() { return score; }
 }

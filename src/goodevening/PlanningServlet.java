@@ -36,10 +36,6 @@ public class PlanningServlet extends HttpServlet {
         options.removeIf(e -> e.isTimeDependent() &&
                 (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd));
         //remove all invalid options
-        //TODO: assigning scores
-        for(int i = 0; i < options.length(); i++) {
-
-		}
         //TODO: needs significant modification here. How to represent time?
         plan();
     }
@@ -55,18 +51,24 @@ public class PlanningServlet extends HttpServlet {
                 //FIXME: this logic is incorrect
                 options.remove(i);
                 int currentStart = eveningStart;
-                int currentEnd;
-                //TODO: needs significant modification here. How to represent time?
+                int currentEnd = addTime(currentStart, duration);
+
                 while(currentEnd <= eveningEnd) {
                     currentEnd = currentStart + duration;
                     AlgorithmThread t = new AlgorithmThread(options);
                     t.start();
-                    currentStart += 10;
+                    currentStart = addTime(currentStart, 20);
                 }
             }
         }
 
     }
+
+	//add time (in minutes) to start time
+	private addTime(int start, int time) {
+		int end = start + time / 60 * 100 + time % 60;
+		return end + (end % 100 / 60) * (100 - 60);
+	}
 
 }
 
@@ -95,7 +97,6 @@ public class AlgorithmThread extends Thread {
                 if(currentStart % 100 < 30)
                     currentStart = currentStart - 100 + 60;
                 currentStart -= 30;
-                //TODO: needs significant modification here. How to represent time?
 
                 for(int j = 0; j < i; j++) {
                     if(events.get(j).getEndTime() <= currentStart) compatible[i] = j;
