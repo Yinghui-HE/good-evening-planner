@@ -19,7 +19,7 @@ public class Event {
 		this.eventSummary = eventSummary;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.getDuration = duration;
+		this.duration = duration;
 		this.location = location;
 		this.timeDependent = timeDependent;
 		if(type.equals("want")) score = PREFERRED_SCORE;
@@ -34,4 +34,14 @@ public class Event {
 	public int getDuration() {return duration; }
 
 	public int getScore() { return score; }
+
+	public void setStartTime(int newStartTime) {
+		if(!timeDependent) startTime = newStartTime;
+	}
+
+	public void setEndTime(int newEndTime) {
+		if(!timeDependent) endTime = newEndTime;
+	}
+
+	public bool isTimeDependent() { return timeDependent; }
 }
