@@ -25,7 +25,6 @@ public class PlanningServlet extends HttpServlet {
      */
     public PlanningServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,21 +42,6 @@ public class PlanningServlet extends HttpServlet {
             Event temp = options.get(i);
             int duration = temp.getDuration();
 
-            if(!(temp.isTimeDependent)) {
-                //if event does not depend on time, try every possible interval
-                //FIXME: this logic is incorrect
-                options.remove(i);
-                int currentStart = eveningStart;
-                int currentEnd = addTime(currentStart, duration);
-
-                while(currentEnd <= eveningEnd) {
-                    currentEnd = currentStart + duration;
-                    AlgorithmThread t = new AlgorithmThread(options);
-                    t.start();
-                    currentStart = addTime(currentStart, 10);
-					currentEnd = addTime(currentStart, duration);
-                }
-            }
         }
 
     }
@@ -70,7 +54,7 @@ public class PlanningServlet extends HttpServlet {
 
 }
 
-public class AlgorithmThread extends Thread {
+public class AlgorithmThread {
     //each thread is responsible for: computing a result, sending it to front end
 
     private ArrayList<Event> events;
@@ -82,46 +66,44 @@ public class AlgorithmThread extends Thread {
         this.events = events;  //events is not sorted, but only contain valid events
     }
 
-    @Override
-    public void run() {
-        try {
-            events.sort((e1, e2) -> e1.getEndTime() < e2.getEndTime());
-            //TODO: is this increasing order? getEndTime() should return int
-            //filling out compatible array
-            for(int i = 0; i < compatible.length(); i++) {
-                compatible[i] = -1;
-                int currentStart = events.get(i).getStartTime();
-                //half an hour for transportation
-                if(currentStart % 100 < 30)
-                    currentStart = currentStart - 100 + 60;
-                currentStart -= 30;
+    public ArrayList<Event> run() {
+        events.sort((e1, e2) -> e1.getEndTime() < e2.getEndTime());
+        //TODO: is this increasing order? getEndTime() should return int
+        //filling out compatible array
+        for(int i = 0; i < compatible.length(); i++) {
+            compatible[i] = -1;
+            int currentStart = events.get(i).getStartTime();
+            //half an hour for transportation
+            if(currentStart % 100 < 30)
+                currentStart = currentStart - 100 + 60;
+            currentStart -= 30;
 
-                for(int j = 0; j < i; j++) {
-                    if(events.get(j).getEndTime() <= currentStart) compatible[i] = j;
-                    else break;
-                }
+            for(int j = 0; j < i; j++) {
+                if(events.get(j).getEndTime() <= currentStart) compatible[i] = j;
+                else break;
             }
+        }
 
-            //filling out the OPT array
-            OPT[0] = 0;
-            for(int i = 1; i < events.length(); i++) {
-                int scoreWith = events.get(i).getScore();
-                if(compatible[i] > -1) scoreWith += OPT[compataible[i]];
-                int scoreWithout = OPT[i - 1];
-				if(scoreWith > scoreWithout) {
-					OPT[i] = scoreWith;
+        //filling out the OPT array
+        OPT[0] = 0;
+        for(int i = 1; i < events.length(); i++) {
+            int scoreWith = events.get(i).getScore();
+            if(compatible[i] > -1) scoreWith += OPT[compataible[i]];
+            int scoreWithout = OPT[i - 1];
+			if(scoreWith > scoreWithout) {
+				OPT[i] = scoreWith;
+			}
+            else {
+				OPT[i] =  scoreWithout;
+				if(!(events.get(i).isTimeDependent)) {
+
 				}
-                else OPT[i] =  scoreWithout;
-            }
-
-            ArrayList<Event> evening = new ArrayList<>();
-            getEveningEvent(events.length() - 1, evening);
-            //TODO: send to front end and database
-
+			}
         }
-        catch(InterruptedException ie) {
-            System.out.println(ie.message());
-        }
+
+        ArrayList<Event> evening = new ArrayList<>();
+        getEveningEvent(events.length() - 1, evening);
+        return evening;
     }
 
     //trace back to insert events that maximize scoring
