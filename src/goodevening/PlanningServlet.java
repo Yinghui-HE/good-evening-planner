@@ -30,19 +30,31 @@ public class PlanningServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //pull from database and occupy options
 		//get user inputs, stored in an ArrayList<String> called preferences
-        options.removeIf(e -> e.isTimeDependent() &&
-                (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd));
-        //remove all invalid options
-        plan();
-    }
-
-    //use threads to calculate the plan
-    private void plan() {
-        for(int i = 0; i < options.length(); i++) {
-            Event temp = options.get(i);
-            int duration = temp.getDuration();
-
-        }
+		//remove all invalid options
+		int eveningDuration = computeDuration(eveningStart, eveningEnd);
+		options.removeIf(e -> e.isTimeDependent() &&
+                (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd) ||
+				e.getDuration() > eveningDuration);
+		int optionsNum = options.size();
+		for(int i = 0; i < optionsNum; i++) {
+			Event temp = options.get(i);
+			if(!(temp.isTimeDependent())) {
+				int newStart = eveningStart;
+				int newEnd = addTime(eveningStart, temp.getDuration());
+				options.remove(i);
+				i--;
+				//insert many possibilities of non-time-dependent events
+				while(newEnd <= eveningEnd) {
+					Event newOption = new Event(temp);
+					newOption.setStartTime(newStart);
+					newOption.setEndTime(newEnd);
+					options.add(newOption);
+					newStart = addTime(newStart, 20);
+					newEnd = addTime(newEnd, 20);
+				}
+				//TODO: testing needed
+			}
+		}
 
     }
 
@@ -52,15 +64,26 @@ public class PlanningServlet extends HttpServlet {
 		return end + (end % 100 / 60) * (100 - 60);
 	}
 
+	private int minusTime(int end, int time) {
+		int start = end - time / 60 * 100 + time % 60;
+		return start + (start % 100 / 60) * (100 - 60);
+	}
+
+	private int computeDuration(int start, int end) {
+		start = start / 100 * 60 + start % 100;
+		end = end / 100 * 60 + start % 100;
+		return end - start;
+	}
+
 }
 
 public class AlgorithmThread {
     //each thread is responsible for: computing a result, sending it to front end
 
     private ArrayList<Event> events;
-    private int[] OPT = new int[events.length()];
+    private int[] OPT = new int[events.size()];
     //stores index of the event that ends latest before event i
-    private int[] compatible = new int[events.length()];
+    private int[] compatible = new int[events.size()];
 
     public AlgorithmThread(ArrayList<Event> events) {
         this.events = events;  //events is not sorted, but only contain valid events
@@ -70,7 +93,7 @@ public class AlgorithmThread {
         events.sort((e1, e2) -> e1.getEndTime() < e2.getEndTime());
         //TODO: is this increasing order? getEndTime() should return int
         //filling out compatible array
-        for(int i = 0; i < compatible.length(); i++) {
+        for(int i = 0; i < compatible.size(); i++) {
             compatible[i] = -1;
             int currentStart = events.get(i).getStartTime();
             //half an hour for transportation
@@ -86,23 +109,18 @@ public class AlgorithmThread {
 
         //filling out the OPT array
         OPT[0] = 0;
-        for(int i = 1; i < events.length(); i++) {
+        for(int i = 1; i < events.size(); i++) {
             int scoreWith = events.get(i).getScore();
             if(compatible[i] > -1) scoreWith += OPT[compataible[i]];
             int scoreWithout = OPT[i - 1];
-			if(scoreWith > scoreWithout) {
+			if(scoreWith > scoreWithout)
 				OPT[i] = scoreWith;
-			}
-            else {
-				OPT[i] =  scoreWithout;
-				if(!(events.get(i).isTimeDependent)) {
-
-				}
-			}
+            else
+				OPT[i] = scoreWithout;
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.length() - 1, evening);
+        getEveningEvent(events.size() - 1, evening);
         return evening;
     }
 

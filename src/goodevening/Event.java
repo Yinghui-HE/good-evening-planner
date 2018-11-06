@@ -33,7 +33,7 @@ public class Event {
 
 	public int getEndTime() { return endTime; }
 
-	public int getDuration() {return duration; }
+	public int getDuration() { return duration; }
 
 	public int getScore() { return score; }
 
