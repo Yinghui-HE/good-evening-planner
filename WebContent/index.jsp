@@ -12,9 +12,10 @@
 			<p>User</p>
 		</div>
 		<div id="authenticate">
-			<form id="login">
-				<input type="text" id="username"><br/>
-				<input type="text" id="password"><br/>
+			<form id="login" action="PlanningServlet">
+				<input type="text" id="username" name="username"><br/>
+				<input type="text" id="password" name="password"><br/>
+				<input type="hidden" id="field" name="field" value=log-in>
 				<input type="submit" value="Submit">
 			</form>
 			<form id="register">
