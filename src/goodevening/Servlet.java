@@ -40,7 +40,6 @@ public class Servlet extends HttpServlet {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
-			//TODO
 			
         	
 		}
@@ -48,7 +47,6 @@ public class Servlet extends HttpServlet {
 		else if(request.getParameter("register") != null) {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
-        	System.out.println(username + "in register");
         	System.out.println(username + " in register");
         	System.out.println(password + " in register");
         	
