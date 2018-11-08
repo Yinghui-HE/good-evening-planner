@@ -41,6 +41,8 @@ public class Servlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
 			//TODO
+			
+        	
 		}
 
 		else if(request.getParameter("register") != null) {
