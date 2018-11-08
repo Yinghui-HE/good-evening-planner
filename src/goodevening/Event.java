@@ -24,7 +24,7 @@ public class Event {
 		this.location = location;
 		this.timeDependent = timeDependent;
 		if(type.equals("want")) score = duration * PREFERRED_SCORE_MIN;
-		else if(type.equals("normal")) score = PREFERRED_SCORE;
+		else if(type.equals("normal")) score = NORMAL_SCORE;
 		else if(type.equals("wantss")) score = PREFERRED_SIGHTSEEING_SCORE;
 		else score = UNPREFERRED_SCORE;
 	}
@@ -35,7 +35,7 @@ public class Event {
 
 	public int getDuration() { return duration; }
 
-	public int getScore() { return score; }
+	public double getScore() { return score; }
 
 	public void setStartTime(int newStartTime) {
 		if(!timeDependent) startTime = newStartTime;
@@ -45,5 +45,5 @@ public class Event {
 		if(!timeDependent) endTime = newEndTime;
 	}
 
-	public bool isTimeDependent() { return timeDependent; }
+	public Boolean isTimeDependent() { return timeDependent; }
 }

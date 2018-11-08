@@ -33,7 +33,7 @@ public class PlanningServlet extends HttpServlet {
 		//remove all invalid options
 		int eveningDuration = computeDuration(eveningStart, eveningEnd);
 		options.removeIf(e -> e.isTimeDependent() &&
-                (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd) ||
+                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
 				e.getDuration() > eveningDuration);
 		int optionsNum = options.size();
 		for(int i = 0; i < optionsNum; i++) {
