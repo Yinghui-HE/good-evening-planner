@@ -56,5 +56,7 @@ public class Event {
 		if(!timeDependent) endTime = newEndTime;
 	}
 
+
+	
 	public boolean isTimeDependent() { return timeDependent; }
 }
