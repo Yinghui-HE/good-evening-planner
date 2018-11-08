@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PlanningServlet
  */
-@WebServlet("/PlanningServlet")
-public class PlanningServlet extends HttpServlet {
+@WebServlet("/Servlet")
+public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     private ArrayList<Event> options;
@@ -23,7 +23,7 @@ public class PlanningServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlanningServlet() {
+    public Servlet() {
         super();
     }
 
@@ -33,7 +33,7 @@ public class PlanningServlet extends HttpServlet {
 		//remove all invalid options
 		int eveningDuration = computeDuration(eveningStart, eveningEnd);
 		options.removeIf(e -> e.isTimeDependent() &&
-                (e.getStartTime < eveningStart || e.getEndTime() > eveningEnd) ||
+                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
 				e.getDuration() > eveningDuration);
 		int optionsNum = options.size();
 		for(int i = 0; i < optionsNum; i++) {
@@ -81,7 +81,7 @@ public class AlgorithmThread {
     //each thread is responsible for: computing a result, sending it to front end
 
     private ArrayList<Event> events;
-    private int[] OPT = new int[events.size()];
+    private double[] OPT = new double[events.size()];
     //stores index of the event that ends latest before event i
     private int[] compatible = new int[events.size()];
 
@@ -90,10 +90,10 @@ public class AlgorithmThread {
     }
 
     public ArrayList<Event> run() {
-        events.sort((e1, e2) -> e1.getEndTime() < e2.getEndTime());
-        //TODO: is this increasing order? getEndTime() should return int
+        events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
+        //TODO: is this increasing order?
         //filling out compatible array
-        for(int i = 0; i < compatible.size(); i++) {
+        for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
             int currentStart = events.get(i).getStartTime();
             //half an hour for transportation
@@ -110,9 +110,9 @@ public class AlgorithmThread {
         //filling out the OPT array
         OPT[0] = 0;
         for(int i = 1; i < events.size(); i++) {
-            int scoreWith = events.get(i).getScore();
-            if(compatible[i] > -1) scoreWith += OPT[compataible[i]];
-            int scoreWithout = OPT[i - 1];
+            double scoreWith = events.get(i).getScore();
+            if(compatible[i] > -1) scoreWith += OPT[compatible[i]];
+            double scoreWithout = OPT[i - 1];
 			if(scoreWith > scoreWithout)
 				OPT[i] = scoreWith;
             else
