@@ -30,15 +30,17 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String username = "";
-		if(request.getParameter("logInUser") != null) {
-			username = request.getParameter("logInUser");
+		if(request.getParameter("log-in") != null) {
+			username = request.getParameter("username");
         	String password = request.getParameter("password");
-        	System.out.println(username);
+        	System.out.println(username + "in log-in");
 			//TODO
 		}
 
-		else if(request.getParameter("registerUser") != null) {
-			//TODO
+		else if(request.getParameter("register") != null) {
+			username = request.getParameter("username");
+        	String password = request.getParameter("password");
+        	System.out.println(username + "in register");
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
@@ -107,7 +109,7 @@ public class Servlet extends HttpServlet {
 
 }
 
-public class AlgorithmThread {
+class AlgorithmThread {
     //each thread is responsible for: computing a result, sending it to front end
 
     private ArrayList<Event> events;

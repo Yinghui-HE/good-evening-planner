@@ -12,17 +12,12 @@
 			<p>User</p>
 		</div>
 		<div id="authenticate">
-			<form id="login" action="PlanningServlet">
+			<form id="login" action="Servlet">
 				<input type="text" id="username" name="username"><br/>
 				<input type="text" id="password" name="password"><br/>
-				<input type="hidden" id="field" name="field" value=log-in>
-				<input type="submit" value="Submit">
-			</form>
-			<form id="register">
-				<input type="submit" value="Register">
-			</form>
-			<form id="guest">
-				<input type="submit" value="Continue as Guest">
+				<input type="submit" value="Submit" name="log-in">
+				<input type="submit" value="Register" name="register">
+				<input type="submit" value="Continue as Guest" name="guest">
 			</form>
 		</div>
 		<div id="title">
