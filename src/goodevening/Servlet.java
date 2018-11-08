@@ -28,7 +28,17 @@ public class Servlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //pull from database and occupy options
+		
+		// Log in part code in Servlet
+		if(request.getParameter("field") != null && ((String)request.getParameter("field")).equals("log-in"))
+        {
+        	String username = request.getParameter("username");
+        	String password = request.getParameter("password");
+        	System.out.println(username);
+        }
+		
+		
+		//pull from database and occupy options
 		//get user inputs, stored in an ArrayList<String> called preferences
 		//remove all invalid options
 		int eveningDuration = computeDuration(eveningStart, eveningEnd);
