@@ -36,6 +36,8 @@ public class PlanningServlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username);
         }
+		
+		
 		//pull from database and occupy options
 		//get user inputs, stored in an ArrayList<String> called preferences
 		//remove all invalid options
