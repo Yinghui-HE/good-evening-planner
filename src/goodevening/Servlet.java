@@ -1,6 +1,12 @@
 package goodevening;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -33,13 +39,60 @@ public class Servlet extends HttpServlet {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
-			//TODO
+			
+        	
 		}
 
 		else if(request.getParameter("register") != null) {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
-        	System.out.println(username + "in register");
+        	System.out.println(username + " in register");
+        	System.out.println(password + " in register");
+        	
+        	
+        	Connection conn = null;
+    		Statement st = null;
+    		ResultSet rs = null;
+    		PreparedStatement ps = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+    			
+    			//Insert data about user if the user doesn't exists
+    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+    			ps.setString(1, username);
+    			rs = ps.executeQuery();
+    			ps.clearParameters();
+    			if(!rs.next()) //if data not exists
+    			{
+    				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
+    				ps.setString(1, username);
+    				ps.setString(2, password);
+    				ps.executeUpdate();
+    				ps.clearParameters();
+    				rs.close();
+    			}
+    			
+    			
+    		} catch (SQLException sqle) {
+    			System.out.println("sqle: " + sqle.getMessage());
+    		} catch (ClassNotFoundException cnfe) {
+    			System.out.println("cnfe: " + cnfe.getMessage());
+    		} finally {
+    			try {
+    				if(rs != null) { 
+    					rs.close();
+    				}
+    				if(st != null) {
+    					st.close();
+    				}
+    				if(conn != null) {
+    					conn.close();
+    				}
+    			} catch (SQLException sqle) {
+    				System.out.println("sqle closing conn: " + sqle.getMessage());
+    			}
+    		}
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
@@ -108,7 +161,7 @@ public class Servlet extends HttpServlet {
 
 }
 
-public class AlgorithmThread {
+class AlgorithmThread {
     //each thread is responsible for: computing a result, sending it to front end
 
     private ArrayList<Event> events;
