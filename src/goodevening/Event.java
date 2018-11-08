@@ -28,6 +28,17 @@ public class Event {
 		else if(type.equals("wantss")) score = PREFERRED_SIGHTSEEING_SCORE;
 		else score = UNPREFERRED_SCORE;
 	}
+	
+	public Event(Event other) {
+		this.eventID = other.eventID;
+		this.eventSummary = other.eventSummary;
+		this.startTime = other.startTime;
+		this.endTime = other.endTime;
+		this.duration = other.duration;
+		this.location = other.location;
+		this.timeDependent = other.timeDependent;
+		this.score = other.score;
+	}
 
 	public int getStartTime() { return startTime; }
 
@@ -45,5 +56,9 @@ public class Event {
 		if(!timeDependent) endTime = newEndTime;
 	}
 
+<<<<<<< HEAD
 	public Boolean isTimeDependent() { return timeDependent; }
+=======
+	public boolean isTimeDependent() { return timeDependent; }
+>>>>>>> 0a00e6bf8dc921bf97b9d999bdbd6e22442e2e37
 }
