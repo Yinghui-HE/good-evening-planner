@@ -28,41 +28,6 @@ public class Servlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD:src/goodevening/PlanningServlet.java
-        String username = "";
-		// Log in part code in Servlet
-		if(request.getParameter("field") != null && ((String)request.getParameter("field")).equals("log-in"))
-        {
-        	username = request.getParameter("username");
-        	String password = request.getParameter("password");
-        	System.out.println(username);
-        }
-		
-		
-		//pull from database and occupy options
-		//get user inputs, stored in an ArrayList<String> called preferences
-		//remove all invalid options
-		int eveningDuration = computeDuration(eveningStart, eveningEnd);
-		options.removeIf(e -> e.isTimeDependent() &&
-                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
-				e.getDuration() > eveningDuration);
-		int optionsNum = options.size();
-		for(int i = 0; i < optionsNum; i++) {
-			Event temp = options.get(i);
-			if(!(temp.isTimeDependent())) {
-				int newStart = eveningStart;
-				int newEnd = addTime(eveningStart, temp.getDuration());
-				options.remove(i);
-				i--;
-				//insert many possibilities of non-time-dependent events
-				while(newEnd <= eveningEnd) {
-					Event newOption = new Event(temp);
-					newOption.setStartTime(newStart);
-					newOption.setEndTime(newEnd);
-					options.add(newOption);
-					newStart = addTime(newStart, 20);
-					newEnd = addTime(newEnd, 20);
-=======
 		String username = "";
 		if(request.getParameter("logInUser") != null) {
 			username = request.getParameter("logInUser");
@@ -102,7 +67,6 @@ public class Servlet extends HttpServlet {
 						newEnd = addTime(newEnd, 20);
 					}
 					//TODO: testing needed
->>>>>>> 0a00e6bf8dc921bf97b9d999bdbd6e22442e2e37:src/goodevening/Servlet.java
 				}
 			}
 			ArrayList<Event> result = new AlgorithmThread(options).run();
