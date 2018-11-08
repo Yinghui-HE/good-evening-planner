@@ -28,8 +28,9 @@ public class Servlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = "";
 		if(request.getParameter("logInUser") != null) {
-			String username = request.getParameter("logInUser");
+			username = request.getParameter("logInUser");
         	String password = request.getParameter("password");
         	System.out.println(username);
 			//TODO
