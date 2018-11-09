@@ -33,6 +33,8 @@ public class Servlet extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = "";
+		PrintWriter out = response.getWriter();
+
 		if(request.getParameter("log-in") != null) {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
@@ -176,7 +178,12 @@ public class Servlet extends HttpServlet {
 				}
 			}
 			ArrayList<Event> result = new AlgorithmThread(options).run();
-			//TODO: send response
+
+			out.print("<ul>")
+			for(Event e : result) {
+				out.println(e.getHTMLItem());
+			}
+			out.print("</ul>")
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
@@ -213,7 +220,7 @@ public class Servlet extends HttpServlet {
 }
 
 class AlgorithmThread {
-    //each thread is responsible for: computing a result, sending it to front end
+    //each thread is responsible for: computing a result, return ArrayList<Event>
 
     private ArrayList<Event> events;
     private double[] OPT = new double[events.size()];
