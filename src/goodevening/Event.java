@@ -98,4 +98,17 @@ public class Event {
 
 
 	public boolean isTimeDependent() { return timeDependent; }
+
+	//used for responding to front end
+	public String getHTMLItem() {
+		String html = "<li> <div>" + eventSummary + "</div>"
+					+ "<div>" + startTime + "</div>"
+					+ "<div>" + endTime + "</div>"
+					+ "<div>" + location + "</div>"
+					+ "<div>" + category + "</div>"
+					+ "<div>" + subCategory + "</div>"
+					+ "</li>";
+					//TODO: add <img>
+		return html;
+	}
 }
