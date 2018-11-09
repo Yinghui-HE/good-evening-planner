@@ -40,8 +40,8 @@ public class Servlet extends HttpServlet {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
-			
-        	
+
+
 		}
 
 		else if(request.getParameter("register") != null) {
@@ -49,8 +49,8 @@ public class Servlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username + " in register");
         	System.out.println(password + " in register");
-        	
-        	
+
+
         	Connection conn = null;
     		Statement st = null;
     		ResultSet rs = null;
@@ -58,7 +58,7 @@ public class Servlet extends HttpServlet {
     		try {
     			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
     			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
-    			
+
     			//Insert data about user if the user doesn't exists
     			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
     			ps.setString(1, username);
@@ -73,15 +73,15 @@ public class Servlet extends HttpServlet {
     				ps.clearParameters();
     				rs.close();
     			}
-    			
-    			
+
+
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
     		} catch (ClassNotFoundException cnfe) {
     			System.out.println("cnfe: " + cnfe.getMessage());
     		} finally {
     			try {
-    				if(rs != null) { 
+    				if(rs != null) {
     					rs.close();
     				}
     				if(st != null) {
@@ -97,8 +97,9 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
-			//pull from database and occupy options
-			//get user inputs, stored in an ArrayList<String> called preferences
+			//TODO: pull from database and occupy options
+			//TODO: get user inputs, store in an ArrayList<String> called preferences
+			//TODO: encapsulate Event objects
 			//remove all invalid options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
 			options.removeIf(e -> e.isTimeDependent() &&
