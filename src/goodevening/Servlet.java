@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private ArrayList<Event> options;
-    private int eveningStart;
-    private int eveningEnd;
+    private ArrayList<Event> allEvents;  //global. Pull once
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,7 +49,6 @@ public class Servlet extends HttpServlet {
 
 
         	Connection conn = null;
-    		Statement st = null;
     		ResultSet rs = null;
     		PreparedStatement ps = null;
     		try {
@@ -83,8 +80,8 @@ public class Servlet extends HttpServlet {
     				if(rs != null) {
     					rs.close();
     				}
-    				if(st != null) {
-    					st.close();
+    				if(ps != null) {
+    					ps.close();
     				}
     				if(conn != null) {
     					conn.close();
@@ -96,16 +93,43 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
-			//TODO: pull from database and occupy options
-			//TODO: get user inputs, store in an ArrayList<String> called preferences
-			//TODO: encapsulate Event objects
-			//remove all invalid options
+			//TODO: pull from database and occupy allEvents
+			if(allEvents.isEmpty()) {
+				Connection conn = null;
+	    		Statement st = null;
+	    		ResultSet rs = null;
+	    		PreparedStatement ps = null;
+			}
+
+			//get user inputs, store in an ArrayList
+			ArrayList<String> preferences = new ArrayList<>();
+			preferences.add(request.getParameter("restaurant"));
+			preferences.add(request.getParameter("movie"));
+			preferences.add(request.getParameter("exhibition"));
+			preferences.add(request.getParameter("concert"));
+			preferences.add(request.getParameter("outdoor"));
+			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
+		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
+
+
+			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			for(Event e : allEvents) {
+				if( (!e.isTimeDependent() ||
+					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd)
+					&& e.getDuration() <= eveningDuration )
+				{
+					Event temp = new Event(e);
+					temp.setScore(preferences);
+					options.add(temp);
+				}
+			}
 			options.removeIf(e -> e.isTimeDependent() &&
 	                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
 					e.getDuration() > eveningDuration);
 			int optionsNum = options.size();
-			//insert possible non-time-dependent events time
+
+			//insert non-time-dependent events possibilities
 			for(int i = 0; i < optionsNum; i++) {
 				Event temp = options.get(i);
 				if(!(temp.isTimeDependent())) {
@@ -176,7 +200,7 @@ class AlgorithmThread {
 
     public ArrayList<Event> run() {
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //TODO: is this increasing order?
+        //FIXME: make sure this is increasing order
         //filling out compatible array
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;

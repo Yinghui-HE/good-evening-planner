@@ -1,10 +1,20 @@
 package goodevening;
 
 public class Event {
-	public final static double UNPREFERRED_SCORE = 1;
-    public final static double NORMAL_SCORE = 2;
-	public final static double PREFERRED_SCORE_MIN = 0.1;
-    public final static double PREFERRED_SIGHTSEEING_SCORE = 14;
+	private final static double UNPREFERRED_SCORE = 1;
+    private final static double NORMAL_SCORE = 2;
+	private final static double PREFERRED_SCORE_MIN = 0.1;
+    private final static double PREFERRED_SIGHTSEEING_SCORE = 14;
+	private final static String RESTAURANT_TAG = "restaurant";
+	private final static String MOVIE_TAG = "movie";
+	private final static String EXHIBITION_TAG = "exhibition";
+	private final static String CONCERT_TAG = "concert";
+	private final static String OUTDOOR_TAG = "outdoor";
+	private final static int RESTAURANT_INDEX = 0;
+	private final static String MOVIE_INDEX = 1;
+	private final static String EXHIBITION_INDEX = 2;
+	private final static String CONCERT_INDEX = 3;
+	private final static String OUTDOOR_INDEX = 4;
 	private String eventSummary;
 	private int eventID;
 	private int startTime;  //4 digits: HHMM
@@ -12,10 +22,11 @@ public class Event {
 	private int duration;  //in minutes
 	private String location;
 	private Boolean timeDependent;
+	private String category;
+	private String subcategory;
 	private double score;
 
-
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String type) {
+	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subcategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
 		this.startTime = startTime;
@@ -23,12 +34,10 @@ public class Event {
 		this.duration = duration;
 		this.location = location;
 		this.timeDependent = timeDependent;
-		if(type.equals("want")) score = duration * PREFERRED_SCORE_MIN;
-		else if(type.equals("normal")) score = NORMAL_SCORE;
-		else if(type.equals("wantss")) score = PREFERRED_SIGHTSEEING_SCORE;
-		else score = UNPREFERRED_SCORE;
+		this.category = category;
+		this.subcategory = subcategory;
 	}
-	
+
 	public Event(Event other) {
 		this.eventID = other.eventID;
 		this.eventSummary = other.eventSummary;
@@ -38,6 +47,36 @@ public class Event {
 		this.location = other.location;
 		this.timeDependent = other.timeDependent;
 		this.score = other.score;
+	}
+
+	//set score based on category, subcategory, and preferences input
+	public void setScore(ArrayList<String> preferences) {
+		if(category.equals(RESTAURANT_TAG)) {
+			if(subcategory.equals(preferences.get(RESTAURANT_INDEX)))
+				score = duration * PREFERRED_SCORE_MIN;
+			else score = UNPREFERRED_SCORE;
+		}
+		else if(category.equals(MOVIE_TAG)) {
+			if(subcategory.equals(preferences.get(MOVIE_INDEX)))
+				score = duration * PREFERRED_SCORE_MIN;
+			else score = UNPREFERRED_SCORE;
+		}
+		else if(category.equals(EXHIBITION_TAG)) {
+			if(preferences.get(EXHIBITION_INDEX).equals("yes"))
+				score = PREFERRED_SIGHTSEEING_SCORE;
+			else score = UNPREFERRED_SCORE;
+		}
+		else if(category.equals(CONCERT_TAG)) {
+			if(preferences.get(CONCERT_INDEX).equals("yes"))
+				score = duration * PREFERRED_SCORE_MIN;
+			else score = UNPREFERRED_SCORE;
+		}
+		else if(category.equals(OUTDOOR_TAG)) {
+			if(subcategory.equals(preferences.get(OUTDOOR_INDEX)))
+				score = PREFERRED_SIGHTSEEING_SCORE;
+			else score = UNPREFERRED_SCORE;
+
+		}
 	}
 
 	public int getStartTime() { return startTime; }
