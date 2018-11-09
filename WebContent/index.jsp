@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,17 +8,45 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
+	<script>
+	function CheckLogIn(){
+		console.log("In checklogin")
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "Servlet?log-in=true&username="+username+"&password="+password, true); 
+		xhttp.send();
+		
+	}
+	</script>
+	
+	<%
+	session = request.getSession();
+	%>
+
 	<body>
 		<div id="header">
 			<p>User</p>
 		</div>
 		<div id="authenticate">
 			<form id="login" action="Servlet">
-				<input type="text" id="username" name="username"><br/>
-				<input type="text" id="password" name="password"><br/>
-				<input type="submit" value="Submit" name="log-in">
+				<input type="text" id="username" name="username" required><br/>
+				<input type="text" id="password" name="password" required><br/>
+				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
 				<input type="submit" value="Register" name="register">
 				<input type="submit" value="Continue as Guest" name="guest">
+				<% if(session.getAttribute("ErrorMessage") != null){
+					String error = (String)session.getAttribute("ErrorMessage");
+					System.out.println(error + "in jsp");
+
+					if(error.length() > 0) {
+			%>
+					<span id="errorMessage"><%= error%></span>
+			<%
+					}
+			}
+
+			%>
 			</form>
 		</div>
 		<div id="title">

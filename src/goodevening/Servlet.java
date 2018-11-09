@@ -1,6 +1,7 @@
 package goodevening;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,11 +10,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class PlanningServlet
@@ -32,15 +35,65 @@ public class Servlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("in service");
+		String errorMessage = "";
 		String username = "";
+
 		PrintWriter out = response.getWriter();
 
+
 		if(request.getParameter("log-in") != null) {
+			System.out.println("in log-in");
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
 
+        	Connection conn = null;
+    		Statement st = null;
+    		ResultSet rs = null;
+    		PreparedStatement ps = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
 
+    			//Insert data about user if the user doesn't exists
+    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=? AND u.userPassword=?");
+    			ps.setString(1, username);
+    			ps.setString(2, password);
+    			rs = ps.executeQuery();
+    			ps.clearParameters();
+    			if(rs.next()) //if data exist
+    			{
+    				//TODO
+    			}
+    			else //if data not exist
+    			{
+    				errorMessage = "Username and password do not match";
+//					out.println("Username and password do not match");
+					
+
+    			}
+
+
+    		} catch (SQLException sqle) {
+    			System.out.println("sqle: " + sqle.getMessage());
+    		} catch (ClassNotFoundException cnfe) {
+    			System.out.println("cnfe: " + cnfe.getMessage());
+    		} finally {
+    			try {
+    				if(rs != null) {
+    					rs.close();
+    				}
+    				if(st != null) {
+    					st.close();
+    				}
+    				if(conn != null) {
+    					conn.close();
+    				}
+    			} catch (SQLException sqle) {
+    				System.out.println("sqle closing conn: " + sqle.getMessage());
+    			}
+    		}
 		}
 
 		else if(request.getParameter("register") != null) {
@@ -197,6 +250,14 @@ public class Servlet extends HttpServlet {
 		else if(request.getParameter("logOutUser") != null) {
 			//TODO
 		}
+		
+		
+		//session
+		HttpSession session = request.getSession();
+		session.setAttribute("ErrorMessage", errorMessage);
+		System.out.println(errorMessage);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
+//		dispatcher.forward(request, response);
 	}
 
 

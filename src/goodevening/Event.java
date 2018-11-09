@@ -99,6 +99,7 @@ public class Event {
 	}
 
 
+	
 	public boolean isTimeDependent() { return timeDependent; }
 
 	//used for responding to front end
