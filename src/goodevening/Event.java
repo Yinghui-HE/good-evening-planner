@@ -23,10 +23,10 @@ public class Event {
 	private String location;
 	private Boolean timeDependent;
 	private String category;
-	private String subcategory;
+	private String subCategory;
 	private double score;
 
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subcategory) {
+	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
 		this.startTime = startTime;
@@ -35,7 +35,7 @@ public class Event {
 		this.location = location;
 		this.timeDependent = timeDependent;
 		this.category = category;
-		this.subcategory = subcategory;
+		this.subCategory = subCategory;
 	}
 
 	public Event(Event other) {
@@ -49,15 +49,15 @@ public class Event {
 		this.score = other.score;
 	}
 
-	//set score based on category, subcategory, and preferences input
+	//set score based on category, subCategory, and preferences input
 	public void setScore(ArrayList<String> preferences) {
 		if(category.equals(RESTAURANT_TAG)) {
-			if(subcategory.equals(preferences.get(RESTAURANT_INDEX)))
+			if(subCategory.equals(preferences.get(RESTAURANT_INDEX)))
 				score = duration * PREFERRED_SCORE_MIN;
 			else score = UNPREFERRED_SCORE;
 		}
 		else if(category.equals(MOVIE_TAG)) {
-			if(subcategory.equals(preferences.get(MOVIE_INDEX)))
+			if(subCategory.equals(preferences.get(MOVIE_INDEX)))
 				score = duration * PREFERRED_SCORE_MIN;
 			else score = UNPREFERRED_SCORE;
 		}
@@ -72,7 +72,7 @@ public class Event {
 			else score = UNPREFERRED_SCORE;
 		}
 		else if(category.equals(OUTDOOR_TAG)) {
-			if(subcategory.equals(preferences.get(OUTDOOR_INDEX)))
+			if(subCategory.equals(preferences.get(OUTDOOR_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = UNPREFERRED_SCORE;
 

@@ -96,9 +96,9 @@ public class Servlet extends HttpServlet {
 			//TODO: pull from database and occupy allEvents
 			if(allEvents.isEmpty()) {
 				Connection conn = null;
-	    		Statement st = null;
 	    		ResultSet rs = null;
 	    		PreparedStatement ps = null;
+				try {}
 			}
 
 			//get user inputs, store in an ArrayList
