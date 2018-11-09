@@ -61,7 +61,7 @@ public class Servlet extends HttpServlet {
     			ps.clearParameters();
     			if(rs.next()) //if data exist
     			{
-    				// TODO
+    				out.println("success");
     			}
     			else //if data not exist
     			{
@@ -108,7 +108,7 @@ public class Servlet extends HttpServlet {
     			ps.setString(1, username);
     			rs = ps.executeQuery();
     			ps.clearParameters();
-    			if(!rs.next()) //if data not exists
+    			if(!rs.next()) //if data not exist
     			{
     				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
     				ps.setString(1, username);
@@ -117,8 +117,10 @@ public class Servlet extends HttpServlet {
     				ps.clearParameters();
     				rs.close();
     			}
-
-
+    			else //data exist, print error message
+    			{
+    				out.println("User already exists");
+    			}
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
     		} catch (ClassNotFoundException cnfe) {
