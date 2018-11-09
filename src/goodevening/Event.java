@@ -11,10 +11,10 @@ public class Event {
 	private final static String CONCERT_TAG = "concert";
 	private final static String OUTDOOR_TAG = "outdoor";
 	private final static int RESTAURANT_INDEX = 0;
-	private final static String MOVIE_INDEX = 1;
-	private final static String EXHIBITION_INDEX = 2;
-	private final static String CONCERT_INDEX = 3;
-	private final static String OUTDOOR_INDEX = 4;
+	private final static int MOVIE_INDEX = 1;
+	private final static int EXHIBITION_INDEX = 2;
+	private final static int CONCERT_INDEX = 3;
+	private final static int OUTDOOR_INDEX = 4;
 	private String eventSummary;
 	private int eventID;
 	private int startTime;  //4 digits: HHMM
