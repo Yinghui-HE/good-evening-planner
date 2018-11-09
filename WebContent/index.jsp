@@ -15,6 +15,11 @@
 		var password = document.getElementById("password").value;
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("GET", "Servlet?log-in=true&username="+username+"&password="+password, true); 
+		xhttp.onreadystatechange = function()
+		{
+			console.log(this.responseText)
+			document.getElementById("errorMessage").innerHTML = this.responseText;		
+		}
 		xhttp.send();
 		
 	}
@@ -35,18 +40,8 @@
 				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
 				<input type="submit" value="Register" name="register">
 				<input type="submit" value="Continue as Guest" name="guest">
-				<% if(session.getAttribute("ErrorMessage") != null){
-					String error = (String)session.getAttribute("ErrorMessage");
-					System.out.println(error + "in jsp");
+				<p id="errorMessage"></p>
 
-					if(error.length() > 0) {
-			%>
-					<span id="errorMessage"><%= error%></span>
-			<%
-					}
-			}
-
-			%>
 			</form>
 		</div>
 		<div id="title">
