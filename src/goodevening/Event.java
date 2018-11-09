@@ -15,7 +15,7 @@ public class Event {
 	private double score;
 
 
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String type) {
+	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
 		this.startTime = startTime;
@@ -23,12 +23,8 @@ public class Event {
 		this.duration = duration;
 		this.location = location;
 		this.timeDependent = timeDependent;
-		if(type.equals("want")) score = duration * PREFERRED_SCORE_MIN;
-		else if(type.equals("normal")) score = NORMAL_SCORE;
-		else if(type.equals("wantss")) score = PREFERRED_SIGHTSEEING_SCORE;
-		else score = UNPREFERRED_SCORE;
 	}
-	
+
 	public Event(Event other) {
 		this.eventID = other.eventID;
 		this.eventSummary = other.eventSummary;
@@ -38,6 +34,13 @@ public class Event {
 		this.location = other.location;
 		this.timeDependent = other.timeDependent;
 		this.score = other.score;
+	}
+
+	public void setScore(String type) {
+		if(type.equals("want")) score = duration * PREFERRED_SCORE_MIN;
+		else if(type.equals("normal")) score = NORMAL_SCORE;
+		else if(type.equals("wantss")) score = PREFERRED_SIGHTSEEING_SCORE;
+		else score = UNPREFERRED_SCORE;
 	}
 
 	public int getStartTime() { return startTime; }

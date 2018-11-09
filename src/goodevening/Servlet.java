@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private ArrayList<Event> options;
-    private int eveningStart;
-    private int eveningEnd;
+    private ArrayList<Event> allEvents;  //global. Pull once
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -96,11 +94,30 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
-			//TODO: pull from database and occupy options
-			//TODO: get user inputs, store in an ArrayList<String> called preferences
-			//TODO: encapsulate Event objects
-			//remove all invalid options
+			//TODO: pull from database and occupy allEvents
+			if(allEvents.isEmpty()) {
+
+			}
+
+			//get user inputs, store in an ArrayList
+			ArrayList<String> preferences = new ArrayList<>();
+			preferences.add(request.getParameter("restaurant"));
+			preferences.add(request.getParameter("movie"));
+			preferences.add(request.getParameter("museum"));
+			preferences.add(request.getParameter("concert"));
+			preferences.add(request.getParameter("sightseeing"));
+			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
+		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
+
+
+			//insert valid events to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			for(Event e : allEvents) {
+				if( (!e.isTimeDependent() ||
+					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd)
+					&& e.getDuration() <= eveningDuration )
+				Event temp = new Event(e);
+			}
 			options.removeIf(e -> e.isTimeDependent() &&
 	                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
 					e.getDuration() > eveningDuration);
@@ -176,7 +193,7 @@ class AlgorithmThread {
 
     public ArrayList<Event> run() {
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //TODO: is this increasing order?
+        //FIXME: make sure this is increasing order
         //filling out compatible array
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
