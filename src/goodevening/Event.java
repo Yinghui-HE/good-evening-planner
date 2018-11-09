@@ -1,5 +1,7 @@
 package goodevening;
 
+import java.util.ArrayList;
+
 public class Event {
 	private final static double UNPREFERRED_SCORE = 1;
     private final static double NORMAL_SCORE = 2;
@@ -21,7 +23,7 @@ public class Event {
 	private int endTime;  //4 digits: HHMM
 	private int duration;  //in minutes
 	private String location;
-	private Boolean timeDependent;
+	private boolean timeDependent;
 	private String category;
 	private String subCategory;
 	private double score = -1;
