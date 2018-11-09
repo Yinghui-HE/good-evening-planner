@@ -24,7 +24,7 @@ public class Event {
 	private Boolean timeDependent;
 	private String category;
 	private String subCategory;
-	private double score;
+	private double score = -1;
 
 	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
@@ -46,6 +46,8 @@ public class Event {
 		this.duration = other.duration;
 		this.location = other.location;
 		this.timeDependent = other.timeDependent;
+		this.category = other.category;
+		this.subCategory = other.subCategory;
 		this.score = other.score;
 	}
 
@@ -75,7 +77,6 @@ public class Event {
 			if(subCategory.equals(preferences.get(OUTDOOR_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = UNPREFERRED_SCORE;
-
 		}
 	}
 
