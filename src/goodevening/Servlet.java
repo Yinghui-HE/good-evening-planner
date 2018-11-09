@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private ArrayList<Event> options;
-    private int eveningStart;
-    private int eveningEnd;
+    private ArrayList<Event> allEvents;  //global. Pull once
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,6 +34,8 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String username = "";
+		PrintWriter out = response.getWriter();
+
 		if(request.getParameter("log-in") != null) {
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
@@ -52,7 +52,6 @@ public class Servlet extends HttpServlet {
 
 
         	Connection conn = null;
-    		Statement st = null;
     		ResultSet rs = null;
     		PreparedStatement ps = null;
     		try {
@@ -81,11 +80,8 @@ public class Servlet extends HttpServlet {
     			System.out.println("cnfe: " + cnfe.getMessage());
     		} finally {
     			try {
-    				if(rs != null) {
-    					rs.close();
-    				}
-    				if(st != null) {
-    					st.close();
+    				if(ps != null) {
+    					ps.close();
     				}
     				if(conn != null) {
     					conn.close();
@@ -97,16 +93,72 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if (request.getParameter("moviePreference") != null) {
-			//TODO: pull from database and occupy options
-			//TODO: get user inputs, store in an ArrayList<String> called preferences
-			//TODO: encapsulate Event objects
-			//remove all invalid options
+			if(allEvents.isEmpty()) {
+				Connection conn = null;
+	    		ResultSet rs = null;
+	    		PreparedStatement ps = null;
+				try {
+	    			Class.forName("com.mysql.jdbc.Driver");
+	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
+	    			rs = ps.executeQuery();
+	    			while(rs.next())
+	    			{
+						boolean timeDependent = false;
+						if(rs.getInt(timeDependent) == 1) timeDependent = true;
+	    				Event e = new Event(rs.getInt("UserId"),
+											rs.getString("title"),
+											rs.getInt("startTime"),
+											rs.getInt("endTime"),
+											rs.getInt("duration"),
+											rs.getString("location"),
+											timeDependent,
+											rs.getString("category"),
+											rs.getString("subCategory"));
+						allEvents.add(e);
+	    			}
+	    		} catch (SQLException sqle) {
+	    			System.out.println("sqle: " + sqle.getMessage());
+	    		} catch (ClassNotFoundException cnfe) {
+	    			System.out.println("cnfe: " + cnfe.getMessage());
+	    		} finally {
+	    			try {
+	    				if(ps != null) {
+	    					ps.close();
+	    				}
+	    				if(conn != null) {
+	    					conn.close();
+	    				}
+	    			} catch (SQLException sqle) {
+	    				System.out.println("sqle closing conn: " + sqle.getMessage());
+	    			}
+	    		}
+			}
+
+			//get user inputs, store in an ArrayList
+			ArrayList<String> preferences = new ArrayList<>();
+			preferences.add(request.getParameter("restaurant"));
+			preferences.add(request.getParameter("movie"));
+			preferences.add(request.getParameter("exhibition"));
+			preferences.add(request.getParameter("concert"));
+			preferences.add(request.getParameter("outdoor"));
+			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
+		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
+
+			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
-			options.removeIf(e -> e.isTimeDependent() &&
-	                (e.getStartTime() < eveningStart || e.getEndTime() > eveningEnd) ||
-					e.getDuration() > eveningDuration);
+			for(Event e : allEvents) {
+				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
+					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
+				{
+					Event temp = new Event(e);
+					temp.setScore(preferences);
+					options.add(temp);
+				}
+			}
 			int optionsNum = options.size();
-			//insert possible non-time-dependent events time
+
+			//insert non-time-dependent events possibilities
 			for(int i = 0; i < optionsNum; i++) {
 				Event temp = options.get(i);
 				if(!(temp.isTimeDependent())) {
@@ -127,7 +179,12 @@ public class Servlet extends HttpServlet {
 				}
 			}
 			ArrayList<Event> result = new AlgorithmThread(options).run();
-			//TODO
+
+			out.print("<ul>")
+			for(Event e : result) {
+				out.println(e.getHTMLItem());
+			}
+			out.print("</ul>")
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
@@ -164,7 +221,7 @@ public class Servlet extends HttpServlet {
 }
 
 class AlgorithmThread {
-    //each thread is responsible for: computing a result, sending it to front end
+    //each thread is responsible for: computing a result, return ArrayList<Event>
 
     private ArrayList<Event> events;
     private double[] OPT = new double[events.size()];
@@ -177,7 +234,7 @@ class AlgorithmThread {
 
     public ArrayList<Event> run() {
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //TODO: is this increasing order?
+        //FIXME: make sure this is increasing order
         //filling out compatible array
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
