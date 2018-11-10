@@ -37,13 +37,25 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in service");
 		String username = "";
-
+		int userID = -1;
 		PrintWriter out = response.getWriter();
+		
 
 		if(request.getParameter("log-in") != null) {
+			boolean error = false;
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
+        	if(username == "")
+        	{
+        		out.print("Invalid username.<br />");
+        		error = true;
+        	}
+        	if(password == "")
+        	{
+        		out.print("Invalid password.<br />");
+        		error = true;
+        	}
 
         	Connection conn = null;
     		Statement st = null;
@@ -59,14 +71,18 @@ public class Servlet extends HttpServlet {
     			ps.setString(2, password);
     			rs = ps.executeQuery();
     			ps.clearParameters();
-    			if(rs.next()) //if data exist
-    			{
-    				out.println("success");
-    			}
-    			else //if data not exist
+    			if(!rs.next()) //if data not exist
     			{
 					out.println("Username and password do not match");
+					error = true;
     			}
+    			else if(error == false) //data exist and no error
+				{
+    				userID = rs.getInt("userID");
+    				System.out.println("userID in log-in: " + userID);
+    				out.println("success");
+    			}
+    			
 
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
@@ -94,7 +110,19 @@ public class Servlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username + " in register");
         	System.out.println(password + " in register");
-
+        	
+        	boolean error = false;
+        	if(username == "")
+        	{
+        		out.print("Invalid username.<br />");
+        		error = true;
+        	}
+        	if(password == "")
+        	{
+        		out.print("Invalid password.<br />");
+        		error = true;
+        	}
+        		
 
         	Connection conn = null;
     		ResultSet rs = null;
@@ -120,6 +148,23 @@ public class Servlet extends HttpServlet {
     			else //data exist, print error message
     			{
     				out.println("User already exists");
+    				error = true;
+    			}
+    			
+    			if(error == false)
+    			{
+    				out.println("success");
+    				ps.close();
+    				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			ps.setString(1, username);
+        			rs = ps.executeQuery();
+        			ps.clearParameters();
+        			if(rs.next()) //if data exist
+        			{
+        				userID = rs.getInt("userID");
+        				System.out.println("userID in register: " + userID);
+        				rs.close();
+        			}
     			}
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
