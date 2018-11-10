@@ -15,7 +15,23 @@
 		var password = document.getElementById("password").value;
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("GET", "Servlet?log-in=true&username="+username+"&password="+password, true); 
+		xhttp.onreadystatechange = function()
+		{
+			errorMessage = this.responseText;
+			if(errorMessage.length != 0) {
+				console.log(errorMessage)
+				if(errorMessage.trim() == "success") {
+					window.location.href = "planning.jsp";
+				} else {
+					document.getElementById("errorMessage").innerHTML = this.responseText;	
+				}
+				
+			}
+		}
 		xhttp.send();
+	}
+	
+	function Register(){
 		
 	}
 	</script>
@@ -33,20 +49,9 @@
 				<input type="text" id="username" name="username" required><br/>
 				<input type="text" id="password" name="password" required><br/>
 				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
-				<input type="submit" value="Register" name="register">
+				<input type="submit" value="Register" name="register" onclick="return Register();">
 				<input type="submit" value="Continue as Guest" name="guest">
-				<% if(session.getAttribute("ErrorMessage") != null){
-					String error = (String)session.getAttribute("ErrorMessage");
-					System.out.println(error + "in jsp");
-
-					if(error.length() > 0) {
-			%>
-					<span id="errorMessage"><%= error%></span>
-			<%
-					}
-			}
-
-			%>
+				<p id="errorMessage"></p>
 			</form>
 		</div>
 		<div id="title">
