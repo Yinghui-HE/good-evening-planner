@@ -50,6 +50,14 @@
 		}
 		xhttp.send();
 	}
+	
+	function Guest() {
+		console.log("In Guest");
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "Servlet?guest=true", false); 
+		xhttp.send();
+		window.location.href = "planning.jsp";
+	}
 	</script>
 	
 	<%
@@ -66,7 +74,7 @@
 				<input type="text" id="password" name="password" required><br/>
 				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
 				<input type="button" value="Register" name="register" onclick="return Register();">
-				<input type="submit" value="Continue as Guest" name="guest">
+				<input type="button" value="Continue as Guest" name="guest" onclick="return Guest();">
 				<p id="logInError"></p>
 				<p id="registerError"></p>
 			</form>

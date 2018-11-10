@@ -37,7 +37,7 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in service");
 		String username = "";
-		int userID = -1;
+		int userID = 0;
 		PrintWriter out = response.getWriter();
 		
 
@@ -79,7 +79,6 @@ public class Servlet extends HttpServlet {
     			else if(error == false) //data exist and no error
 				{
     				userID = rs.getInt("userID");
-    				System.out.println("userID in log-in: " + userID);
     				out.println("success");
     			}
     			
@@ -162,7 +161,6 @@ public class Servlet extends HttpServlet {
         			if(rs.next()) //if data exist
         			{
         				userID = rs.getInt("userID");
-        				System.out.println("userID in register: " + userID);
         				rs.close();
         			}
     			}
@@ -182,6 +180,9 @@ public class Servlet extends HttpServlet {
     				System.out.println("sqle closing conn: " + sqle.getMessage());
     			}
     		}
+		}
+		else if(request.getParameter("guest") != null) {
+			userID = -1;
 		}
 
 //		else if (request.getParameter("moviePreference") != null) {
@@ -291,10 +292,10 @@ public class Servlet extends HttpServlet {
 //			//TODO
 //		}
 		
-		
+		System.out.println("userID: " + userID);
 		//session
 		HttpSession session = request.getSession();
-
+		session.setAttribute("userID", userID);
 	}
 
 
