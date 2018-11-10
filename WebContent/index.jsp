@@ -15,15 +15,14 @@
 		var password = document.getElementById("password").value;
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("GET", "Servlet?log-in=true&username="+username+"&password="+password, true); 
-		xhttp.onreadystatechange = function()
-		{
+		xhttp.onreadystatechange = function(){
 			errorMessage = this.responseText;
 			if(errorMessage.length != 0) {
 				console.log(errorMessage)
 				if(errorMessage.trim() == "success") {
 					window.location.href = "planning.jsp";
 				} else {
-					document.getElementById("errorMessage").innerHTML = this.responseText;	
+					document.getElementById("logInError").innerHTML = this.responseText;	
 				}
 				
 			}
@@ -32,7 +31,32 @@
 	}
 	
 	function Register(){
-		
+		console.log("In Register")
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "Servlet?register=true&username="+username+"&password="+password, true); 
+		xhttp.onreadystatechange = function(){
+			errorMessage = this.responseText;
+			if(errorMessage.length != 0) {
+				console.log(errorMessage)
+				if(errorMessage.trim() == "success") {
+					window.location.href = "planning.jsp";
+				} else {
+					document.getElementById("registerError").innerHTML = this.responseText;	
+				}
+				
+			}
+		}
+		xhttp.send();
+	}
+	
+	function Guest() {
+		console.log("In Guest");
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "Servlet?guest=true", false); 
+		xhttp.send();
+		window.location.href = "planning.jsp";
 	}
 	</script>
 	
@@ -46,12 +70,13 @@
 		</div>
 		<div id="authenticate">
 			<form id="login" action="Servlet">
-				<input type="text" id="username" name="username" required><br/>
-				<input type="text" id="password" name="password" required><br/>
+				<input type="text" id="username" name="username"><br/>
+				<input type="password" id="password" name="password"><br/>
 				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
-				<input type="submit" value="Register" name="register" onclick="return Register();">
-				<input type="submit" value="Continue as Guest" name="guest">
-				<p id="errorMessage"></p>
+				<input type="button" value="Register" name="register" onclick="return Register();">
+				<input type="button" value="Continue as Guest" name="guest" onclick="return Guest();">
+				<p id="logInError"></p>
+				<p id="registerError"></p>
 			</form>
 		</div>
 		<div id="title">

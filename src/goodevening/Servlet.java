@@ -37,13 +37,25 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in service");
 		String username = "";
-
+		int userID = 0;
 		PrintWriter out = response.getWriter();
+		
 
 		if(request.getParameter("log-in") != null) {
+			boolean error = false;
 			username = request.getParameter("username");
         	String password = request.getParameter("password");
         	System.out.println(username + "in log-in");
+        	if(username == "")
+        	{
+        		out.print("Invalid username.<br />");
+        		error = true;
+        	}
+        	if(password == "")
+        	{
+        		out.print("Invalid password.<br />");
+        		error = true;
+        	}
 
         	Connection conn = null;
     		Statement st = null;
@@ -59,14 +71,17 @@ public class Servlet extends HttpServlet {
     			ps.setString(2, password);
     			rs = ps.executeQuery();
     			ps.clearParameters();
-    			if(rs.next()) //if data exist
-    			{
-    				out.println("success");
-    			}
-    			else //if data not exist
+    			if(!rs.next()) //if data not exist
     			{
 					out.println("Username and password do not match");
+					error = true;
     			}
+    			else if(error == false) //data exist and no error
+				{
+    				userID = rs.getInt("userID");
+    				out.println("success");
+    			}
+    			
 
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
@@ -94,7 +109,19 @@ public class Servlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username + " in register");
         	System.out.println(password + " in register");
-
+        	
+        	boolean error = false;
+        	if(username == "")
+        	{
+        		out.print("Invalid username.<br />");
+        		error = true;
+        	}
+        	if(password == "")
+        	{
+        		out.print("Invalid password.<br />");
+        		error = true;
+        	}
+        		
 
         	Connection conn = null;
     		ResultSet rs = null;
@@ -120,6 +147,22 @@ public class Servlet extends HttpServlet {
     			else //data exist, print error message
     			{
     				out.println("User already exists");
+    				error = true;
+    			}
+    			
+    			if(error == false)
+    			{
+    				out.println("success");
+    				ps.close();
+    				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			ps.setString(1, username);
+        			rs = ps.executeQuery();
+        			ps.clearParameters();
+        			if(rs.next()) //if data exist
+        			{
+        				userID = rs.getInt("userID");
+        				rs.close();
+        			}
     			}
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
@@ -138,118 +181,121 @@ public class Servlet extends HttpServlet {
     			}
     		}
 		}
+		else if(request.getParameter("guest") != null) {
+			userID = -1;
+		}
 
-//		else if (request.getParameter("moviePreference") != null) {
-//			if(allEvents.isEmpty()) {
-//				Connection conn = null;
-//	    		ResultSet rs = null;
-//	    		PreparedStatement ps = null;
-//				try {
-//	    			Class.forName("com.mysql.jdbc.Driver");
-//	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
-//	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
-//	    			rs = ps.executeQuery();
-//	    			while(rs.next())
-//	    			{
-//						boolean timeDependent = false;
-//						if(rs.getInt(timeDependent) == 1) timeDependent = true;
-//	    				Event e = new Event(rs.getInt("UserId"),
-//											rs.getString("title"),
-//											rs.getInt("startTime"),
-//											rs.getInt("endTime"),
-//											rs.getInt("duration"),
-//											rs.getString("location"),
-//											timeDependent,
-//											rs.getString("category"),
-//											rs.getString("subCategory"));
-//						allEvents.add(e);
-//	    			}
-//	    		} catch (SQLException sqle) {
-//	    			System.out.println("sqle: " + sqle.getMessage());
-//	    		} catch (ClassNotFoundException cnfe) {
-//	    			System.out.println("cnfe: " + cnfe.getMessage());
-//	    		} finally {
-//	    			try {
-//	    				if(ps != null) {
-//	    					ps.close();
-//	    				}
-//	    				if(conn != null) {
-//	    					conn.close();
-//	    				}
-//	    			} catch (SQLException sqle) {
-//	    				System.out.println("sqle closing conn: " + sqle.getMessage());
-//	    			}
-//	    		}
-//			}
-//
-//			//get user inputs, store in an ArrayList
-//			ArrayList<String> preferences = new ArrayList<>();
-//			preferences.add(request.getParameter("restaurant"));
-//			preferences.add(request.getParameter("movie"));
-//			preferences.add(request.getParameter("exhibition"));
-//			preferences.add(request.getParameter("concert"));
-//			preferences.add(request.getParameter("outdoor"));
-//			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
-//		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
-//
-//			//insert valid events (scores set) to options
-//			int eveningDuration = computeDuration(eveningStart, eveningEnd);
-//			for(Event e : allEvents) {
-//				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
-//					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
-//				{
-//					Event temp = new Event(e);
-//					temp.setScore(preferences);
-//					options.add(temp);
-//				}
-//			}
-//			int optionsNum = options.size();
-//
-//			//insert non-time-dependent events possibilities
-//			for(int i = 0; i < optionsNum; i++) {
-//				Event temp = options.get(i);
-//				if(!(temp.isTimeDependent())) {
-//					int newStart = eveningStart;
-//					int newEnd = addTime(eveningStart, temp.getDuration());
-//					options.remove(i);
-//					i--;
-//					//insert many possibilities of non-time-dependent events
-//					while(newEnd <= eveningEnd) {
-//						Event newOption = new Event(temp);
-//						newOption.setStartTime(newStart);
-//						newOption.setEndTime(newEnd);
-//						options.add(newOption);
-//						newStart = addTime(newStart, 20);
-//						newEnd = addTime(newEnd, 20);
-//					}
-//					//TODO: testing needed
-//				}
-//			}
-//			ArrayList<Event> result = new AlgorithmThread(options).run();
-//
-//			out.print("<ul>")
-//			for(Event e : result) {
-//				out.println(e.getHTMLItem());
-//			}
-//			out.print("</ul>")
-//    	}
-//
-//		else if(request.getParameter("displayHistory") != null) {
-//			//TODO
-//		}
-//
-//		else if(request.getParameter("pokeUser") != null) {
-//			//TODO
-//		}
-//
-//		else if(request.getParameter("logOutUser") != null) {
-//			//TODO
-//		}
+		else if (request.getParameter("moviePreference") != null) {
+			if(allEvents.isEmpty()) {
+				Connection conn = null;
+	    		ResultSet rs = null;
+	    		PreparedStatement ps = null;
+				try {
+	    			Class.forName("com.mysql.jdbc.Driver");
+	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
+	    			rs = ps.executeQuery();
+	    			while(rs.next())
+	    			{
+						boolean timeDependent = false;
+						if(rs.getInt("timeDependent") == 1) timeDependent = true;
+	    				Event e = new Event(rs.getInt("UserId"),
+											rs.getString("title"),
+											rs.getInt("startTime"),
+											rs.getInt("endTime"),
+											rs.getInt("duration"),
+											rs.getString("location"),
+											timeDependent,
+											rs.getString("category"),
+											rs.getString("subCategory"));
+						allEvents.add(e);
+	    			}
+	    		} catch (SQLException sqle) {
+	    			System.out.println("sqle: " + sqle.getMessage());
+	    		} catch (ClassNotFoundException cnfe) {
+	    			System.out.println("cnfe: " + cnfe.getMessage());
+	    		} finally {
+	    			try {
+	    				if(ps != null) {
+	    					ps.close();
+	    				}
+	    				if(conn != null) {
+	    					conn.close();
+	    				}
+	    			} catch (SQLException sqle) {
+	    				System.out.println("sqle closing conn: " + sqle.getMessage());
+	    			}
+	    		}
+			}
+
+			//get user inputs, store in an ArrayList
+			ArrayList<String> preferences = new ArrayList<>();
+			preferences.add(request.getParameter("restaurant"));
+			preferences.add(request.getParameter("movie"));
+			preferences.add(request.getParameter("exhibition"));
+			preferences.add(request.getParameter("concert"));
+			preferences.add(request.getParameter("outdoor"));
+			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
+		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
+
+			//insert valid events (scores set) to options
+			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			for(Event e : allEvents) {
+				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
+					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
+				{
+					Event temp = new Event(e);
+					temp.setScore(preferences);
+					options.add(temp);
+				}
+			}
+			int optionsNum = options.size();
+
+			//insert non-time-dependent events possibilities
+			for(int i = 0; i < optionsNum; i++) {
+				Event temp = options.get(i);
+				if(!(temp.isTimeDependent())) {
+					int newStart = eveningStart;
+					int newEnd = addTime(eveningStart, temp.getDuration());
+					options.remove(i);
+					i--;
+					//insert many possibilities of non-time-dependent events
+					while(newEnd <= eveningEnd) {
+						Event newOption = new Event(temp);
+						newOption.setStartTime(newStart);
+						newOption.setEndTime(newEnd);
+						options.add(newOption);
+						newStart = addTime(newStart, 20);
+						newEnd = addTime(newEnd, 20);
+					}
+					//TODO: testing needed
+				}
+			}
+			ArrayList<Event> result = new AlgorithmThread(options).run();
+
+			out.print("<ul>");
+			for(Event e : result) {
+				out.println(e.getHTMLItem());
+			}
+			out.print("</ul>");
+    	}
+
+		else if(request.getParameter("displayHistory") != null) {
+			//TODO
+		}
+
+		else if(request.getParameter("pokeUser") != null) {
+			//TODO
+		}
+
+		else if(request.getParameter("logOutUser") != null) {
+			userID = -1;
+		}
 		
-		
+		System.out.println("userID: " + userID);
 		//session
 		HttpSession session = request.getSession();
-
+		session.setAttribute("userID", userID);
 	}
 
 
