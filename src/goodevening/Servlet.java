@@ -198,7 +198,7 @@ public class Servlet extends HttpServlet {
 	    			while(rs.next())
 	    			{
 						boolean timeDependent = false;
-						if(rs.getInt(timeDependent) == 1) timeDependent = true;
+						if(rs.getInt("timeDependent") == 1) timeDependent = true;
 	    				Event e = new Event(rs.getInt("UserId"),
 											rs.getString("title"),
 											rs.getInt("startTime"),
@@ -273,11 +273,11 @@ public class Servlet extends HttpServlet {
 			}
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 
-			out.print("<ul>")
+			out.print("<ul>");
 			for(Event e : result) {
 				out.println(e.getHTMLItem());
 			}
-			out.print("</ul>")
+			out.print("</ul>");
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
