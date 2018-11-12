@@ -56,52 +56,66 @@ public class Servlet extends HttpServlet {
         		out.print("Invalid password.<br />");
         		error = true;
         	}
+        	
+        	if(error == false) {
+        		Connection conn = null;
+        		Statement st = null;
+        		ResultSet rs = null;
+        		ResultSet rs1 = null;
+        		PreparedStatement ps = null;
+        		PreparedStatement ps1 = null;
+        		try {
+        			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
 
-        	Connection conn = null;
-    		Statement st = null;
-    		ResultSet rs = null;
-    		PreparedStatement ps = null;
-    		try {
-    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        			//Insert data about user if the user doesn't exists
+        			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			ps.setString(1, username);
+        			rs = ps.executeQuery();
+        			ps.clearParameters();
+        			ps1 = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=? AND u.userPassword=?");
+        			ps1.setString(1, username);
+        			ps1.setString(2, password);
+        			rs1 = ps1.executeQuery();
+        			ps1.clearParameters();
+        			if(!rs.next()) //if the username doesn't exist
+        			{
+        				out.println("User doesn't exist.");
+    					error = true;
+        			}
+        			else if(!rs1.next()) //if data not match
+        			{
+    					out.println("Username and password do not match.");
+    					error = true;
+        			}
+        			else if(error == false) //data exist and no error
+    				{
+        				userID = rs.getInt("userID");
+        				out.println("success");
+        			}
 
-    			//Insert data about user if the user doesn't exists
-    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=? AND u.userPassword=?");
-    			ps.setString(1, username);
-    			ps.setString(2, password);
-    			rs = ps.executeQuery();
-    			ps.clearParameters();
-    			if(!rs.next()) //if data not exist
-    			{
-					out.println("Username and password do not match");
-					error = true;
-    			}
-    			else if(error == false) //data exist and no error
-				{
-    				userID = rs.getInt("userID");
-    				out.println("success");
-    			}
 
-
-    		} catch (SQLException sqle) {
-    			System.out.println("sqle: " + sqle.getMessage());
-    		} catch (ClassNotFoundException cnfe) {
-    			System.out.println("cnfe: " + cnfe.getMessage());
-    		} finally {
-    			try {
-    				if(rs != null) {
-    					rs.close();
-    				}
-    				if(st != null) {
-    					st.close();
-    				}
-    				if(conn != null) {
-    					conn.close();
-    				}
-    			} catch (SQLException sqle) {
-    				System.out.println("sqle closing conn: " + sqle.getMessage());
-    			}
-    		}
+        		} catch (SQLException sqle) {
+        			System.out.println("sqle: " + sqle.getMessage());
+        		} catch (ClassNotFoundException cnfe) {
+        			System.out.println("cnfe: " + cnfe.getMessage());
+        		} finally {
+        			try {
+        				if(rs != null) {
+        					rs.close();
+        				}
+        				if(st != null) {
+        					st.close();
+        				}
+        				if(conn != null) {
+        					conn.close();
+        				}
+        			} catch (SQLException sqle) {
+        				System.out.println("sqle closing conn: " + sqle.getMessage());
+        			}
+        		}
+        	}
+        	
 		}
 
 		else if(request.getParameter("register") != null) {
@@ -122,64 +136,66 @@ public class Servlet extends HttpServlet {
         		error = true;
         	}
 
+        	if(error == false) {
+        		Connection conn = null;
+        		ResultSet rs = null;
+        		PreparedStatement ps = null;
+        		try {
+        			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
 
-        	Connection conn = null;
-    		ResultSet rs = null;
-    		PreparedStatement ps = null;
-    		try {
-    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
-
-    			//Insert data about user if the user doesn't exists
-    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
-    			ps.setString(1, username);
-    			rs = ps.executeQuery();
-    			ps.clearParameters();
-    			if(!rs.next()) //if data not exist
-    			{
-    				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
-    				ps.setString(1, username);
-    				ps.setString(2, password);
-    				ps.executeUpdate();
-    				ps.clearParameters();
-    				rs.close();
-    			}
-    			else //data exist, print error message
-    			{
-    				out.println("User already exists");
-    				error = true;
-    			}
-
-    			if(error == false)
-    			{
-    				out.println("success");
-    				ps.close();
-    				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			//Insert data about user if the user doesn't exists
+        			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
         			ps.setString(1, username);
         			rs = ps.executeQuery();
         			ps.clearParameters();
-        			if(rs.next()) //if data exist
+        			if(!rs.next()) //if data not exist
         			{
-        				userID = rs.getInt("userID");
+        				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
+        				ps.setString(1, username);
+        				ps.setString(2, password);
+        				ps.executeUpdate();
+        				ps.clearParameters();
         				rs.close();
         			}
-    			}
-    		} catch (SQLException sqle) {
-    			System.out.println("sqle: " + sqle.getMessage());
-    		} catch (ClassNotFoundException cnfe) {
-    			System.out.println("cnfe: " + cnfe.getMessage());
-    		} finally {
-    			try {
-    				if(ps != null) {
-    					ps.close();
-    				}
-    				if(conn != null) {
-    					conn.close();
-    				}
-    			} catch (SQLException sqle) {
-    				System.out.println("sqle closing conn: " + sqle.getMessage());
-    			}
-    		}
+        			else //data exist, print error message
+        			{
+        				out.println("User already exists");
+        				error = true;
+        			}
+
+        			if(error == false)
+        			{
+        				out.println("success");
+        				ps.close();
+        				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+            			ps.setString(1, username);
+            			rs = ps.executeQuery();
+            			ps.clearParameters();
+            			if(rs.next()) //if data exist
+            			{
+            				userID = rs.getInt("userID");
+            				rs.close();
+            			}
+        			}
+        		} catch (SQLException sqle) {
+        			System.out.println("sqle: " + sqle.getMessage());
+        		} catch (ClassNotFoundException cnfe) {
+        			System.out.println("cnfe: " + cnfe.getMessage());
+        		} finally {
+        			try {
+        				if(ps != null) {
+        					ps.close();
+        				}
+        				if(conn != null) {
+        					conn.close();
+        				}
+        			} catch (SQLException sqle) {
+        				System.out.println("sqle closing conn: " + sqle.getMessage());
+        			}
+        		}
+        	}
+        	
 		}
 		else if(request.getParameter("guest") != null) {
 			userID = -1;

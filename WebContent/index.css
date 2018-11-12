@@ -46,7 +46,7 @@ h1{
 form{
 	text-align: center;
 }
-input[type="text"]{
+input[type="text"], input[type="password"]{
 	width: 75%;
 	margin: 10px;
 	height: 20px;

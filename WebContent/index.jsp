@@ -64,7 +64,7 @@
 	session = request.getSession();
 	%>
 	
-	<body onload="loggedin()")>
+	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
@@ -77,8 +77,8 @@
 				<form id="login" action="Servlet">
 					<br/>
 					<br/>
-					<input type="text" id="username" value="username"><br/>
-					<input type="text" id="password" value="password"><br/>
+					<input type="text" id="username" name="username"><br/>
+					<input type="password" id="password" name="password"><br/>
 					<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
 					<input type="button" value="Register" name="register" onclick="return Register();">
 					<br/>
