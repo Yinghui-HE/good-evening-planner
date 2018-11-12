@@ -37,7 +37,7 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in service");
 		String username = "";
-		int userID = 0;
+		int userID = -1;
 		PrintWriter out = response.getWriter();
 
 
