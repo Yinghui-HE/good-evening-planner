@@ -55,7 +55,19 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
 	VALUES ('Catch LA', '8715 Melrose Ave, West Hollywood, CA 90069', 90, 'Dinner', 'Seafood', 0, 'https://catchrestaurants.com/catchla/wp-content/uploads/2015/07/1-Catch-LA_Arrivals-1-1030x687.jpg'),
 					('Providence', '5955 Melrose Ave, Los Angeles, CA 90038', 90, 'Dinner', 'Seafood', 0, 'https://media.timeout.com/images/100513671/630/472/image.jpg'),
                     ('Craft LA', '10100 Constellation Blvd, Los Angeles, CA 90067', 90, 'Dinner', 'Mixed', 0, 'http://www.dinedelish.com/wp-content/uploads/2014/07/Craft-LA-Inside.jpg');
-                    
+    
+-- Inserting Exhibitions
+
+INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
+	VALUES ('Getty Center','1200 Getty Center Dr, Los Angeles, CA 90049', 120, 'Exhibition', 0, 'http://news.getty.edu/content/1208/images/gettyvillaatnightcollegenight.jpg'),
+					('Natural History Museum', '900 W Exposition Blvd, Los Angeles, CA 90007', 120, 'Exhibition', 0, 'https://www.ioes.ucla.edu/wp-content/uploads/nhmla_pic.jpg'),
+                    ('The Broad', '221 S Grand Ave, Los Angeles, CA 90012', 120, 'Exhibition', 0, 'http://www.detourla.com/uploads/9/6/6/6/9666388/1588894_orig.jpg'),
+                    ('Petersen Automotive Museum', '6060 Wilshire Blvd, Los Angeles, CA 90036', 120, 'Exhibition', 0, 'https://static1.squarespace.com/static/5468083be4b06c4ea4b49a81/56959e422399a3e236acc20f/56959e81c21b863e1119c0b4/1452646023097/2C9A2926-L.jpg'),
+                    ('California Science Center', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Exhibition', 0, 'https://bizbash-production.imgix.net/content/resource/ResourceImage/big/1-samueloschinspaceshuttleendeavourdisplaypavilion-photobynadinefrogerphotography.jpg?auto=format'),
+                    ('Annenberg Space for Photography', '2000 Avenue of the Stars #10, Los Angeles, CA 90067', 120, 'Exhibition', 0, 'https://annenbergphotospace.org/wp-content/uploads/2017/12/placeholder-1920x1000-hero.jpg'),
+                    ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg')
+
+
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5)
 	VALUES (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4);
 
