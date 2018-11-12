@@ -39,7 +39,7 @@ public class Servlet extends HttpServlet {
 		String username = "";
 		int userID = 0;
 		PrintWriter out = response.getWriter();
-		
+
 
 		if(request.getParameter("log-in") != null) {
 			boolean error = false;
@@ -81,7 +81,7 @@ public class Servlet extends HttpServlet {
     				userID = rs.getInt("userID");
     				out.println("success");
     			}
-    			
+
 
     		} catch (SQLException sqle) {
     			System.out.println("sqle: " + sqle.getMessage());
@@ -109,7 +109,7 @@ public class Servlet extends HttpServlet {
         	String password = request.getParameter("password");
         	System.out.println(username + " in register");
         	System.out.println(password + " in register");
-        	
+
         	boolean error = false;
         	if(username == "")
         	{
@@ -121,7 +121,7 @@ public class Servlet extends HttpServlet {
         		out.print("Invalid password.<br />");
         		error = true;
         	}
-        		
+
 
         	Connection conn = null;
     		ResultSet rs = null;
@@ -149,7 +149,7 @@ public class Servlet extends HttpServlet {
     				out.println("User already exists");
     				error = true;
     			}
-    			
+
     			if(error == false)
     			{
     				out.println("success");
@@ -185,7 +185,7 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 
-		else if (request.getParameter("moviePreference") != null) {
+		else if (request.getParameter("restaurant") != null) {
 			if(allEvents.isEmpty()) {
 				Connection conn = null;
 	    		ResultSet rs = null;
@@ -278,6 +278,8 @@ public class Servlet extends HttpServlet {
 				out.println(e.getHTMLItem());
 			}
 			out.print("</ul>");
+
+			//TODO: store to database
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
@@ -291,7 +293,7 @@ public class Servlet extends HttpServlet {
 		else if(request.getParameter("logOutUser") != null) {
 			userID = -1;
 		}
-		
+
 		System.out.println("userID: " + userID);
 		//session
 		HttpSession session = request.getSession();
@@ -321,19 +323,23 @@ public class Servlet extends HttpServlet {
 class AlgorithmThread {
     //each thread is responsible for: computing a result, return ArrayList<Event>
 
-    private ArrayList<Event> events;
-    private double[] OPT = new double[events.size()];
+    private ArrayList<Event> events = new ArrayList<>();
+    private double[] OPT;
     //stores index of the event that ends latest before event i
-    private int[] compatible = new int[events.size()];
+    private int[] compatible;
 
     public AlgorithmThread(ArrayList<Event> events) {
-        this.events = events;  //events is not sorted, but only contain valid events
+		for(Event e : eventsIn) {
+            events.add(new Event(e));
+        }  //events is not sorted, but only contain valid events
     }
 
     public ArrayList<Event> run() {
+		if(events.isEmpty()) return null;
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
         //FIXME: make sure this is increasing order
         //filling out compatible array
+		compatible = new int[events.size()];
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
             int currentStart = events.get(i).getStartTime();
@@ -349,6 +355,7 @@ class AlgorithmThread {
         }
 
         //filling out the OPT array
+		OPT = new double[events.size()];
         OPT[0] = 0;
         for(int i = 1; i < events.size(); i++) {
             double scoreWith = events.get(i).getScore();
