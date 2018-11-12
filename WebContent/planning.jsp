@@ -53,73 +53,43 @@
 			
 			//Check Event Type Values
 			var movieTypes = document.getElementsByName('movie');
-			var movieType;
-			var movie;
+			var movie = "";
 			for(var i = 0; i < movieTypes.length; i++){
 			    if(movieTypes[i].checked){
-			    	movieType = movieTypes[i].value;
-			        movie = "movie";
+			    	movie = movieTypes[i].value;
 			    }
 			}
-			if(movieType == ""){
-				movie = "";
-				movieType ="";
-			}	
 			
 			var exhibitionTypes = document.getElementsByName('exhibition');
-			var exhibitionType;
-			var exhibition;
+			var exhibition = "";
 			for(var i = 0; i < exhibitionTypes.length; i++){
 			    if(exhibitionTypes[i].checked){
-			    	exhibitionType = exhibitionTypes[i].value;
-			    	exhibition = "exhibition";
+			    	exhibition = exhibitionTypes[i].value;
 			    }
-			}
-			if(exhibitionType == ""){
-				exhibition = "";
-				exhibitionType ="";
 			}
 			
 			var restaurantTypes = document.getElementsByName('restaurant');
-			var restaurantType;
 			var restaurant;
 			for(var i = 0; i < restaurantTypes.length; i++){
 			    if(restaurantTypes[i].checked){
-			        restaurantType = restaurantTypes[i].value;
-			        restaurant = "restaurant";
+			        restaurant = restaurantTypes[i].value;
 			    }
-			}
-			if(restaurantType == ""){
-				restaurant = "";
-				restaurantType ="";
 			}
 			
-			var concertTypes = document.getElementsByName('concert');
-			var concertType;
-			var concert;
-			for(var i = 0; i < concertTypes.length; i++){
-			    if(concertTypes[i].checked){
-			    	concertType = concertTypes[i].value;
-			    	concert = "concert";
+			var shoppingTypes = document.getElementsByName('shopping');
+			var shopping;
+			for(var i = 0; i < shoppingTypes.length; i++){
+			    if(shoppingTypes[i].checked){
+			    	shopping = shoppingTypes[i].value;
 			    }
-			}
-			if(concertType == ""){
-				concert = "";
-				concertType ="";
 			}
 			
 			var outdoorTypes = document.getElementsByName('outdoor');
-			var outdoorType;
 			var outdoor;
 			for(var i = 0; i < outdoorTypes.length; i++){
 			    if(outdoorTypes[i].checked){
-			    	outdoorType = outdoorTypes[i].value;
-			    	outdoor = "outdoor";
+			    	outdoor= outdoorTypes[i].value;
 			    }
-			}
-			if(outdoorType == ""){
-				outdoor = "";
-				outdoorType ="";
 			}
 			
 			//Check for no events chosen
@@ -197,37 +167,44 @@
 						<p id="eventError"></p>
 					</div>
 					<div class="quant">
-						<button class="accordion" type="button">Concert</button>
+						<button class="accordion" type="button">Sightseeing</button>
 						<div class="panel">
-							 <h4>Pop <input type="radio" name="concert" value="pop"></h4>
-							 <h4>Rock <input type="radio" name="concert" value="rock"></h4>
-							 <h4>Jazz <input type="radio" name="concert" value="jazz"></h4>
+							 <h4>Outdoors <input type="radio" name="sightseeing" value="outdoors"></h4>
+							 <h4>Urban <input type="radio" name="sightseeing" value="urban"></h4>
 						</div>
-						<button class="accordion" type="button">Outdoors</button>
+						<button class="accordion" type="button">Shopping</button>
 						<div class="panel">
-							 <h4>Hiking <input type="radio" name="outdoor" value="hiking"></h4>
-							 <h4>Water <input type="radio" name="outdoor" value="water"> </h4>
-							 <h4>Biking <input type="radio" name="outdoor" value="biking"> </h4>
+							 <h4>Outlet/Strip Mall ($) <input type="radio" name="shopping" value="$"></h4>
+							 <h4>Mall ($$) <input type="radio" name="shopping" value="$$"> </h4>
+							 <h4>Luxury Boutique ($$$) <input type="radio" name="shopping" value="$$$"> </h4>
 						</div>
 						<button class="accordion" type="button">Exhibition</button>
 						<div class="panel">
-							 <h4>Museums <input type="radio" name="exhibition" value="museums"> </h4>
-							 <h4>Theater <input type="radio" name="exhibition" value="theater"></h4>
-							 <h4>Art Show <input type="radio" name="exhibition" value="art"></h4>
+							 <h4>Art <input type="radio" name="exhibition" value="art"> </h4>
+							 <h4>History <input type="radio" name="exhibition" value="history"></h4>
+							 <h4>Science <input type="radio" name="exhibition" value="science"></h4>
 						</div>
 						<button class="accordion" type="button">Movie</button>
 						<div class="panel">
-							 <h4>Animated <input type="radio" name="movie" value="animated"></h4>
 							 <h4>Action <input type="radio" name="movie" value="action"></h4>
-							 <h4>Romantic <input type="radio" name="movie" value="romantic"></h4>
+							 <h4>Animated <input type="radio" name="movie" value="animated"></h4>
 							 <h4>Comedy <input type="radio" name="movie" value="comedy"></h4>
+							 <h4>Drama <input type="radio" name="movie" value="drama"></h4>
+							 <h4>Horror <input type="radio" name="movie" value="horror"></h4>
+							 <h4>Romantic <input type="radio" name="movie" value="romantic"></h4>
 						</div>
 						<button class="accordion" type="button">Restaurant</button>
 						<div class="panel">
 							 <h4>Italian <input type="radio" name="restaurant" value="italian"></h4>
-							 <h4>Chinese <input type="radio" name="restaurant" value="chinese"></h4>
-							 <h4>Korean <input type="radio" name="restaurant" value="korean"></h4>
+							 <h4>Asian <input type="radio" name="restaurant" value="asian"></h4>
+							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="korean_barbecue"></h4>
 							 <h4>Mexican <input type="radio" name="restaurant" value="mexican"></h4>
+							 <h4>Mixed <input type="radio" name="restaurant" value="mixed"></h4>
+							 <h4>Steakhouse <input type="radio" name="restaurant" value="steakhouse"></h4>
+							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
+							 <h4>French <input type="radio" name="restaurant" value="french"></h4>
+							 <h4>Californian <input type="radio" name="restaurant" value="californian"></h4>
+							 
 						</div>		
 					</div>			
 					<div class="quant">
