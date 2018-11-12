@@ -10,13 +10,13 @@ public class Event {
 	private final static String RESTAURANT_TAG = "restaurant";
 	private final static String MOVIE_TAG = "movie";
 	private final static String EXHIBITION_TAG = "exhibition";
-	private final static String CONCERT_TAG = "concert";
-	private final static String OUTDOOR_TAG = "outdoor";
+	private final static String SHOPPING_TAG = "shopping";
+	private final static String SIGHTSEEING_TAG = "sightseeing";
 	private final static int RESTAURANT_INDEX = 0;
 	private final static int MOVIE_INDEX = 1;
 	private final static int EXHIBITION_INDEX = 2;
-	private final static int CONCERT_INDEX = 3;
-	private final static int OUTDOOR_INDEX = 4;
+	private final static int SHOPPING_INDEX = 3;
+	private final static int SIGHTSEEING_INDEX = 4;
 	private int eventID;
 	private String eventSummary;
 	private int startTime;  //4 digits: HHMM
@@ -65,18 +65,20 @@ public class Event {
 				score = duration * PREFERRED_SCORE_MIN;
 			else score = UNPREFERRED_SCORE;
 		}
+		//TODO: has subcategory
 		else if(category.equals(EXHIBITION_TAG)) {
-			if(preferences.get(EXHIBITION_INDEX).equals("yes"))
+			if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = UNPREFERRED_SCORE;
 		}
-		else if(category.equals(CONCERT_TAG)) {
-			if(preferences.get(CONCERT_INDEX).equals("yes"))
-				score = duration * PREFERRED_SCORE_MIN;
+		//TODO: has subcategory
+		else if(category.equals(SHOPPING_TAG)) {
+			if(subCategory.equals(preferences.get(SHOPPING_INDEX)))
+				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = UNPREFERRED_SCORE;
 		}
-		else if(category.equals(OUTDOOR_TAG)) {
-			if(subCategory.equals(preferences.get(OUTDOOR_INDEX)))
+		else if(category.equals(SIGHTSEEING_TAG)) {
+			if(subCategory.equals(preferences.get(SIGHTSEEING_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = UNPREFERRED_SCORE;
 		}
