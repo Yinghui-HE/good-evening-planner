@@ -19,7 +19,8 @@ CREATE TABLE EveningEvents (
     endTime INT(11), -- end time (only needed for movies) - need to figure out how to store as int
     category VARCHAR(200) NOT NULL, -- category of event
     subCategory VARCHAR(200), -- subcategory inside category (not needed for every event)
-    timeDependant INT(2) -- 1 if time dependant, 0 if not time dependant
+    timeDependant INT(2), -- 1 if time dependant, 0 if not time dependant,
+    pictureURL VARCHAR(200)
 );
 
 CREATE TABLE EveningHistory(
@@ -39,3 +40,22 @@ CREATE TABLE EveningHistory(
     FOREIGN KEY eid4 (eventID1) REFERENCES EveningEvents(eventID),
     FOREIGN KEY eid5 (eventID1) REFERENCES EveningEvents(eventID)
 );
+
+INSERT INTO Users(userID, username, userPassword)
+	VALUES (1, 'will', 'dog');
+
+-- Inserting Sightseeing events
+INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
+	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 60, 'Sightseeing', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
+					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 60, 'Sightseeing', 0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
+                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 60, 'Sightseeing', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
+                    
+-- Inserting Restaurants
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Catch LA', '8715 Melrose Ave, West Hollywood, CA 90069', 90, 'Dinner', 'Seafood', 0, 'https://catchrestaurants.com/catchla/wp-content/uploads/2015/07/1-Catch-LA_Arrivals-1-1030x687.jpg'),
+					('Providence', '5955 Melrose Ave, Los Angeles, CA 90038', 90, 'Dinner', 'Seafood', 0, 'https://media.timeout.com/images/100513671/630/472/image.jpg'),
+                    ('Craft LA', '10100 Constellation Blvd, Los Angeles, CA 90067', 90, 'Dinner', 'Mixed', 0, 'http://www.dinedelish.com/wp-content/uploads/2014/07/Craft-LA-Inside.jpg');
+                    
+INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5)
+	VALUES (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4);
+
