@@ -258,8 +258,7 @@ public class Servlet extends HttpServlet {
 				if(!(temp.isTimeDependent())) {
 					int newStart = eveningStart;
 					int newEnd = addTime(eveningStart, temp.getDuration());
-					options.remove(i);
-					i--;
+
 					//insert many possibilities of non-time-dependent events
 					while(newEnd <= eveningEnd) {
 						Event newOption = new Event(temp);
@@ -272,6 +271,13 @@ public class Servlet extends HttpServlet {
 					//TODO: testing needed
 				}
 			}
+			for(int i = 0; i < options.size(); i++) {
+				if(options.get(i).getStartTime() == 0) {
+					options.remove(i);
+					i--;
+				}
+			}
+			//clean up original non-time-dependent events.
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 
 			out.print("<ul>");
@@ -305,12 +311,12 @@ public class Servlet extends HttpServlet {
 	//add time (in minutes) to start time
 	private static int addTime(int start, int time) {
 		int end = start / 100 * 60 + start % 100 + time;
-		return end / 60 * 100 + end % 100;
+		return end / 60 * 100 + end % 60;
 	}
 
 	private static int minusTime(int end, int time) {
 		int start =start / 100 * 60 + start % 100 - time;
-		return start / 60 * 100 + start % 100;
+		return start / 60 * 100 + start % 60;
 	}
 
 	private static int computeDuration(int start, int end) {
