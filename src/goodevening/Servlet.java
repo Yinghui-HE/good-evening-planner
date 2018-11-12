@@ -240,6 +240,7 @@ public class Servlet extends HttpServlet {
 
 			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
 				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
 					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
@@ -257,8 +258,7 @@ public class Servlet extends HttpServlet {
 				if(!(temp.isTimeDependent())) {
 					int newStart = eveningStart;
 					int newEnd = addTime(eveningStart, temp.getDuration());
-					options.remove(i);
-					i--;
+
 					//insert many possibilities of non-time-dependent events
 					while(newEnd <= eveningEnd) {
 						Event newOption = new Event(temp);
@@ -271,6 +271,13 @@ public class Servlet extends HttpServlet {
 					//TODO: testing needed
 				}
 			}
+			for(int i = 0; i < options.size(); i++) {
+				if(options.get(i).getStartTime() == 0) {
+					options.remove(i);
+					i--;
+				}
+			}
+			//clean up original non-time-dependent events.
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 
 			out.print("<ul>");
@@ -302,17 +309,17 @@ public class Servlet extends HttpServlet {
 
 
 	//add time (in minutes) to start time
-	private int addTime(int start, int time) {
-		int end = start + time / 60 * 100 + time % 60;
-		return end + (end % 100 / 60) * (100 - 60);
+	private static int addTime(int start, int time) {
+		int end = start / 100 * 60 + start % 100 + time;
+		return end / 60 * 100 + end % 60;
 	}
 
-	private int minusTime(int end, int time) {
-		int start = end - time / 60 * 100 + time % 60;
-		return start + (start % 100 / 60) * (100 - 60);
+	private static int minusTime(int end, int time) {
+		int start =start / 100 * 60 + start % 100 - time;
+		return start / 60 * 100 + start % 60;
 	}
 
-	private int computeDuration(int start, int end) {
+	private static int computeDuration(int start, int end) {
 		start = start / 100 * 60 + start % 100;
 		end = end / 100 * 60 + start % 100;
 		return end - start;
@@ -343,10 +350,10 @@ class AlgorithmThread {
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
             int currentStart = events.get(i).getStartTime();
-            //half an hour for transportation
-            if(currentStart % 100 < 30)
+            //20 min for transportation
+            if(currentStart % 100 < 20)
                 currentStart = currentStart - 100 + 60;
-            currentStart -= 30;
+            currentStart -= 20;
 
             for(int j = 0; j < i; j++) {
                 if(events.get(j).getEndTime() <= currentStart) compatible[i] = j;
@@ -355,11 +362,11 @@ class AlgorithmThread {
         }
 
         //filling out the OPT array
-		OPT = new double[events.size()];
+		OPT = new double[events.size() + 1];
         OPT[0] = 0;
-        for(int i = 1; i < events.size(); i++) {
-            double scoreWith = events.get(i).getScore();
-            if(compatible[i] > -1) scoreWith += OPT[compatible[i]];
+        for(int i = 1; i < events.size() + 1; i++) {
+            double scoreWith = events.get(i - 1).getScore();
+            if(compatible[i - 1] > -1) scoreWith += OPT[compatible[i - 1] + 1];
             double scoreWithout = OPT[i - 1];
 			if(scoreWith > scoreWithout)
 				OPT[i] = scoreWith;
@@ -368,18 +375,21 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size() - 1, evening);
+        getEveningEvent(events.size(), evening);
         return evening;
     }
 
     //trace back to insert events that maximize scoring
     private void getEveningEvent(int i, ArrayList<Event> evening) {
-        if(i == 0) return;
+        if(i < 0) return;
         else if(compatible[i] > -1 &&
-                events.get(i).getScore() + OPT[compatible[i]] > OPT[i - 1]) {
+                events.get(i).getScore() + OPT[compatible[i] + 1] > OPT[i]) {
             getEveningEvent(compatible[i], evening);
-            evening.add(events.get(i));
+            evening.add(new Event(events.get(i)));
         }
+		else if(compatible[i] < 0 && events.get(i).getScore() >= OPT[i]) {
+			evening.add(new Event(events.get(i)));
+		}
         else {
             getEveningEvent(i - 1, evening);
         }
