@@ -1,53 +1,88 @@
 @charset "UTF-8";
 
 body{
+	background-color: #192231;
+}
+
+#body{
 	display: flex;
-	padding: 30px;
 	flex-wrap: wrap;
+	padding: 30px;
 	justify-content: space-around;
-	background-color: #09093B;
 }
 
 #header{
-	flex-grow:1;
-	width: 100%;
+	width: 80%;
+	height: 50px;
+	margin-top: 0px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}
+h1{
+	font-family: Apple Chancery;
+	font-size: 72px;
+	color: #D4A56A;
+}
+
+#icon{
+	widht: 20%;
 	height: 50px;
 }
+
 #authenticate{
 	flex-grow: 1;
 	width: 20%;
 	height: 300px;
 	margin: 10px;
+	text-align: center;
+}
+#userInfo{
+	flex-grow: 1;
+	width: 20%;
+	height: 300px;
+	margin: 10px;
+	text-align: center;
 }
 form{
 	text-align: center;
 }
-input[type="text"], input[type="password"]{
+input[type="text"]{
 	width: 75%;
-	margin: 5px;
+	margin: 10px;
 	height: 20px;
-	background-color: #FFF8E8;
+	background-color: #FFD9AA;
 }
-#title{
+input[type="button"]{
+	background-color: #545993;
+	border: none;
+	padding: 10px 20px;
+	margin: 10px;
+	font-size: 16px;
+	margin-right: auto;
+	margin-left: auto;
+}
 
+#title{
 	flex-grow: 2;
 	width: 50%;
 	text-align: center;
 	verticle-align: middle;
-	background-color: #1A1A59;
+	background-color: #2d2ca3;
 	margin: 10px;
 }
-h1{
-	color: #FFBE66;
-}
 h2{
-	color: #FFF8E8;
+	text-align: center;
+	font-size: 40px;
+	color: #D4A56A;
+	color: #E7DFDD;
+	font-family: Garamond;
 }
 #featured{
 	flex-grow: 2;
 	width: 60%;
 	height: 500px;
-	background-color: #1A1A59;
+	/* background-color: #191E58; */
+	background-color: #2d2ca3;
 	margin: 10px;
 	text-align: center;
 }
@@ -55,8 +90,9 @@ h2{
 #reviews{
 	flex-grow: 1;
 	width: 30%;
-	background-color: #1A1A59;
+	background-color: #2d2ca3;
 	margin: 10px;
+	text-align: center;
 }
 h3{
 	color: #72A5D6;
