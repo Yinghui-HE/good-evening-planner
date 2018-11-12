@@ -20,7 +20,7 @@ CREATE TABLE EveningEvents (
     category VARCHAR(200) NOT NULL, -- category of event
     subCategory VARCHAR(200), -- subcategory inside category (not needed for every event)
     timeDependant INT(2), -- 1 if time dependant, 0 if not time dependant,
-    pictureURL VARCHAR(300)
+    pictureURL VARCHAR(500)
 );
 
 CREATE TABLE EveningHistory(
