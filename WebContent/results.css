@@ -3,32 +3,27 @@
 body{
 	background-color: #192231;
 }
-
-#body{
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	padding: 30px;
-	justify-content: space-around;
-	align-items: center;
-}
-
 #header{
 	width: 80%;
-	height: 60px;
+	height: 50px;
 	margin-top: 0px;
 	padding-bottom: 20px;
 	padding-left: 10px;
 }
 h1{
 	font-family: Apple Chancery;
-	font-size: 72px;
+	font-size: 72px; 
 	color: #D4A56A;
 }
-
 #icon{
-	widht: 20%;
-	height: 60px;
+	height: 50px;
+}
+#body{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding: 30px;
+	height: 850px;
 }
 
 #title{
@@ -38,14 +33,15 @@ h1{
 	verticle-align: middle;
 	background-color: #2d2ca3;
 	margin: 10px;
+	height: 300px;
 }
-
 h2{
 	color: #FFF8E8;
-	font-size: 40px;
+	font-size: 64px;
 }
 h3{
-	color: #FFF8E8;
+	color: #72A5D6;
+	text-align: center;
 	font-size: 32px;
 }
 #results{
@@ -55,30 +51,18 @@ h3{
 	background-color: #2d2ca3;
 	margin: 10px;
 	text-align: center;
+	overflow-x: hidden;
 	overflow-y: scroll;
-}
-#rbutton{
-	flex-grow: 1;
-	width: 80%;
-	height: 100px;
-	text-align: center;
-}
-#retry{
-	background-color: #2d2ca3;
 }
 
 #saveShare{
 	flex-grow: 1;
 	width: 80%;
 	height: 100px;
-	margin: 20px;
+	background-color: #2d2ca3;
+	margin: 10px;
+	font-size: 24px;
 	text-align: center;
-}
-#save{
-	background-color: #F1CB98;
-}
-#share{
-	background-color: #F1B198;
 }
 button{
 	border: none;
@@ -90,10 +74,38 @@ button{
 	font-size: 24px;
 	color: White;
 }
+#redo{
+	flex-grow: 1;
+	width: 80%;
+	height: 100px;
+	background-color: #2d2ca3;
+	margin: 10px;
+	
+}
+#retry{
+	background-color: #4543ff;
+    color: #FFF8E8;
+    width: 30%;
+    height: 50px;
+    margin: 20px;
+    font-size: 24px;
+    text-align: center;
+}
 
-p{
-	color: #72A5D6;
-	text-align: center;
+#save{
+	background-color: #F1CB98;
+    color: #FFF8E8;
+    width: 30%;
+    height: 50px;
+    font-size: 24px;
+}
+#share{
+	background-color: #F1B198;
+    color: #FFF8E8;
+    width: 30%;
+    height: 50px;
+    font-size: 24px;
+
 }
 #footer{
 	flex-grow: 1;
@@ -103,6 +115,11 @@ p{
 }
 h6{
 	color: #72A5D6;
+}
+#eventTitle{
+	font-size: 32px;
+	font-family: ;
+	color:#FFF8E8;
 }
 #eventItem{
 	background-color: #2d2ca3;
@@ -145,9 +162,4 @@ h6{
 	font-family: ;
 	color:#FFF8E8;
 	padding-left: 40px;
-}
-#img{
-	float: right;
-	margin-right: 20px;
-	margin-bottom: 50px;
 }
