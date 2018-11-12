@@ -291,7 +291,83 @@ public class Servlet extends HttpServlet {
 
 		else if(request.getParameter("displayHistory") != null) {
 			//TODO
-		}
+            Connection conn = null;
+            Statement st = null;
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            PreparedStatement ps2 = null;
+            ResultSet rs2 = null;
+            
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=harvey&useSSL=false");
+                HttpSession session = request.getSession();
+                //int userID = (int)session.getAttribute("userID");
+                int userIDNow = 1;
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow);
+                rs = ps.executeQuery();
+                PrintWriter pw = response.getWriter();
+                pw.println("<h1>Past Evenings</h1>");
+                pw.println("<table style='width:100%'");
+                
+                
+                while(rs.next()) {
+                    String startTime = rs.getString("startTime");
+                    String endTime = rs.getString("endTime");
+                    pw.println("<tr>");
+                    pw.println("<th class='title'>" + startTime + "</th>");
+                    for(int i = 1; i <= 5; i++) {
+                        int currEventID = rs.getInt("eventID" + i);
+                        if(currEventID >= 0) {
+                            //Now need to get info of this event based on the id - will probably need to store it all somewhere, possibly a GoodEvening object??
+                            ps2 = conn.prepareStatement("SELECT * FROM EveningEvents WHERE eventID=" + currEventID);
+                            rs2 = ps2.executeQuery();
+                            if(rs2.next()) {
+                                String picURL = rs2.getString("pictureURL");
+                                String title = rs2.getString("title");
+                                
+                                pw.println("<th class='title'><div class='container'><img src='" + picURL + "' width='100' height='100' class='resultimage'><div class='overlay'>" + title + "</div></div></th>");
+                            }
+                        }
+                        
+                    }
+                    pw.println("<th class='title'>" + endTime + "</th>");
+                    pw.println("</tr>");
+                }
+                pw.println("</table>");
+                pw.flush();
+                pw.close();
+            
+            
+            
+            
+            
+            
+            }catch(SQLException sqle) {
+                System.out.println("sqle: " + sqle.getMessage());
+            } catch(ClassNotFoundException cnfe){
+                System.out.println("cnfe: " + cnfe.getMessage());
+            } finally {
+                try {
+                    if(ps != null) {
+                        ps.close();
+                    }
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(st != null) {
+                        st.close();
+                    }
+                    if(conn != null) {
+                        conn.close();
+                    }
+                    
+                } catch (SQLException sqle) {
+                    System.out.println("sqle closing streams: " + sqle.getMessage());
+                }
+            }
+        }
+		
 
 		else if(request.getParameter("pokeUser") != null) {
 			//TODO
