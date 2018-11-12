@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,6 +7,7 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
+	
 	<script>
 	function CheckLogIn(){
 		console.log("In checklogin")
@@ -63,38 +63,55 @@
 	<%
 	session = request.getSession();
 	%>
-
-	<body>
+	
+	<body onload="loggedin()")>
 		<div id="header">
-			<p>User</p>
+			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
-		<div id="authenticate">
-			<form id="login" action="Servlet">
-				<input type="text" id="username" name="username"><br/>
-				<input type="password" id="password" name="password"><br/>
-				<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
-				<input type="button" value="Register" name="register" onclick="return Register();">
-				<input type="button" value="Continue as Guest" name="guest" onclick="return Guest();">
-				<p id="logInError"></p>
-				<p id="registerError"></p>
-			</form>
+		<div id="icon">
+			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
 		</div>
-		<div id="title">
-			<h1>Good Evening</h1>
-			<h2>Let's make it a perfect night.</h2>
-		</div>
-		<div id="featured">
-			<h1>Featured Events</h1>
-		</div>
-		<div id="reviews">
-			<h3>Reviews:</h3>
-			<p>The best app I've ever used!</p>
-			<p>Easy and fun to use!</p>
+		<br>
+		<div id="body">
+			<div id="authenticate">
+				<form id="login" action="Servlet">
+					<br/>
+					<br/>
+					<input type="text" id="username" value="username"><br/>
+					<input type="text" id="password" value="password"><br/>
+					<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
+					<input type="button" value="Register" name="register" onclick="return Register();">
+					<br/>
+					<input type="button" value="Continue as Guest" name="guest" onclick="return Guest();">
+					<p id="logInError"></p>
+					<p id="registerError"></p>
+				</form>
+			</div>
+			
+			<div id="title">
+				<img src="icon.png" style="width: 150px;"/>
+				<h2>Good Evening</h2>
+				<h3>Let's make it a perfect night.</h3>
+			</div>
+			<div id="featured">
+				<!-- <img src="hike.png" style="width: 300px; margin: 20px"/>
+				<img src="film.png" style="width: 300px; margin: 20px"/> -->
+				<h2>Featured Events</h2>
+			</div>
+			<div id="reviews">
+				<h2>Reviews</h2>
+				<list>
+					<li>The best app I've ever used!</li>
+					<li>Easy and fun to use!</li>
+					<li>Great way to plan a weekend.</li>
+					<li>I've recommended this to all of my friends.</li>
+				</list>
+			</div>
 		</div>
 		<div id="footer">
 			<h6>CSCI201 Final Project</h6>
 			<h6>Yinghui (Linda) He, Guancheng “Ivan” Qiu, Cameron Haseyama, Will DuCharme, Gaurav Malhotra</h6>
-			
+			<h6>Fall 2018</h6>
 		</div>
 	</body>
 </html>
