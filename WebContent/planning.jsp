@@ -59,6 +59,7 @@
 			    	movie = movieTypes[i].value;
 			    }
 			}
+			console.log(movie);
 			
 			var exhibitionTypes = document.getElementsByName('exhibition');
 			var exhibition = "";
@@ -67,33 +68,43 @@
 			    	exhibition = exhibitionTypes[i].value;
 			    }
 			}
+			console.log(exhibition);
 			
 			var restaurantTypes = document.getElementsByName('restaurant');
-			var restaurant;
+			var restaurant = "";
 			for(var i = 0; i < restaurantTypes.length; i++){
 			    if(restaurantTypes[i].checked){
 			        restaurant = restaurantTypes[i].value;
 			    }
 			}
+			console.log(restaurant);
 			
 			var shoppingTypes = document.getElementsByName('shopping');
-			var shopping;
+			var shopping = "";
 			for(var i = 0; i < shoppingTypes.length; i++){
 			    if(shoppingTypes[i].checked){
 			    	shopping = shoppingTypes[i].value;
 			    }
 			}
+			console.log(shopping);
 			
-			var outdoorTypes = document.getElementsByName('outdoor');
-			var outdoor;
-			for(var i = 0; i < outdoorTypes.length; i++){
-			    if(outdoorTypes[i].checked){
-			    	outdoor= outdoorTypes[i].value;
+			var sightseeingTypes = document.getElementsByName('sightseeing');
+			var sightseeing = "";
+			for(var i = 0; i < sightseeingTypes.length; i++){
+			    if(sightseeingTypes[i].checked){
+			    	sightseeing= sightseeingTypes[i].value;
 			    }
 			}
+			console.log(sightseeing);
+			if("" == null){
+				console.log("true");
+			}else{
+				console.log("false");
+			}
+			
 			
 			//Check for no events chosen
-			if(outdoor == null && restaurant == null && concert == null && exhibition == null && movie == null){
+			if(sightseeing == "" && restaurant == "" && shopping == "" && exhibition == "" && movie == ""){
 				console.log("Event error");
 				error = "true";
 				document.getElementById("eventError").innerHTML = "Please choose at least one event type.";
@@ -113,16 +124,15 @@
 				if(error == "true"){
 					console.log("Start Time: " + eveningStart);
 					console.log("End Time: " + eveningEnd);
-					console.log("Concert: " + concert + " Concert Type: " + concertType);
-					console.log("Restaurant: " + restaurant + " Restaurant Type: " + restaurantType);
-					console.log("Outdoors: " + outdoor + " Outdoors Type: " + outdoorType);
-					console.log("Exhibition: " + exhibition + " Exhibition Type: " + exhibitionType);
-					console.log("Movie: " + movie + " Movie Type: " + movieType);
+					console.log("Shopping: " + shopping);
+					console.log("Restaurant: " + restaurant);
+					console.log("Sightseeing: " + sightseeing);
+					console.log("Exhibition: " + exhibition);
+					console.log("Movie: " + movie);
 				}
 				/* xhttp.open("GET", "Servlet?planning=true&eveningStart="+eveningStart+
-						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+"&restaurantType="+restaurantType+
-						"&movie="+movie+"&movieType="+movieType+"&exhibition="+exhibition+"&exhibitionType="+exhibitionType+
-						"&concert="+concert+"&concertType="+concertType+"&outdoor="+outdoor+"&outdoorType="+outdoorType, true); */ 
+						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant + "&movie="+movie+"&exhibition="+exhibition+
+						"&sightseeing="+sightseeing+"&shopping="+shopping, true); */ 
 	/* 			xhttp.onreadystatechange = function(){
 					errorMessage = this.responseText;
 					if(errorMessage.length != 0) {
