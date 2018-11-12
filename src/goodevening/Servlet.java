@@ -233,8 +233,8 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("restaurant"));
 			preferences.add(request.getParameter("movie"));
 			preferences.add(request.getParameter("exhibition"));
-			preferences.add(request.getParameter("concert"));
-			preferences.add(request.getParameter("outdoor"));
+			preferences.add(request.getParameter("shopping"));
+			preferences.add(request.getParameter("sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
@@ -268,7 +268,6 @@ public class Servlet extends HttpServlet {
 						newStart = addTime(newStart, 20);
 						newEnd = addTime(newEnd, 20);
 					}
-					//TODO: testing needed
 				}
 			}
 			for(int i = 0; i < options.size(); i++) {
@@ -391,7 +390,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private static int minusTime(int end, int time) {
-		int start =start / 100 * 60 + start % 100 - time;
+		int start = end / 100 * 60 + end % 100 - time;
 		return start / 60 * 100 + start % 60;
 	}
 
@@ -412,7 +411,7 @@ class AlgorithmThread {
     private int[] compatible;
 
     public AlgorithmThread(ArrayList<Event> events) {
-		for(Event e : eventsIn) {
+		for(Event e : events) {
             events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
@@ -463,7 +462,7 @@ class AlgorithmThread {
             getEveningEvent(compatible[i], evening);
             evening.add(new Event(events.get(i)));
         }
-		else if(compatible[i] < 0 && events.get(i).getScore() >= OPT[i]) {
+		else if(compatible[i] < 0 && events.get(i).getScore() > OPT[i]) {
 			evening.add(new Event(events.get(i)));
 		}
         else {
