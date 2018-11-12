@@ -58,8 +58,16 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
 					("Mastro's Penthouse", '246 N Canon Dr, Beverly Hills, CA 90210', 90, 'Dinner', 'Steakhouse', 0, 'https://www.mastrosrestaurants.com/img/Private-Dining/Beverly-Hills-Penthouse/IMG_0425.jpg'),
                     ('Bottega Louie', '700 S Grand Ave, Los Angeles, CA 90017', 90, 'Dinner', 'Italian', 0, 'https://tomostyle.files.wordpress.com/2009/10/img_1366.jpg'),
                     ("Jon and Vinny's", '412 N Fairfax Ave, Los Angeles, CA 90036', 90, 'Dinner', 'Italian', 0, 'https://cdn.vox-cdn.com/uploads/chorus_asset/file/3624474/2015-04-18-JonVinnys-004.0.jpg'),
-                    ('Bestia', '2121 E 7th Pl, Los Angeles, CA 90021', 90, 'Dinner', 'Italian', 0, 'https://www.we-heart.com/upload-images/bestialosangeles1753.jpg');
-		
+                    ('Bestia', '2121 E 7th Pl, Los Angeles, CA 90021', 90, 'Dinner', 'Italian', 0, 'https://www.we-heart.com/upload-images/bestialosangeles1753.jpg'),
+					('Chi Spacca', '6610 Melrose Ave, Los Angeles, CA 90038', 90, 'Dinner', 'Italian', 0, 'https://rogersdigest.files.wordpress.com/2014/07/screen-shot-2014-07-18-at-12-12-27-pm.png'),
+                    ('Felix Trattoria', '3386, 1023 Abbot Kinney Blvd, Venice, CA 90291', 90, 'Dinner', 'Italian', 0, 'https://static1.squarespace.com/static/5053619d24ac3b03d535ba23/t/59e90b1bf6576ebb73e11d53/1508444960763/2017_03_31_Felix_010.jpg'),
+                    ('Alimento', '1710 Silver Lake Blvd, Los Angeles, CA 90026', 90, 'Dinner', 'Italian', 0, 'https://cdn.vox-cdn.com/thumbor/Fnfbp3PoP3riisylWNikDGYdXfk=/60x0:946x665/1200x800/filters:focal(60x0:946x665)/cdn.vox-cdn.com/uploads/chorus_image/image/41730788/2014-06-25-alimento-005.0.0.jpg'),
+                    ('Petit Trois',	'718 N Highland Ave, Los Angeles, CA 90038', 90, 'Dinner', 'French', 0, 'https://cdn.vox-cdn.com/thumbor/T5mmIhUvrKdfCKb6MtiIrssBMbg=/0x0:2000x1335/1200x675/filters:focal(840x508:1160x828)/cdn.vox-cdn.com/uploads/chorus_image/image/59451103/2018_04_18_PetitTrois_LeValley_013.0.jpg'),
+                    ('Spago', '176 N Canon Dr, Beverly Hills, CA 90210', 90, 'Dinner', 'Californian', 0, 'https://beverlyhillsmagazine.com/wp-content/uploads/SPAGO-Beverly-Hills-Restaurant-Beverly-Hills-restaurant-beverly-hills-magazine-7.jpg'),
+                    ('Wolfgang Puck', '800 W Olympic Blvd, Los Angeles, CA 90015', 90, 'Dinner', 'Californian', 0, 'https://ritzcarlton-h.assetsadobe.com/is/image/content/dam/the-ritz-carlton/hotels/usa-and-canada/california/los-angeles/dining/RCLOSAN_00159.png?$XlargeViewport100pct$'),
+                    ('Broken Spanish', '1050 S Flower St, Los Angeles, CA 90015', 90, 'Dinner', 'Mexican', 0, 'https://archinect.imgix.net/uploads/kx/kxauqchk3q4qsve7.jpg?fit=crop&auto=compress%2Cformat&w=615'),
+                    ('Guelaguetza', '3014 W Olympic Blvd, Los Angeles, CA 90006', 90, 'Dinner', 'Mexican', 0, 'https://static1.squarespace.com/static/568b10bd841aba419c386869/569865149cadb68b382731b3/5698671869a91abbe6d8205f/1452828446985/IMG_2347.jpg?format=1500w');
+                    
 -- Inserting Exhibitions
 
 INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
