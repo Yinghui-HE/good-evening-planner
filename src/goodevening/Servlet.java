@@ -315,7 +315,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private static int minusTime(int end, int time) {
-		int start =start / 100 * 60 + start % 100 - time;
+		int start = end / 100 * 60 + end % 100 - time;
 		return start / 60 * 100 + start % 60;
 	}
 
@@ -336,7 +336,7 @@ class AlgorithmThread {
     private int[] compatible;
 
     public AlgorithmThread(ArrayList<Event> events) {
-		for(Event e : eventsIn) {
+		for(Event e : events) {
             events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
