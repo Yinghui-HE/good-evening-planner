@@ -17,8 +17,8 @@ public class Event {
 	private final static int EXHIBITION_INDEX = 2;
 	private final static int CONCERT_INDEX = 3;
 	private final static int OUTDOOR_INDEX = 4;
-	private String eventSummary;
 	private int eventID;
+	private String eventSummary;
 	private int startTime;  //4 digits: HHMM
 	private int endTime;  //4 digits: HHMM
 	private int duration;  //in minutes
@@ -82,6 +82,10 @@ public class Event {
 		}
 	}
 
+	//TODO: create getter for almost everything
+
+	public String getSummary() { return eventSummary; }
+
 	public int getStartTime() { return startTime; }
 
 	public int getEndTime() { return endTime; }
@@ -99,7 +103,7 @@ public class Event {
 	}
 
 
-	
+
 	public boolean isTimeDependent() { return timeDependent; }
 
 	//used for responding to front end
