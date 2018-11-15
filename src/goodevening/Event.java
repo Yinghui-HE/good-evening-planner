@@ -56,31 +56,39 @@ public class Event {
 	//set score based on category, subCategory, and preferences input
 	public void setScore(ArrayList<String> preferences) {
 		if(category.equals(RESTAURANT_TAG)) {
-			if(subCategory.equals(preferences.get(RESTAURANT_INDEX)))
+			if(preferences.get(RESTAURANT_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
+			else if(subCategory.equals(preferences.get(RESTAURANT_INDEX)))
 				score = duration * PREFERRED_SCORE_MIN;
-			else score = UNPREFERRED_SCORE;
+			else score = NORMAL_SCORE;
 		}
 		else if(category.equals(MOVIE_TAG)) {
-			if(subCategory.equals(preferences.get(MOVIE_INDEX)))
+			if(preferences.get(MOVIE_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
+			else if(subCategory.equals(preferences.get(MOVIE_INDEX)))
 				score = duration * PREFERRED_SCORE_MIN;
-			else score = UNPREFERRED_SCORE;
+			else score = NORMAL_SCORE;
 		}
-		//TODO: has subcategory
 		else if(category.equals(EXHIBITION_TAG)) {
+			if(preferences.get(EXHIBITION_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
 			if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
-			else score = UNPREFERRED_SCORE;
+			else score = NORMAL_SCORE;
 		}
-		//TODO: has subcategory
 		else if(category.equals(SHOPPING_TAG)) {
-			if(subCategory.equals(preferences.get(SHOPPING_INDEX)))
+			if(preferences.get(SHOPPING_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
+			else if(subCategory.equals(preferences.get(SHOPPING_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
-			else score = UNPREFERRED_SCORE;
+			else score = NORMAL_SCORE;
 		}
 		else if(category.equals(SIGHTSEEING_TAG)) {
-			if(subCategory.equals(preferences.get(SIGHTSEEING_INDEX)))
+			if(preferences.get(SIGHTSEEING_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
+			else if(subCategory.equals(preferences.get(SIGHTSEEING_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
-			else score = UNPREFERRED_SCORE;
+			else score = NORMAL_SCORE;
 		}
 	}
 
