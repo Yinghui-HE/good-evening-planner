@@ -90,15 +90,15 @@
 			
 			<div id="title">
 				<img src="icon.png" style="width: 150px;"/>
-				<h2>Good Evening</h2>
-				<h3>Let's make it a perfect night.</h3>
+				<h2>Let's make it a perfect night.</h2>
+				<!-- <h3>Let's make it a perfect night.</h3> -->
 			</div>
 			<div id="featured">
-				<!-- <img src="hike.png" style="width: 300px; margin: 20px"/>
-				<img src="film.png" style="width: 300px; margin: 20px"/> -->
 				<h2>Featured Events</h2>
+				<img src="beach.jpg" style="width: 450px; margin: 20px"/>
+				<!-- <h2>Plan my evening</h2> -->
 			</div>
-			<div id="reviews">
+<!-- 			<div id="reviews">
 				<h2>Reviews</h2>
 				<list>
 					<li>The best app I've ever used!</li>
@@ -106,7 +106,7 @@
 					<li>Great way to plan a weekend.</li>
 					<li>I've recommended this to all of my friends.</li>
 				</list>
-			</div>
+			</div> -->
 		</div>
 		<div id="footer">
 			<h6>CSCI201 Final Project</h6>

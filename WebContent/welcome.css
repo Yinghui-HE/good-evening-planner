@@ -1,27 +1,30 @@
 @charset "UTF-8";
 
 body{
-	background: linear-gradient(to bottom, #102343 0%, #7b5f7b 100%);
+	/* background-color: #192231; */
+	background-image: url("griffith.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }
-
-#body{
-	display: flex;
-	flex-wrap: wrap;
-	padding: 30px;
-	justify-content: space-around;
-}
-
 #header{
 	width: 80%;
-	height: 50px;
+	height: 40px;
 	margin-top: 0px;
 	padding-bottom: 20px;
 	padding-left: 10px;
 }
 h1{
 	font-family: Apple Chancery;
-	font-size: 72px;
-	color: #D4A56A;
+	font-size: 64px;
+	color: #E7DFDD;
+}
+#body{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 30px;
+	justify-content: space-around;
 }
 
 #icon{
@@ -31,7 +34,7 @@ h1{
 
 #authenticate{
 	flex-grow: 1;
-	width: 20%;
+	width: 40%;
 	height: 300px;
 	margin: 10px;
 	text-align: center;
@@ -46,6 +49,9 @@ h1{
 form{
 	text-align: center;
 }
+a{
+	text-decoration: none;
+}
 input[type="text"], input[type="password"]{
 	width: 75%;
 	margin: 10px;
@@ -53,7 +59,7 @@ input[type="text"], input[type="password"]{
 	background-color: #FFD9AA;
 }
 input[type="button"]{
-	background-color: #545993;
+	background-color: #E7DFDD;
 	border: none;
 	padding: 10px 20px;
 	margin: 10px;
@@ -64,28 +70,23 @@ input[type="button"]{
 
 #title{
 	flex-grow: 2;
-	width: 50%;
+	width: 100%;
 	text-align: center;
-	/* background-color: #2d2ca3; */
-	border-color:#E7DFDD;
-	margin: 10px;
 }
 h2{
 	text-align: center;
-	font-size: 48px;
 	color: #E7DFDD;
 	font-family: Apple Chancery;
+	font-size: 64px;
 }
 #featured{
 	flex-grow: 2;
-	width: 90%;
+	width: 60%;
 	height: 500px;
 	/* background-color: #191E58; */
 	/* background-color: #2d2ca3; */
 	margin: 10px;
 	text-align: center;
-	border: double;
-	border-color:#E7DFDD;
 }
 
 #reviews{
@@ -94,7 +95,6 @@ h2{
 	/* background-color: #2d2ca3; */
 	margin: 10px;
 	text-align: center;
-	border-color:#E7DFDD;
 }
 h3{
 	color: #72A5D6;
