@@ -94,8 +94,6 @@
 				<h3>Let's make it a perfect night.</h3>
 			</div>
 			<div id="featured">
-				<!-- <img src="hike.png" style="width: 300px; margin: 20px"/>
-				<img src="film.png" style="width: 300px; margin: 20px"/> -->
 				<h2>Featured Events</h2>
 			</div>
 			<div id="reviews">
