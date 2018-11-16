@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,6 +11,7 @@
 	
 	<script>
 	function CheckLogIn(){
+		document.getElementById("registerError").innerHTML = "";
 		console.log("In checklogin")
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -31,6 +33,7 @@
 	}
 	
 	function Register(){
+		document.getElementById("logInError").innerHTML = "";
 		console.log("In Register")
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -62,6 +65,11 @@
 	
 	<%
 	session = request.getSession();
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+	%> 
+	<%
+	}
 	%>
 	
 	<body>
