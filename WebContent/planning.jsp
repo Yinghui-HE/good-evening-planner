@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,16 +11,22 @@
 	<script>
 		function submitPlan(){
 			console.log("In submitPlan");
-			//Error Check Submission Fields
-			var error = "false"; 
+			/*
+				Validate submission fields and format value 
+				for back-end algorithm
+			*/
+			var eventError = "false"; 
 			var timeError = "false";
 			
-			//Validate Start and End Time Values
+			/*
+				Check for start and end times.
+				If empty, set error flag and print error message
+				Format "hh:dd" string to "dddd" int
+			*/
 			var eveningStart = document.getElementById("eveningStart").value;
 			if(eveningStart == ""){
 				document.getElementById("startError").innerHTML = "Please choose a start time.";
 				console.log("invalid start time");
-				error = "true";
 				timeError = "true";
 			}
 			else{
@@ -32,7 +39,6 @@
 			if(eveningEnd == ""){
 				document.getElementById("endError").innerHTML = "Please choose an end time.";
 				console.log("invalid end time");
-				error = "true";
 				timeError = "true";
 			}
 			else{
@@ -48,10 +54,10 @@
 				console.log(eveningEnd);
 			}
 			
-			//Check Group Size
-			
-			
-			//Check Event Type Values
+			/*
+				Validate event types
+				If no event type is checked set error flag
+			*/
 			var movieTypes = document.getElementsByName('movie');
 			var movie = "";
 			for(var i = 0; i < movieTypes.length; i++){
@@ -59,7 +65,6 @@
 			    	movie = movieTypes[i].value;
 			    }
 			}
-			console.log(movie);
 			
 			var exhibitionTypes = document.getElementsByName('exhibition');
 			var exhibition = "";
@@ -68,16 +73,23 @@
 			    	exhibition = exhibitionTypes[i].value;
 			    }
 			}
-			console.log(exhibition);
 			
 			var restaurantTypes = document.getElementsByName('restaurant');
 			var restaurant = "";
 			for(var i = 0; i < restaurantTypes.length; i++){
+
 			    if(restaurantTypes[i].checked){
 			        restaurant = restaurantTypes[i].value;
 			    }
 			}
-			console.log(restaurant);
+			
+			var sightseeingTypes = document.getElementsByName('sightseeing');
+			var sightseeing = "";
+			for(i = 0; i < sightseeingTypes.length; i++){
+			    if(sightseeingTypes[i].checked){
+			    	sightseeing = sightseeingTypes[i].value;
+			    }
+			}
 			
 			var shoppingTypes = document.getElementsByName('shopping');
 			var shopping = "";
@@ -86,42 +98,37 @@
 			    	shopping = shoppingTypes[i].value;
 			    }
 			}
-			console.log(shopping);
-			
-			var sightseeingTypes = document.getElementsByName('sightseeing');
-			var sightseeing = "";
-			for(var i = 0; i < sightseeingTypes.length; i++){
-			    if(sightseeingTypes[i].checked){
-			    	sightseeing= sightseeingTypes[i].value;
+
+			var liveshowTypes = document.getElementsByName('liveshow');
+			var liveshow = "";
+			for(i = 0; i < liveshowTypes.length; i++){
+			    if(liveshowTypes[i].checked){
+			    	liveshow= liveshowTypes[i].value;
 			    }
-			}
-			console.log(sightseeing);
-			if("" == null){
-				console.log("true");
-			}else{
-				console.log("false");
-			}
-			
-			
-			//Check for no events chosen
-			if(sightseeing == "" && restaurant == "" && shopping == "" && exhibition == "" && movie == ""){
+			    
+			/*
+				Print error message if necessary 
+			*/
+			if(shopping == "" && restaurant == "" && sightseeing == "" && exhibition == "" && movie == "" && liveshow == ""){
 				console.log("Event error");
-				error = "true";
+				eventError = "true";
 				document.getElementById("eventError").innerHTML = "Please choose at least one event type.";
 			}
 			else{
 				document.getElementById("eventError").innerHTML = "";
 			}
 
-			//Print error message if true
-			if(error == "true"){
+			/*
+				Submit form to servlet
+			*/
+			if(timeError == "true" || eventError == "true"){
 				return;
 			}
 			else{
 				//Submit Form
 				console.log("Submitting planning form");
 				var xhttp = new XMLHttpRequest();
-				if(error == "true"){
+				if(1){
 					console.log("Start Time: " + eveningStart);
 					console.log("End Time: " + eveningEnd);
 					console.log("Shopping: " + shopping);
@@ -129,29 +136,27 @@
 					console.log("Sightseeing: " + sightseeing);
 					console.log("Exhibition: " + exhibition);
 					console.log("Movie: " + movie);
+					console.log("Live shows: " + liveshow);
 				}
-				/* xhttp.open("GET", "Servlet?planning=true&eveningStart="+eveningStart+
-						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant + "&movie="+movie+"&exhibition="+exhibition+
-						"&sightseeing="+sightseeing+"&shopping="+shopping, true); */ 
-	/* 			xhttp.onreadystatechange = function(){
-					errorMessage = this.responseText;
-					if(errorMessage.length != 0) {
-						console.log(errorMessage)
-						if(errorMessage.trim() == "success") {
-							window.location.href = "results.jsp";
-						} else {
-							document.getElementById("planningError").innerHTML = this.responseText;	
-						}
-						
-					}
+				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
+						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+
+						"&movie="+movie+"&exhibition="+exhibition+
+						"&liveshow="+liveshow+"&sightseeing="+sightseeing+"&shopping="+shopping, true); 
 				}
-				xhttp.send(); */
+				
 			}
 		}
-		function highlightButton(num){
-			
-		}
 	</script>
+	
+	<%
+	session = request.getSession();
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+	%> 
+	<%
+	}
+	%>
+	
 	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
@@ -207,15 +212,20 @@
 						<div class="panel">
 							 <h4>Italian <input type="radio" name="restaurant" value="italian"></h4>
 							 <h4>Asian <input type="radio" name="restaurant" value="asian"></h4>
-							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="korean_barbecue"></h4>
+							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="koreanbarbecue"></h4>
 							 <h4>Mexican <input type="radio" name="restaurant" value="mexican"></h4>
+							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
 							 <h4>Mixed <input type="radio" name="restaurant" value="mixed"></h4>
 							 <h4>Steakhouse <input type="radio" name="restaurant" value="steakhouse"></h4>
-							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
 							 <h4>French <input type="radio" name="restaurant" value="french"></h4>
 							 <h4>Californian <input type="radio" name="restaurant" value="californian"></h4>
-							 
-						</div>		
+						</div>	
+						<button class="accordion" type="button">Live Shows</button>
+						<div class="panel">
+							 <h4>Musicals <input type="radio" name="liveshow" value="musical"></h4>
+							 <h4>Comedy Show <input type="radio" name="liveshow" value="comedy"></h4>
+							 <h4>Theater <input type="radio" name="liveshow" value="theater"></h4>
+						</div>	
 					</div>			
 					<div class="quant">
 						Group Size:</div>	
@@ -226,16 +236,10 @@
 							<button class="bbutton2" type="button">Large (8+)</button>
 					</div>
 					 <div class="quant">
-						<button type="button" class="accordion" style="text-align:center;" onclick="submitPlan()">Submit</button>
+						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
 					</div>
  				</form>
 
-			</div>
-			<div id="featuredEvents">
-				<h2>Featured Events</h2>
-			</div>
-			<div id="featuredMovie">
-				<h2>Featured Movies</h2>
 			</div>
 		</div>
 		<div id="footer">
@@ -267,7 +271,4 @@
 			  });
 		}
 		</script>
-					    <!-- var current = document.getElementsByClassName("active");
-			    current[0].className = current[0].className.replace(" active", "");
-			    this.className += " active"; -->
 </html>

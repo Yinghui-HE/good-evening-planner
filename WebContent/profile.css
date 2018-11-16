@@ -16,9 +16,10 @@ body{
 #evenings{
 	flex-grow: 1;
 	width: 60%;
-	height: 300px;
+	height: 600px;
 	margin: 10px;
 	background-color: #1A1A59;
+	overflow: scroll;
 }
 
 #pokes{
@@ -53,4 +54,43 @@ p{
 }
 h6{
 	color: #72A5D6;
+}
+.title{
+	color: white;
+	height: 150px;
+	width: 100px;
+}
+.resultimage{
+	height: 100px;
+	width: 100%;
+}
+.resultimage:hover{
+	background-color: #111111;
+}
+th{
+	padding: 0;
+	/*display: inline-block;*/
+}
+
+
+
+.container {
+  position: relative;
+  width: 100%;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  /*background-color: #4543ff;*/
+}
+
+.container:hover .overlay {
+  opacity: 1;
 }

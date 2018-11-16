@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,6 +11,7 @@
 	
 	<script>
 	function CheckLogIn(){
+		document.getElementById("registerError").innerHTML = "";
 		console.log("In checklogin")
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -31,6 +33,7 @@
 	}
 	
 	function Register(){
+		document.getElementById("logInError").innerHTML = "";
 		console.log("In Register")
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -62,9 +65,14 @@
 	
 	<%
 	session = request.getSession();
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+	%> 
+	<%
+	}
 	%>
 	
-	<body onload="loggedin()")>
+	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
@@ -77,8 +85,8 @@
 				<form id="login" action="Servlet">
 					<br/>
 					<br/>
-					<input type="text" id="username" value="username"><br/>
-					<input type="text" id="password" value="password"><br/>
+					<input type="text" id="username" name="username"><br/>
+					<input type="password" id="password" name="password"><br/>
 					<input type="button" value="LogIn" name="log-in" onclick="return CheckLogIn();">
 					<input type="button" value="Register" name="register" onclick="return Register();">
 					<br/>
@@ -90,13 +98,15 @@
 			
 			<div id="title">
 				<img src="icon.png" style="width: 150px;"/>
-				<h2>Good Evening</h2>
-				<h3>Let's make it a perfect night.</h3>
+				<h2>Let's make it a perfect night.</h2>
+				<!-- <h3>Let's make it a perfect night.</h3> -->
 			</div>
 			<div id="featured">
 				<h2>Featured Events</h2>
+				<img src="beach.jpg" style="width: 450px; margin: 20px"/>
+				<!-- <h2>Plan my evening</h2> -->
 			</div>
-			<div id="reviews">
+<!-- 			<div id="reviews">
 				<h2>Reviews</h2>
 				<list>
 					<li>The best app I've ever used!</li>
@@ -104,7 +114,7 @@
 					<li>Great way to plan a weekend.</li>
 					<li>I've recommended this to all of my friends.</li>
 				</list>
-			</div>
+			</div> -->
 		</div>
 		<div id="footer">
 			<h6>CSCI201 Final Project</h6>
