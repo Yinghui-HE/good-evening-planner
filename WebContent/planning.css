@@ -71,7 +71,7 @@ form{
     outline: none;
     font-size: 32px;
     transition: 0.4s;
-    background-color: linear-gradient(to bottom, #102343 0%, #7b5f7b 100%);;
+    background-color: #545993;
 }
 .active, .accordion:hover {
     background-color: #102343;
@@ -82,22 +82,25 @@ form{
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-.bbutton{
+.button{
     color: #FFF8E8;
     cursor: pointer;
     padding: 18px;
-    width: 15%;
+    width: 40%;
     border: ridge;
     border-color: #1A1A59; 
     text-align: left;
     outline: none;
     font-size: 32px;
+    background-color: #545993;
 }
-.bbutton:hover, .bbutton:active{
+
+.bbutton:hover{
 	background-color: #4543ff;
 }
 .bbutton2{
     color: #FFF8E8;
+    background-color: #545993;
     cursor: pointer;
     padding: 18px;
     width: 40%;

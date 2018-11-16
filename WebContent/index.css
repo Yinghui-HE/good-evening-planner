@@ -36,13 +36,6 @@ h1{
 	margin: 10px;
 	text-align: center;
 }
-#userInfo{
-	flex-grow: 1;
-	width: 20%;
-	height: 300px;
-	margin: 10px;
-	text-align: center;
-}
 form{
 	text-align: center;
 }
@@ -66,9 +59,9 @@ input[type="button"]{
 	flex-grow: 2;
 	width: 50%;
 	text-align: center;
-	/* background-color: #2d2ca3; */
-	border-color:#E7DFDD;
 	margin: 10px;
+	border: double;
+	border-color:#E7DFDD;
 }
 h2{
 	text-align: center;
@@ -80,22 +73,12 @@ h2{
 	flex-grow: 2;
 	width: 90%;
 	height: 500px;
-	/* background-color: #191E58; */
-	/* background-color: #2d2ca3; */
 	margin: 10px;
 	text-align: center;
 	border: double;
 	border-color:#E7DFDD;
 }
 
-#reviews{
-	flex-grow: 1;
-	width: 30%;
-	/* background-color: #2d2ca3; */
-	margin: 10px;
-	text-align: center;
-	border-color:#E7DFDD;
-}
 h3{
 	color: #72A5D6;
 	text-align: center;

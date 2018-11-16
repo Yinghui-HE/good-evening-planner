@@ -11,16 +11,22 @@
 	<script>
 		function submitPlan(){
 			console.log("In submitPlan");
-			//Error Check Submission Fields
-			var error = "false"; 
+			/*
+				Validate submission fields and format value 
+				for back-end algorithm
+			*/
+			var eventError = "false"; 
 			var timeError = "false";
 			
-			//Validate Start and End Time Values
+			/*
+				Check for start and end times.
+				If empty, set error flag and print error message
+				Format "hh:dd" string to "dddd" int
+			*/
 			var eveningStart = document.getElementById("eveningStart").value;
 			if(eveningStart == ""){
 				document.getElementById("startError").innerHTML = "Please choose a start time.";
 				console.log("invalid start time");
-				error = "true";
 				timeError = "true";
 			}
 			else{
@@ -33,7 +39,6 @@
 			if(eveningEnd == ""){
 				document.getElementById("endError").innerHTML = "Please choose an end time.";
 				console.log("invalid end time");
-				error = "true";
 				timeError = "true";
 			}
 			else{
@@ -49,55 +54,34 @@
 				console.log(eveningEnd);
 			}
 			
-			//Check Group Size
-			
-			
-			//Check Event Type Values
-			var i
+			/*
+				Validate event types
+				If no event type is checked set error flag
+			*/
 			var movieTypes = document.getElementsByName('movie');
 			var movie = "";
-<<<<<<< HEAD
-			for(i= 0; i < movieTypes.length; i++){
-=======
 			for(var i = 0; i < movieTypes.length; i++){
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
 			    if(movieTypes[i].checked){
 			    	movie = movieTypes[i].value;
 			    }
 			}
-<<<<<<< HEAD
-
-			var exhibitionTypes = document.getElementsByName('exhibition');
-			var exhibition = "";
-			for(i = 0; i < exhibitionTypes.length; i++){
-=======
-			console.log(movie);
 			
 			var exhibitionTypes = document.getElementsByName('exhibition');
 			var exhibition = "";
 			for(var i = 0; i < exhibitionTypes.length; i++){
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
 			    if(exhibitionTypes[i].checked){
 			    	exhibition = exhibitionTypes[i].value;
 			    }
 			}
-<<<<<<< HEAD
-			
-			var restaurantTypes = document.getElementsByName('restaurant');
-			var restaurant = "";
-			for(i = 0; i < restaurantTypes.length; i++){
-=======
-			console.log(exhibition);
 			
 			var restaurantTypes = document.getElementsByName('restaurant');
 			var restaurant = "";
 			for(var i = 0; i < restaurantTypes.length; i++){
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
+
 			    if(restaurantTypes[i].checked){
 			        restaurant = restaurantTypes[i].value;
 			    }
 			}
-<<<<<<< HEAD
 			
 			var sightseeingTypes = document.getElementsByName('sightseeing');
 			var sightseeing = "";
@@ -121,50 +105,23 @@
 			    if(liveshowTypes[i].checked){
 			    	liveshow= liveshowTypes[i].value;
 			    }
-=======
-			console.log(restaurant);
-			
-			var shoppingTypes = document.getElementsByName('shopping');
-			var shopping = "";
-			for(var i = 0; i < shoppingTypes.length; i++){
-			    if(shoppingTypes[i].checked){
-			    	shopping = shoppingTypes[i].value;
-			    }
-			}
-			console.log(shopping);
-			
-			var sightseeingTypes = document.getElementsByName('sightseeing');
-			var sightseeing = "";
-			for(var i = 0; i < sightseeingTypes.length; i++){
-			    if(sightseeingTypes[i].checked){
-			    	sightseeing= sightseeingTypes[i].value;
-			    }
-			}
-			console.log(sightseeing);
-			if("" == null){
-				console.log("true");
-			}else{
-				console.log("false");
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
-			}
-			
-			
-			//Check for no events chosen
-<<<<<<< HEAD
+			    
+			/*
+				Print error message if necessary 
+			*/
 			if(shopping == "" && restaurant == "" && sightseeing == "" && exhibition == "" && movie == "" && liveshow == ""){
-=======
-			if(sightseeing == "" && restaurant == "" && shopping == "" && exhibition == "" && movie == ""){
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
 				console.log("Event error");
-				error = "true";
+				eventError = "true";
 				document.getElementById("eventError").innerHTML = "Please choose at least one event type.";
 			}
 			else{
 				document.getElementById("eventError").innerHTML = "";
 			}
 
-			//Print error message if true
-			if(error == "true"){
+			/*
+				Submit form to servlet
+			*/
+			if(timeError == "true" || eventError == "true"){
 				return;
 			}
 			else{
@@ -179,36 +136,15 @@
 					console.log("Sightseeing: " + sightseeing);
 					console.log("Exhibition: " + exhibition);
 					console.log("Movie: " + movie);
-<<<<<<< HEAD
 					console.log("Live shows: " + liveshow);
 				}
 				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
-						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant
+						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+
 						"&movie="+movie+"&exhibition="+exhibition+
 						"&liveshow="+liveshow+"&sightseeing="+sightseeing+"&shopping="+shopping, true); 
-=======
 				}
-				/* xhttp.open("GET", "Servlet?planning=true&eveningStart="+eveningStart+
-						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant + "&movie="+movie+"&exhibition="+exhibition+
-						"&sightseeing="+sightseeing+"&shopping="+shopping, true); */ 
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
-	/* 			xhttp.onreadystatechange = function(){
-					errorMessage = this.responseText;
-					if(errorMessage.length != 0) {
-						console.log(errorMessage)
-						if(errorMessage.trim() == "success") {
-							window.location.href = "results.jsp";
-						} else {
-							document.getElementById("planningError").innerHTML = this.responseText;	
-						}
-						
-					}
-				}
-				xhttp.send(); */
+				
 			}
-		}
-		function highlightButton(num){
-			
 		}
 	</script>
 	
@@ -248,10 +184,6 @@
 					<div class="quant">
 						<button class="accordion" type="button">Sightseeing</button>
 						<div class="panel">
-<<<<<<< HEAD
-							 <h4>Urban <input type="radio" name="sightseeing" value="urban"></h4>
-							 <h4>Outdoors <input type="radio" name="sightseeing" value="outdoors"> </h4>
-=======
 							 <h4>Outdoors <input type="radio" name="sightseeing" value="outdoors"></h4>
 							 <h4>Urban <input type="radio" name="sightseeing" value="urban"></h4>
 						</div>
@@ -260,7 +192,6 @@
 							 <h4>Outlet/Strip Mall ($) <input type="radio" name="shopping" value="$"></h4>
 							 <h4>Mall ($$) <input type="radio" name="shopping" value="$$"> </h4>
 							 <h4>Luxury Boutique ($$$) <input type="radio" name="shopping" value="$$$"> </h4>
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
 						</div>
 						<button class="accordion" type="button">Exhibition</button>
 						<div class="panel">
@@ -273,20 +204,14 @@
 							 <h4>Action <input type="radio" name="movie" value="action"></h4>
 							 <h4>Animated <input type="radio" name="movie" value="animated"></h4>
 							 <h4>Comedy <input type="radio" name="movie" value="comedy"></h4>
-<<<<<<< HEAD
-							 <h4>Horror <input type="radio" name="movie" value="horror"></h4>
-							 <h4>Drama <input type="radio" name="movie" value="drama"></h4>
-=======
 							 <h4>Drama <input type="radio" name="movie" value="drama"></h4>
 							 <h4>Horror <input type="radio" name="movie" value="horror"></h4>
 							 <h4>Romantic <input type="radio" name="movie" value="romantic"></h4>
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
 						</div>
 						<button class="accordion" type="button">Restaurant</button>
 						<div class="panel">
 							 <h4>Italian <input type="radio" name="restaurant" value="italian"></h4>
 							 <h4>Asian <input type="radio" name="restaurant" value="asian"></h4>
-<<<<<<< HEAD
 							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="koreanbarbecue"></h4>
 							 <h4>Mexican <input type="radio" name="restaurant" value="mexican"></h4>
 							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
@@ -300,23 +225,7 @@
 							 <h4>Musicals <input type="radio" name="liveshow" value="musical"></h4>
 							 <h4>Comedy Show <input type="radio" name="liveshow" value="comedy"></h4>
 							 <h4>Theater <input type="radio" name="liveshow" value="theater"></h4>
-						</div>
-						<button class="accordion" type="button">Shopping</button>
-						<div class="panel">
-							 <h4>Outlet Mall ($) <input type="radio" name="liveshow" value="$"></h4>
-							 <h4>Mall ($$) <input type="radio" name="liveshow" value="$$"></h4>
-							 <h4>Boutique Shops ($$$) <input type="radio" name="liveshow" value="$$$"></h4>
-=======
-							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="korean_barbecue"></h4>
-							 <h4>Mexican <input type="radio" name="restaurant" value="mexican"></h4>
-							 <h4>Mixed <input type="radio" name="restaurant" value="mixed"></h4>
-							 <h4>Steakhouse <input type="radio" name="restaurant" value="steakhouse"></h4>
-							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
-							 <h4>French <input type="radio" name="restaurant" value="french"></h4>
-							 <h4>Californian <input type="radio" name="restaurant" value="californian"></h4>
-							 
->>>>>>> eb936b48b20ecf218abbf732c768a21b88fbc4e6
-						</div>		
+						</div>	
 					</div>			
 					<div class="quant">
 						Group Size:</div>	
@@ -327,7 +236,7 @@
 							<button class="bbutton2" type="button">Large (8+)</button>
 					</div>
 					 <div class="quant">
-						<button type="button" class="accordion" style="text-align:center;" onclick="submitPlan()">Submit</button>
+						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
 					</div>
  				</form>
 
