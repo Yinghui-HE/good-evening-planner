@@ -1,4 +1,4 @@
-package goodevening;
+ package goodevening;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -319,7 +319,7 @@ public class Servlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 //int userID = (int)session.getAttribute("userID");
                 int userIDNow = 1;
-                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow);
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
