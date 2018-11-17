@@ -318,6 +318,7 @@ public class Servlet extends HttpServlet {
 
 			if(result.isEmpty()) {
 				out.println("<div id="sad-face"></div>");
+				return;  //don't need to store
 			}
 			else {
 				out.print("<ul>");
@@ -327,33 +328,30 @@ public class Servlet extends HttpServlet {
 				out.print("</ul>");
 			}
 
-			//store id to database
+			//store to database
 			Connection conn = null;
 			ResultSet rs = null;
-			PreparedStatement ps = null;
+			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
-				ps = conn.prepareStatement("ISNERT INTO EveningHistory");
-				rs = ps.executeQuery();
-				int i = 0;
-				while(rs.next()) {
-					i++;
-					boolean timeDependent = false;
-					if(rs.getInt("timeDependant") == 1) timeDependent = true;
-					Event e = new Event(rs.getInt("eventID"),
-										rs.getString("title"),
-										rs.getInt("startTime"),
-										rs.getInt("endTime"),
-										rs.getInt("duration"),
-										rs.getString("location"),
-										timeDependent,
-										rs.getString("category"),
-										rs.getString("subCategory"));
-					System.out.println(e.getSummary());
-					allEvents.add(e);
+				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
+				storeQuery += userID + ", ";
+				storeQuery += eveningStart + ", ";
+				storeQuery += eveningEnd + ", ";
+				for(int i = 0; i < 5; i++) {
+					if(i < result.size()) {
+						storeQuery += result.get(i).getID();
+					}
+					else {
+						storeQuery += "-1";
+					}
+					if(i < 4) storeQuery += ", ";
 				}
-				System.out.println(i);
+				storeQuery += ");"
+				System.out.println(storeQuery);
+				st = conn.createStatement();
+				st.executeUpdate(storeQuery);
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {

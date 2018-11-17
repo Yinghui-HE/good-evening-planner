@@ -104,6 +104,8 @@ public class Event {
 		}
 	}
 
+	public int getID() { return eventID; }
+
 	public String getSummary() { return eventSummary; }
 
 	public int getStartTime() { return startTime; }
