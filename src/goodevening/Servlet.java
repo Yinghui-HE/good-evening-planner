@@ -260,6 +260,7 @@ public class Servlet extends HttpServlet {
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 		    
 		    
+		    System.out.println("Preference: ");
 		    for(int i=0; i<preferences.size(); i++)
 		    {
 		    	System.out.println(i);
@@ -268,6 +269,7 @@ public class Servlet extends HttpServlet {
 
 			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			System.out.println("duration: " + eveningDuration);
 			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
 				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
@@ -279,6 +281,7 @@ public class Servlet extends HttpServlet {
 				}
 			}
 			int optionsNum = options.size();
+			System.out.println("option size: " + optionsNum);
 
 			//insert non-time-dependent events possibilities
 			for(int i = 0; i < optionsNum; i++) {
@@ -304,8 +307,15 @@ public class Servlet extends HttpServlet {
 					i--;
 				}
 			}
+			
+			System.out.println("new option size" + options.size());
 			//clean up original non-time-dependent events.
 			ArrayList<Event> result = new AlgorithmThread(options).run();
+			System.out.println("Results: ");
+			for(int i=0; i<result.size(); i++)
+			{
+				System.out.println(i + " " + result.get(i).getSummary());
+			}
 
 			out.print("<ul>");
 			for(Event e : result) {
@@ -424,7 +434,7 @@ public class Servlet extends HttpServlet {
 
 	private static int computeDuration(int start, int end) {
 		start = start / 100 * 60 + start % 100;
-		end = end / 100 * 60 + start % 100;
+		end = end / 100 * 60 + end % 100;
 		return end - start;
 	}
 
@@ -440,7 +450,7 @@ class AlgorithmThread {
 
     public AlgorithmThread(ArrayList<Event> events) {
 		for(Event e : events) {
-            events.add(new Event(e));
+            this.events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
 
