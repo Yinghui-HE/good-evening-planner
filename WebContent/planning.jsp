@@ -105,7 +105,7 @@
 			    if(liveshowTypes[i].checked){
 			    	liveshow= liveshowTypes[i].value;
 			    }
-			    
+			}    
 			/*
 				Print error message if necessary 
 			*/
@@ -142,9 +142,16 @@
 						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+
 						"&movie="+movie+"&exhibition="+exhibition+
 						"&liveshow="+liveshow+"&sightseeing="+sightseeing+"&shopping="+shopping, true); 
-				}
-				
+/* 				xhttp.onreadystatechange = function(){
+					evening = this.responseText;
+					console.log(evening);
+					document.getElementById("logInError").innerHTML = this.responseText;	
+
+				} */
+				xhttp.send();
 			}
+				
+
 		}
 	</script>
 	

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private ArrayList<Event> allEvents;  //global. Pull once
+    private ArrayList<Event> allEvents = new ArrayList<Event>();  //global. Pull once
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -202,6 +202,7 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if (request.getParameter("restaurant") != null) {
+			System.out.println("in planning");
 			if(allEvents.isEmpty()) {
 				Connection conn = null;
 	    		ResultSet rs = null;
@@ -211,11 +212,14 @@ public class Servlet extends HttpServlet {
 	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
 	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
 	    			rs = ps.executeQuery();
+	    			int i=0;
 	    			while(rs.next())
 	    			{
+	    				System.out.println(i);
+	    				i++;
 						boolean timeDependent = false;
-						if(rs.getInt("timeDependent") == 1) timeDependent = true;
-	    				Event e = new Event(rs.getInt("UserId"),
+						if(rs.getInt("timeDependant") == 1) timeDependent = true;
+	    				Event e = new Event(rs.getInt("eventID"),
 											rs.getString("title"),
 											rs.getInt("startTime"),
 											rs.getInt("endTime"),
@@ -224,6 +228,7 @@ public class Servlet extends HttpServlet {
 											timeDependent,
 											rs.getString("category"),
 											rs.getString("subCategory"));
+	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
 	    		} catch (SQLException sqle) {
@@ -253,9 +258,18 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
+		    
+		    
+		    System.out.println("Preference: ");
+		    for(int i=0; i<preferences.size(); i++)
+		    {
+		    	System.out.println(i);
+		    	System.out.println(preferences.get(i));
+		    }
 
 			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			System.out.println("duration: " + eveningDuration);
 			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
 				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
@@ -267,6 +281,7 @@ public class Servlet extends HttpServlet {
 				}
 			}
 			int optionsNum = options.size();
+			System.out.println("option size: " + optionsNum);
 
 			//insert non-time-dependent events possibilities
 			for(int i = 0; i < optionsNum; i++) {
@@ -292,8 +307,15 @@ public class Servlet extends HttpServlet {
 					i--;
 				}
 			}
+			
+			System.out.println("new option size" + options.size());
 			//clean up original non-time-dependent events.
 			ArrayList<Event> result = new AlgorithmThread(options).run();
+			System.out.println("Results: ");
+			for(int i=0; i<result.size(); i++)
+			{
+				System.out.println(i + " " + result.get(i).getSummary());
+			}
 
 			out.print("<ul>");
 			for(Event e : result) {
@@ -412,7 +434,7 @@ public class Servlet extends HttpServlet {
 
 	private static int computeDuration(int start, int end) {
 		start = start / 100 * 60 + start % 100;
-		end = end / 100 * 60 + start % 100;
+		end = end / 100 * 60 + end % 100;
 		return end - start;
 	}
 
@@ -428,7 +450,7 @@ class AlgorithmThread {
 
     public AlgorithmThread(ArrayList<Event> events) {
 		for(Event e : events) {
-            events.add(new Event(e));
+            this.events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
 
