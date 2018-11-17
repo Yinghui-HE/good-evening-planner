@@ -439,7 +439,7 @@ class AlgorithmThread {
     private int[] compatible;
 
     public AlgorithmThread(ArrayList<Event> events) {
-		for(Event e : allEvents) {
+		for(Event e : events) {
             events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
