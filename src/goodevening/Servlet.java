@@ -56,7 +56,7 @@ public class Servlet extends HttpServlet {
         		out.print("Invalid password.<br />");
         		error = true;
         	}
-        	
+
         	if(error == false) {
         		Connection conn = null;
         		Statement st = null;
@@ -115,7 +115,7 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
-        	
+
 		}
 
 		else if(request.getParameter("register") != null) {
@@ -195,7 +195,7 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
-        	
+
 		}
 		else if(request.getParameter("guest") != null) {
 			userID = -1;
@@ -203,6 +203,7 @@ public class Servlet extends HttpServlet {
 
 		else if (request.getParameter("restaurant") != null) {
 			System.out.println("in planning");
+			//fetch all events if not fetched yet
 			if(allEvents.isEmpty()) {
 				Connection conn = null;
 	    		ResultSet rs = null;
@@ -212,10 +213,8 @@ public class Servlet extends HttpServlet {
 	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
 	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
 	    			rs = ps.executeQuery();
-	    			int i=0;
-	    			while(rs.next())
-	    			{
-	    				System.out.println(i);
+	    			int i = 0;
+	    			while(rs.next()) {
 	    				i++;
 						boolean timeDependent = false;
 						if(rs.getInt("timeDependant") == 1) timeDependent = true;
@@ -231,6 +230,7 @@ public class Servlet extends HttpServlet {
 	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
+					System.out.println(i);
 	    		} catch (SQLException sqle) {
 	    			System.out.println("sqle: " + sqle.getMessage());
 	    		} catch (ClassNotFoundException cnfe) {
@@ -258,12 +258,12 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
-		    
-		    
+
+
 		    System.out.println("Preference: ");
-		    for(int i=0; i<preferences.size(); i++)
+		    for(int i = 0; i < preferences.size(); i++)
 		    {
-		    	System.out.println(i);
+		    	System.out.print(i);
 		    	System.out.println(preferences.get(i));
 		    }
 
@@ -301,29 +301,75 @@ public class Servlet extends HttpServlet {
 					}
 				}
 			}
+			//clean up original non-time-dependent events.
 			for(int i = 0; i < options.size(); i++) {
 				if(options.get(i).getStartTime() == 0) {
 					options.remove(i);
 					i--;
 				}
 			}
-			
+
 			System.out.println("new option size" + options.size());
-			//clean up original non-time-dependent events.
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 			System.out.println("Results: ");
-			for(int i=0; i<result.size(); i++)
-			{
+			for(int i = 0; i < result.size(); i++) {
 				System.out.println(i + " " + result.get(i).getSummary());
 			}
 
-			out.print("<ul>");
-			for(Event e : result) {
-				out.println(e.getHTMLItem());
+			if(result.isEmpty()) {
+				out.println("<div id="sad-face"></div>");
 			}
-			out.print("</ul>");
+			else {
+				out.print("<ul>");
+				for(Event e : result) {
+					out.println(e.getHTMLItem());
+				}
+				out.print("</ul>");
+			}
 
-			//TODO: store to database
+			//store id to database
+			Connection conn = null;
+			ResultSet rs = null;
+			PreparedStatement ps = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+				ps = conn.prepareStatement("ISNERT INTO EveningHistory");
+				rs = ps.executeQuery();
+				int i = 0;
+				while(rs.next()) {
+					i++;
+					boolean timeDependent = false;
+					if(rs.getInt("timeDependant") == 1) timeDependent = true;
+					Event e = new Event(rs.getInt("eventID"),
+										rs.getString("title"),
+										rs.getInt("startTime"),
+										rs.getInt("endTime"),
+										rs.getInt("duration"),
+										rs.getString("location"),
+										timeDependent,
+										rs.getString("category"),
+										rs.getString("subCategory"));
+					System.out.println(e.getSummary());
+					allEvents.add(e);
+				}
+				System.out.println(i);
+			} catch (SQLException sqle) {
+				System.out.println("sqle: " + sqle.getMessage());
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println("cnfe: " + cnfe.getMessage());
+			} finally {
+				try {
+					if(ps != null) {
+						ps.close();
+					}
+					if(conn != null) {
+						conn.close();
+					}
+				} catch (SQLException sqle) {
+					System.out.println("sqle closing conn: " + sqle.getMessage());
+				}
+			}
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
@@ -334,7 +380,7 @@ public class Servlet extends HttpServlet {
             PreparedStatement ps = null;
             PreparedStatement ps2 = null;
             ResultSet rs2 = null;
-            
+
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=harvey&useSSL=false");
@@ -346,8 +392,8 @@ public class Servlet extends HttpServlet {
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
                 pw.println("<table style='width:100%'");
-                
-                
+
+
                 while(rs.next()) {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
@@ -362,11 +408,11 @@ public class Servlet extends HttpServlet {
                             if(rs2.next()) {
                                 String picURL = rs2.getString("pictureURL");
                                 String title = rs2.getString("title");
-                                
+
                                 pw.println("<th class='title'><div class='container'><img src='" + picURL + "' width='100' height='100' class='resultimage'><div class='overlay'>" + title + "</div></div></th>");
                             }
                         }
-                        
+
                     }
                     pw.println("<th class='title'>" + endTime + "</th>");
                     pw.println("</tr>");
@@ -374,12 +420,12 @@ public class Servlet extends HttpServlet {
                 pw.println("</table>");
                 pw.flush();
                 pw.close();
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             }catch(SQLException sqle) {
                 System.out.println("sqle: " + sqle.getMessage());
             } catch(ClassNotFoundException cnfe){
@@ -398,13 +444,13 @@ public class Servlet extends HttpServlet {
                     if(conn != null) {
                         conn.close();
                     }
-                    
+
                 } catch (SQLException sqle) {
                     System.out.println("sqle closing streams: " + sqle.getMessage());
                 }
             }
         }
-		
+
 
 		else if(request.getParameter("pokeUser") != null) {
 			//TODO

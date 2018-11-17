@@ -12,13 +12,16 @@ public class Event {
 	private final static String EXHIBITION_TAG = "exhibition";
 	private final static String SHOPPING_TAG = "shopping";
 	private final static String SIGHTSEEING_TAG = "sightseeing";
+	private final static String SHOW_TAG = "show";
 	private final static int RESTAURANT_INDEX = 0;
 	private final static int MOVIE_INDEX = 1;
 	private final static int EXHIBITION_INDEX = 2;
 	private final static int SHOPPING_INDEX = 3;
 	private final static int SIGHTSEEING_INDEX = 4;
+	private final static int SHOW_INDEX = 5;
 	private int eventID;
 	private String eventSummary;
+	private String image;
 	private int startTime;  //4 digits: HHMM
 	private int endTime;  //4 digits: HHMM
 	private int duration;  //in minutes
@@ -28,9 +31,10 @@ public class Event {
 	private String subCategory;
 	private double score = -1;
 
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
+	public Event(int eventID, String eventSummary, String image, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
+		this.image = image;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.duration = duration;
@@ -43,6 +47,7 @@ public class Event {
 	public Event(Event other) {
 		this.eventID = other.eventID;
 		this.eventSummary = other.eventSummary;
+		this.image = other.image;
 		this.startTime = other.startTime;
 		this.endTime = other.endTime;
 		this.duration = other.duration;
@@ -90,9 +95,14 @@ public class Event {
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = NORMAL_SCORE;
 		}
+		else if(category.equals(SHOW_TAG)) {
+			if(preferences.get(SHOW_INDEX).equals(""))
+				score = UNPREFERRED_SCORE;
+			else if(subCategory.equals(preferences.get(SHOW_INDEX)))
+				score = duration * PREFERRED_SCORE_MIN;
+			else score = NORMAL_SCORE;
+		}
 	}
-
-	//TODO: create getter for almost everything
 
 	public String getSummary() { return eventSummary; }
 
@@ -112,20 +122,18 @@ public class Event {
 		if(!timeDependent) endTime = newEndTime;
 	}
 
-
-
 	public boolean isTimeDependent() { return timeDependent; }
 
 	//used for responding to front end
 	public String getHTMLItem() {
 		String html = "<li> <div>" + eventSummary + "</div>"
+					+ "<img src=" + image + ">"
 					+ "<div>" + startTime + "</div>"
 					+ "<div>" + endTime + "</div>"
 					+ "<div>" + location + "</div>"
 					+ "<div>" + category + "</div>"
 					+ "<div>" + subCategory + "</div>"
 					+ "</li>";
-					//TODO: add <img>
 		return html;
 	}
 }
