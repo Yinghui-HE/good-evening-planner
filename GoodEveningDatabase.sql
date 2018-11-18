@@ -33,6 +33,7 @@ CREATE TABLE EveningHistory(
     eventID3 INT(11), -- third chronological event in evening
     eventID4 INT(11), -- fourth chronological event in evening
     eventID5 INT(11), -- fifth chronological event in evening
+    inUse INT(11), -- if the evening is in use by the client
 	FOREIGN KEY uid2 (userID) REFERENCES Users(userID),
     FOREIGN KEY eid1 (eventID1) REFERENCES EveningEvents(eventID),
     FOREIGN KEY eid2 (eventID1) REFERENCES EveningEvents(eventID),
@@ -80,6 +81,10 @@ INSERT INTO EveningEvents (title, location, duration, category, timeDependant, p
                     ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg');
 
 
-INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5)
-	VALUES (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4);
+INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
+    VALUES (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4, 1),
+                    (1,'7:00 PM', '11:00 PM', 3, 4, 1, 2, 4, 1),
+                    (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4, 1),
+                    (1,'7:35 PM', '11:00 PM', 3, 4, 1, 2, 4,1),
+                    (1,'7:30 PM', '11:00 PM', 3, 4, 1, 2, 4,0);
 
