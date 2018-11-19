@@ -260,7 +260,9 @@ public class Servlet extends HttpServlet {
 	    		}
 			}
 
-			userID = Integer.parseInt(request.getParameter("userID"));
+			//session
+    		HttpSession session = request.getSession();
+			userID = (int)session.getAttribute("userID");
 			System.out.println("userID in planning: " + userID);
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
@@ -345,7 +347,6 @@ public class Servlet extends HttpServlet {
 			 Save arraylist to session variable instead of printwriter
 			 */
 			response.setContentType("text/html");
-			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
 
 
@@ -405,8 +406,7 @@ public class Servlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 userID = (int)session.getAttribute("userID");
                 System.out.println("in display history, userID: " + userID);
-                int userIDNow = 1;
-                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userID + " AND inUse=1");
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
@@ -483,7 +483,9 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 
-		System.out.println("userID: " + (int)request.getAttribute("userID"));
+		//session
+		HttpSession session = request.getSession();
+		System.out.println("userID: " + (int)session.getAttribute("userID"));
 		
 	}
 

@@ -12,11 +12,14 @@
 		%>
 		<script>
 			function logOut(){
-				if(session.getAttribute("userID") == null){
+				if(<%=session.getAttribute("userID")%> != null){
 					var xhttp = new XMLHttpRequest();
 					xhttp.open("GET", "Servlet?logOutUser=true", true); 
+					xhttp.onreadystatechange = function(){
+						window.location.href="index.jsp";
+					}
 					xhttp.send();
-					window.location.href="index.jsp"
+					
 				}
 			}
 		</script>
@@ -38,8 +41,11 @@
 			    }
 			}
 			function sendMessage(id) {
-				<%session = request.getSession();
-					String username = (String)session.getAttribute("username");
+				<%
+					String username = "";
+					if(session.getAttribute("username") != null) {
+					username = (String)session.getAttribute("username");
+					}
 				%>
 			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
