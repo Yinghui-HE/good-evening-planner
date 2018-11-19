@@ -356,7 +356,7 @@ public class Servlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
-				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
+				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(";
 				storeQuery += userID + ", ";
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
@@ -369,10 +369,9 @@ public class Servlet extends HttpServlet {
 					}
 					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");";
+				storeQuery += ", 0);";
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
-
 
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
@@ -443,11 +442,6 @@ public class Servlet extends HttpServlet {
                 pw.flush();
                 pw.close();
 
-
-
-
-
-
             }catch(SQLException sqle) {
                 System.out.println("sqle: " + sqle.getMessage());
             } catch(ClassNotFoundException cnfe){
@@ -482,7 +476,9 @@ public class Servlet extends HttpServlet {
 			System.out.println("logged-out");
 			userID = -1;
 		}
-
+		else if(request.getParameter("save") != null) {
+			//TODO
+		}
 		//session
 		HttpSession session = request.getSession();
 		System.out.println("userID: " + (int)session.getAttribute("userID"));
