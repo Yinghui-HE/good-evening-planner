@@ -220,6 +220,7 @@ public class Servlet extends HttpServlet {
 						if(rs.getInt("timeDependant") == 1) timeDependent = true;
 	    				Event e = new Event(rs.getInt("eventID"),
 											rs.getString("title"),
+											rs.getString("pictureURL"),
 											rs.getInt("startTime"),
 											rs.getInt("endTime"),
 											rs.getInt("duration"),
@@ -545,7 +546,7 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size()-1, evening);
+        getEveningEvent(events.size() - 1, evening);
         return evening;
     }
 
