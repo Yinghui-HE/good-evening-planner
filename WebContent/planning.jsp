@@ -12,18 +12,19 @@
 	session = request.getSession();
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
-	%> 
-
+	%>
+	
 	<script>
+		console.log("userID in planning page: " + <%=userID%>);
 		function submitPlan(){
 			console.log("In submitPlan");
 			/*
-				Validate submission fields and format value 
+				Validate submission fields and format value
 				for back-end algorithm
 			*/
-			var eventError = "false"; 
+			var eventError = "false";
 			var timeError = "false";
-			
+
 			/*
 				Check for start and end times.
 				If empty, set error flag and print error message
@@ -59,7 +60,7 @@
 				eveningEnd = eveningEnd.toString();
 				console.log(eveningEnd);
 			}
-			
+
 			/*
 				Validate event types
 				If no event type is checked set error flag
@@ -71,7 +72,7 @@
 			    	movie = movieTypes[i].value;
 			    }
 			}
-			
+
 			var exhibitionTypes = document.getElementsByName('exhibition');
 			var exhibition = "";
 			for(var i = 0; i < exhibitionTypes.length; i++){
@@ -79,7 +80,7 @@
 			    	exhibition = exhibitionTypes[i].value;
 			    }
 			}
-			
+
 			var restaurantTypes = document.getElementsByName('restaurant');
 			var restaurant = "";
 			for(var i = 0; i < restaurantTypes.length; i++){
@@ -87,7 +88,7 @@
 			        restaurant = restaurantTypes[i].value;
 			    }
 			}
-			
+
 			var sightseeingTypes = document.getElementsByName('sightseeing');
 			var sightseeing = "";
 			for(i = 0; i < sightseeingTypes.length; i++){
@@ -95,7 +96,7 @@
 			    	sightseeing = sightseeingTypes[i].value;
 			    }
 			}
-			
+
 			var shoppingTypes = document.getElementsByName('shopping');
 			var shopping = "";
 			for(var i = 0; i < shoppingTypes.length; i++){
@@ -111,10 +112,10 @@
 			    	liveshow= liveshowTypes[i].value;
 			    }
 
-			}   
+			}
 
 			/*
-				Print error message if necessary 
+				Print error message if necessary
 			*/
 			if(shopping == "" && restaurant == "" && sightseeing == "" && exhibition == "" && movie == "" && liveshow == ""){
 				console.log("Event error");
@@ -135,35 +136,30 @@
 				//Submit Form
 				console.log("Submitting planning form");
 				var xhttp = new XMLHttpRequest();
-				if(1){
-					console.log("Start Time: " + eveningStart);
-					console.log("End Time: " + eveningEnd);
-					console.log("Shopping: " + shopping);
-					console.log("Restaurant: " + restaurant);
-					console.log("Sightseeing: " + sightseeing);
-					console.log("Exhibition: " + exhibition);
-					console.log("Movie: " + movie);
-					console.log("Live shows: " + liveshow);
-				}
+				console.log("Start Time: " + eveningStart);
+				console.log("End Time: " + eveningEnd);
+				console.log("Shopping: " + shopping);
+				console.log("Restaurant: " + restaurant);
+				console.log("Sightseeing: " + sightseeing);
+				console.log("Exhibition: " + exhibition);
+				console.log("Movie: " + movie);
+				console.log("Live shows: " + liveshow);
 				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
 						"&eveningEnd="+eveningEnd+"&Restaurant="+restaurant+
 						"&Movie="+movie+"&Exhibition="+exhibition+
-						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping+"&userID="+<%=userID%>, true); 
+						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true);
 				xhttp.onreadystatechange = function(){
 					window.location.href="results.jsp";
 				}
 				xhttp.send();
-				
- 		}				
-
+			}
 		}
 	</script>
+
 	<%
 	}
 	%>
-	
 
-	
 	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
@@ -226,14 +222,24 @@
 							 <h4>Steakhouse <input type="radio" name="restaurant" value="Steakhouse"></h4>
 							 <h4>French <input type="radio" name="restaurant" value="French"></h4>
 							 <h4>Californian <input type="radio" name="restaurant" value="Californian"></h4>
-						</div>	
+						</div>
 						<button class="accordion" type="button">Live Shows</button>
 						<div class="panel">
 							 <h4>Musicals <input type="radio" name="show" value="Musical"></h4>
 							 <h4>Comedy Show <input type="radio" name="show" value="Comedy"></h4>
 							 <h4>Theater <input type="radio" name="show" value="Theater"></h4>
-						</div>	
-					</div>			
+
+						</div>
+					</div>
+					<div class="quant">
+						Group Size:</div>
+						<div class="quant">
+							<button class="bbutton2" type="button">Individual (1)</button>
+							<button class="bbutton2" type="button">Small (2-4)</button>
+							<button class="bbutton2" type="button">Medium (5-8)</button>
+							<button class="bbutton2" type="button">Large (8+)</button>
+					</div>
+
 					 <div class="quant">
 						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
 					</div>
@@ -246,11 +252,11 @@
 			<h6>Yinghui (Linda) He, Guancheng “Ivan” Qiu, Cameron Haseyama, Will DuCharme, Gaurav Malhotra</h6>
 		</div>
 	</body>
-	
+
 	<script>
 		var acc = document.getElementsByClassName("accordion");
 		var i;
-						
+
 		for (i = 0; i < acc.length; i++) {
 			acc[i].addEventListener("click", function() {
 			this.classList.toggle("active");
@@ -259,10 +265,10 @@
 				panel.style.maxHeight = null;
 			} else {
 				panel.style.maxHeight = panel.scrollHeight + "px";
-			} 
+			}
 			});
 		}
-		
+
 		var btns = document.getElementsByClassName("bbutton2");
 		for (i = 0; i < btns.length; i++) {
 			  btns[i].addEventListener("click", function() {

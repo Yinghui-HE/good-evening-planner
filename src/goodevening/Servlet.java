@@ -66,7 +66,7 @@ public class Servlet extends HttpServlet {
         		PreparedStatement ps1 = null;
         		try {
         			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
         			//Insert data about user if the user doesn't exists
         			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
@@ -117,6 +117,9 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
+        	//session
+    		HttpSession session = request.getSession();
+    		session.setAttribute("userID", userID);
 
 		}
 
@@ -144,7 +147,7 @@ public class Servlet extends HttpServlet {
         		PreparedStatement ps = null;
         		try {
         			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
         			//Insert data about user if the user doesn't exists
         			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
@@ -199,10 +202,14 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
-
+        	//session
+    		HttpSession session = request.getSession();
+    		session.setAttribute("userID", userID);
 		}
 		else if(request.getParameter("guest") != null) {
-			userID = -1;
+			//session
+			HttpSession session = request.getSession();
+			session.setAttribute("userID", -1);
 		}
 
 		else if (request.getParameter("Restaurant") != null) {
@@ -214,7 +221,7 @@ public class Servlet extends HttpServlet {
 	    		PreparedStatement ps = null;
 				try {
 	    			Class.forName("com.mysql.jdbc.Driver");
-	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
 	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
 	    			rs = ps.executeQuery();
 	    			int i = 0;
@@ -232,7 +239,6 @@ public class Servlet extends HttpServlet {
 											timeDependent,
 											rs.getString("category"),
 											rs.getString("subCategory"));
-	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
 					System.out.println(i);
@@ -254,7 +260,9 @@ public class Servlet extends HttpServlet {
 	    		}
 			}
 
-			userID = Integer.parseInt(request.getParameter("userID"));
+			//session
+    		HttpSession session = request.getSession();
+			userID = (int)session.getAttribute("userID");
 			System.out.println("userID in planning: " + userID);
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
@@ -263,6 +271,7 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("Exhibition"));
 			preferences.add(request.getParameter("Shopping"));
 			preferences.add(request.getParameter("Sightseeing"));
+			preferences.add(request.getParameter("Show"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
@@ -284,6 +293,7 @@ public class Servlet extends HttpServlet {
 				{
 					Event temp = new Event(e);
 					temp.setScore(preferences);
+                    System.out.println(temp.getCategory() + temp.getSubcategory() + temp.getScore());
 					options.add(temp);
 				}
 			}
@@ -322,7 +332,7 @@ public class Servlet extends HttpServlet {
 				System.out.println(i + " " + result.get(i).getSummary());
 			}
 
-			if(result.isEmpty()) {
+			if(result == null || result.isEmpty()) {
 				out.println("<div id=sad-face></div>");
 				return;  //don't need to store
 			}
@@ -334,47 +344,66 @@ public class Servlet extends HttpServlet {
 				out.print("</ul>");
 			}
 			/*
-			 Save arraylist to session variable instead of printwriter 
+			 Save arraylist to session variable instead of printwriter
 			 */
 			response.setContentType("text/html");
-			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
-			
 
+			int eveningID = -1;
 			//store to database
 			Connection conn = null;
-			ResultSet rs = null;
 			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
-				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
-				storeQuery += userID + ", ";
-				storeQuery += eveningStart + ", ";
-				storeQuery += eveningEnd + ", ";
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+//				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(";
+//				storeQuery += userID + ", ";
+//				storeQuery += eveningStart + ", ";
+//				storeQuery += eveningEnd + ", ";
+//				for(int i = 0; i < 5; i++) {
+//					if(i < result.size()) {
+//						storeQuery += result.get(i).getID();
+//					}
+//					else {
+//						storeQuery += "-1";
+//					}
+//					if(i < 4) storeQuery += ", ";
+//				}
+//				storeQuery += ", 0);";
+//				st = conn.createStatement();
+//				st.executeUpdate(storeQuery);
+				PreparedStatement ps = conn.prepareStatement("INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(?,?,?,?,?,?,?,?,?);",
+                        Statement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, userID);
+				ps.setInt(2, eveningStart);
+				ps.setInt(3, eveningEnd);
 				for(int i = 0; i < 5; i++) {
 					if(i < result.size()) {
-						storeQuery += result.get(i).getID();
+						ps.setInt(i+4, result.get(i).getID());
 					}
 					else {
-						storeQuery += "-1";
+						ps.setInt(i+4, -1);
 					}
-					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");";
-				st = conn.createStatement();
-				st.executeUpdate(storeQuery);
-			
-				
+				ps.setInt(9, 0);
+				ps.executeUpdate();
+//				ps.executeQuery();
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()){
+		            eveningID =rs.getInt(1);
+		        }
+		        rs.close();
+		        System.out.println("just inserted evening's ID: " + eveningID);
+		        session.setAttribute("eveningID", eveningID);
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-//					if(ps != null) {
-//						ps.close();
-//					}
+					if(st != null) {
+						st.close();
+					}
 					if(conn != null) {
 						conn.close();
 					}
@@ -385,7 +414,6 @@ public class Servlet extends HttpServlet {
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
-			//TODO
             Connection conn = null;
             Statement st = null;
             ResultSet rs = null;
@@ -395,11 +423,11 @@ public class Servlet extends HttpServlet {
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=harvey&useSSL=false");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
                 HttpSession session = request.getSession();
-                //int userID = (int)session.getAttribute("userID");
-                int userIDNow = 1;
-                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
+                userID = (int)session.getAttribute("userID");
+                System.out.println("in display history, userID: " + userID);
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userID + " AND inUse=1");
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
@@ -410,9 +438,8 @@ public class Servlet extends HttpServlet {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
                     int eveningId = rs.getInt("eveningID");
-                    pw.println("<div id=\""+ eveningId + "\">");
-                    pw.println("<tr>");
-                    pw.println("<th class='title'>" + startTime + "</th>");
+                    pw.println("<tr id='"+ eveningId + "'>");
+                    pw.println("<th class='title'>" + startTime + "<br>-<br>" + endTime + "</th>");
                     for(int i = 1; i <= 5; i++) {
                         int currEventID = rs.getInt("eventID" + i);
                         if(currEventID >= 0) {
@@ -428,18 +455,14 @@ public class Servlet extends HttpServlet {
                         }
 
                     }
-                    pw.println("<th class='title'>" + endTime + "</th>");
+          
+                    pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("</tr>");
-                    pw.println("</div>");
+
                 }
                 pw.println("</table>");
                 pw.flush();
                 pw.close();
-
-
-
-
-
 
             }catch(SQLException sqle) {
                 System.out.println("sqle: " + sqle.getMessage());
@@ -472,13 +495,51 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if(request.getParameter("logOutUser") != null) {
+			System.out.println("logged-out");
 			userID = -1;
 		}
+		else if(request.getParameter("save") != null) {
+			Connection conn = null;
+    		Statement st = null;
+    		ResultSet rs = null;
+    		PreparedStatement ps = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
-		System.out.println("userID: " + userID);
-		//session
-		HttpSession session = request.getSession();
-		session.setAttribute("userID", userID);
+    			//Insert data about user if the user doesn't exists
+    			ps = conn.prepareStatement("UPDATE EveningHistory SET inUse=1 WHERE eveningID=?");
+    			ps.setInt(1, (int)request.getSession().getAttribute("eveningID"));
+    			ps.executeUpdate();
+
+    		}catch(SQLException sqle) {
+                System.out.println("sqle: " + sqle.getMessage());
+            } catch(ClassNotFoundException cnfe){
+                System.out.println("cnfe: " + cnfe.getMessage());
+            } finally {
+                try {
+                    if(ps != null) {
+                        ps.close();
+                    }
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(st != null) {
+                        st.close();
+                    }
+                    if(conn != null) {
+                        conn.close();
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("sqle closing streams: " + sqle.getMessage());
+                }
+            }
+		}
+//		//session
+//		HttpSession session = request.getSession();
+//		System.out.println("userID: " + (int)session.getAttribute("userID"));
+		
 	}
 
 
@@ -518,7 +579,6 @@ class AlgorithmThread {
     public ArrayList<Event> run() {
 		if(events.isEmpty()) return null;
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //FIXME: make sure this is increasing order
         //filling out compatible array
 		compatible = new int[events.size()];
         for(int i = 0; i < compatible.length; i++) {

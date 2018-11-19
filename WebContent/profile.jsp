@@ -1,21 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
-<%@ page import="goodevening.ServerSocket.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="profile.css">
-		
+		<%
+		session = request.getSession();
+		%>
 		<script>
 			function logOut(){
-				if(session.getAttribute("userID") == null){
+				if(<%=session.getAttribute("userID")%> != null){
 					var xhttp = new XMLHttpRequest();
 					xhttp.open("GET", "Servlet?logOutUser=true", true); 
+					xhttp.onreadystatechange = function(){
+						window.location.href="index.jsp";
+					}
 					xhttp.send();
-					window.location.href="index.jsp"
+					
 				}
 			}
 		</script>
@@ -38,9 +42,13 @@
 			        document.getElementById("pokes").innerHTML += "Disconnected";
 			    }
 			}
-			function sendMessage() {
-				<%session = request.getSession();
-					String username = (String)session.getAttribute("username");
+
+			function sendMessage(id) {
+				<%
+					String username = "";
+					if(session.getAttribute("username") != null) {
+					username = (String)session.getAttribute("username");
+					}
 				%>
 			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
@@ -104,21 +112,24 @@
 	
 	
 	<%
-		session = request.getSession();
-		if(session.getAttribute("userID") != null) {
-			int userID = (int)session.getAttribute("userID");	
-			%> 
-			<script>
-			document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
-			</script>
-			<%
-		}else{
+
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+		if(userID != -1) {
+		%> 
+		<script>
+		loadTable();
+		</script>
+		<%
+		} else{
 			%>
-			<script>
-				guestDisplay();
-			</script>
-			<% 
-		}
+		<script>
+		document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
+		</script>
+
+	<% 
+	}}
+
 	%>
 	
 	

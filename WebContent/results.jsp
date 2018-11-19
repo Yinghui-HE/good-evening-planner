@@ -9,8 +9,13 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="results.css">
 		<script>
-			function save(){
-				
+			function save(eveningID){
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("GET", "Servlet?save=true", false); 
+				xhttp.onreadystatechange = function(){
+					window.location.href = "profile.jsp";
+				}
+				xhttp.send();
 			}
 			function retry(){
 				document.location.href = "planning.jsp";
@@ -21,6 +26,7 @@
 	session = request.getSession();
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
+		
 	%> 
 	<%
 	}
@@ -47,9 +53,9 @@
 							for(int i = 0; i < events.size(); i++){
 							Event e = events.get(i);
 							String start =  Integer.toString(e.getStartTime());
-							String startTime = start.substring(0,2) + ":" + start.substring(2, 4);
+							String startTime = start.substring(0,2) + ":" + start.substring(2);
 							String end =  Integer.toString(e.getEndTime());
-							String endTime = end.substring(0,2) + ":" + end.substring(2, 4);
+							String endTime = end.substring(0,2) + ":" + end.substring(2);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
 										<div id="img"><img src=<%= e.getImage() %>></div>
@@ -69,7 +75,15 @@
 			</div>
 			<div id="saveShare">
 				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
-				<button id="save" style="font-size: 24px;" onclick="save()"> Save</button>
+				<%
+				if(session.getAttribute("eveningID") != null) {
+					int eveningID = (int)session.getAttribute("eveningID"); 
+				%>
+				
+				<button id="save" style="font-size: 24px;" onclick="save(<%=eveningID%>)"> Save</button>
+				<%	
+				}
+				%>
 			</div>
 		</div>
 		<div id="footer">
