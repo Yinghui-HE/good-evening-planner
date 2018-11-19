@@ -310,6 +310,7 @@ public class Servlet extends HttpServlet {
 			}
 
 			System.out.println("new option size" + options.size());
+
 //			ArrayList<Event> result = new AlgorithmThread(options).run();
 //			System.out.println("Results: ");
 //			for(int i = 0; i < result.size(); i++) {
@@ -337,6 +338,7 @@ public class Servlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("result", test);
 			
+
 			//store to database
 			Connection conn = null;
 			ResultSet rs = null;

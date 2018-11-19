@@ -114,6 +114,12 @@ public class Event {
 	public int getDuration() { return duration; }
 
 	public double getScore() { return score; }
+	
+	public String getLocation() { return location; }
+	
+	public String getCategory() { return category; }
+	
+	public String getSubcategory() { return subCategory; }
 
 	public void setStartTime(int newStartTime) {
 		if(!timeDependent) startTime = newStartTime;
