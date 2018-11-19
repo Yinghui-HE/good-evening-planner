@@ -24,12 +24,14 @@
 			}
 		</script>
 		<script>
+			/*
+			* Multithreading code: Broadcast shared evenings to all other users
+			*/
     		var socket;
-    
 			function connectToServer() {
 			    socket = new WebSocket("ws://localhost:8080/good-evening-planner/ws");
 			    socket.onopen = function(event) {
-			        //document.getElementById("newsfeed").innerHTML += "Connected!";
+			    	document.getElementById("pokes").innerHTML += "Connected";
 			    }
 			    socket.onmessage = function(event) {
 			        //location.reload();
@@ -37,9 +39,10 @@
 			        
 			    }
 			    socket.onclose = function(event) {
-			        //document.getElementById("mychat").innerHTML += "Disconnected!";
+			        document.getElementById("pokes").innerHTML += "Disconnected";
 			    }
 			}
+
 			function sendMessage(id) {
 				<%
 					String username = "";
@@ -58,7 +61,7 @@
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
 		<div id="icon">
-			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
+			<img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/>
 		</div>
 		<br>
 		<div id="body">
@@ -68,14 +71,15 @@
 			<div id="pokes">
 				<h2>Notifications</h2>
 			</div>
-			<div id = "share">
+<!-- 			<div id = "share">
 				<form name="chatform" onsubmit="return sendMessage();">
+				<input type="text" name="user" value="Type Here" /><br />
 				<input type="text" name="message" value="Type Here" /><br />
 				<input type="submit" name="submit" value="Send Message"/><br />
 				</form>
-			</div>
+			</div> -->
 			<div id="logout">
-				<button style="float: right;" onclick="logOut()">Log Out</button>
+				<button id="log-out" onclick="logOut()">Log Out</button>
 			</div>
 		</div>
 		<div id="footer">
@@ -108,6 +112,7 @@
 	
 	
 	<%
+
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
 		if(userID != -1) {

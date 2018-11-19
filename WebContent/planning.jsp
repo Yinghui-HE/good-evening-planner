@@ -238,6 +238,7 @@
 							<button class="bbutton2" type="button">Medium (5-8)</button>
 							<button class="bbutton2" type="button">Large (8+)</button>
 					</div>
+          
 					 <div class="quant">
 						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
 					</div>

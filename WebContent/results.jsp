@@ -17,8 +17,8 @@
 				}
 				xhttp.send();
 			}
-			function share(){
-				
+			function retry(){
+				document.location.href = "planning.jsp";
 			}
 		</script>
 	</head>
@@ -73,11 +73,9 @@
 					%>
 				</div>
 			</div>
-			<div id="redo">
-				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
-			</div>
 			<div id="saveShare">
-				<button id="share" style="font-size: 24px;" onclick="share()">Share</button>
+				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
+				<button id="save" style="font-size: 24px;" onclick="save()"> Save</button>
 				<%
 				if(session.getAttribute("eveningID") != null) {
 					int eveningID = (int)session.getAttribute("eveningID"); 
@@ -94,9 +92,4 @@
 			<h6>Yinghui (Linda) He, Guancheng “Ivan” Qiu, Cameron Haseyama, Will DuCharme, Gaurav Malhotra</h6>	
 		</div>
 	</body>
-	<script>
-		function retry(){
-			document.location.href = "planning.jsp";
-		}
-	</script>
 </html>
