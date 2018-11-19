@@ -34,7 +34,6 @@ public class Event {
 	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
-//		this.image = image;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.duration = duration;
@@ -134,13 +133,12 @@ public class Event {
 
 	//used for responding to front end
 	public String getHTMLItem() {
-		String html = "<li> <div>" + eventSummary + "</div>"
-					+ "<img src=" + image + ">"
-					+ "<div>" + startTime + "</div>"
-					+ "<div>" + endTime + "</div>"
-					+ "<div>" + location + "</div>"
-					+ "<div>" + category + "</div>"
-					+ "<div>" + subCategory + "</div>"
+		String html = "<li> <div id=\"eventTitle\">" + eventSummary + "</div>"
+					+ "<div id=\"startTime\">" + startTime + "</div>"
+					+ "<div id=\"endTime\">" + endTime + "</div>"
+					+ "<div id=\"location\">" + location + "</div>"
+					+ "<div id=\"category\">" + category + "</div>"
+					+ "<div id=\"subCat\">" + subCategory + "</div>"
 					+ "</li>";
 		return html;
 	}
