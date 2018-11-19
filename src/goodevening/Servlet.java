@@ -532,7 +532,7 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size(), evening);
+        getEveningEvent(events.size() - 1, evening);
         return evening;
     }
 
