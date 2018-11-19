@@ -410,7 +410,6 @@ public class Servlet extends HttpServlet {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
                     int eveningId = rs.getInt("eveningID");
-                    //pw.println("<button onclick=sendMessage("+eveningId+")>Share Event</button>");
                     pw.println("<div id=\""+ eveningId + "\">");
                     pw.println("<tr>");
                     pw.println("<th class='title'>" + startTime + "</th>");

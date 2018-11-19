@@ -20,12 +20,14 @@
 			}
 		</script>
 		<script>
+			/*
+			* Multithreading code: Broadcast shared evenings to all other users
+			*/
     		var socket;
-    
 			function connectToServer() {
 			    socket = new WebSocket("ws://localhost:8080/good-evening-planner/ws");
 			    socket.onopen = function(event) {
-			        //document.getElementById("newsfeed").innerHTML += "Connected!";
+			    	document.getElementById("pokes").innerHTML += "Connected";
 			    }
 			    socket.onmessage = function(event) {
 			        //location.reload();
@@ -33,15 +35,13 @@
 			        
 			    }
 			    socket.onclose = function(event) {
-			        //document.getElementById("mychat").innerHTML += "Disconnected!";
+			        document.getElementById("pokes").innerHTML += "Disconnected";
 			    }
 			}
 			function sendMessage() {
 				<%session = request.getSession();
 					String username = (String)session.getAttribute("username");
 				%>
-				//socket.send(document.chatform.user.value + document.chatform.message.value);
-				
 			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    return false;
@@ -63,15 +63,15 @@
 			<div id="pokes">
 				<h2>Notifications</h2>
 			</div>
-			<div id = "share">
+<!-- 			<div id = "share">
 				<form name="chatform" onsubmit="return sendMessage();">
 				<input type="text" name="user" value="Type Here" /><br />
 				<input type="text" name="message" value="Type Here" /><br />
 				<input type="submit" name="submit" value="Send Message"/><br />
 				</form>
-			</div>
+			</div> -->
 			<div id="logout">
-				<button style="float: right;" onclick="logOut()">Log Out</button>
+				<button id="log-out" onclick="logOut()">Log Out</button>
 			</div>
 		</div>
 		<div id="footer">
@@ -104,21 +104,21 @@
 	
 	
 	<%
-	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");	
-	%> 
-	<script>
-	document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
-	</script>
-	<%
-	} else{
-		%>
-	<script>
-		guestDisplay();
-	</script>
-	<% 
-	}
+		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");	
+			%> 
+			<script>
+			document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
+			</script>
+			<%
+		}else{
+			%>
+			<script>
+				guestDisplay();
+			</script>
+			<% 
+		}
 	%>
 	
 	

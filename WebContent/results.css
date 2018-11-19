@@ -78,41 +78,21 @@ button{
 	font-size: 24px;
 	color: White;
 }
-#redo{
-	flex-grow: 1;
-	width: 80%;
-	height: 100px;
-	border: ridge;
-	border-color: #E7DFDD;
-	margin: 10px;
-	
-}
 #retry{
 	background-color: #4543ff;
     color: #FFF8E8;
     width: 30%;
     height: 50px;
-    margin: 20px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
 }	
 
 #save{
-	background-color: #F1CB98;
-    color: #FFF8E8;
-    width: 30%;
-    height: 50px;
-    font-size: 24px;
-}
-#share{
 	background-color: #F1B198;
     color: #FFF8E8;
     width: 30%;
     height: 50px;
     font-size: 24px;
-
 }
+
 #footer{
 	flex-grow: 1;
 	width: 80%;
