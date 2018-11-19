@@ -9,6 +9,14 @@
 		<link rel="stylesheet" type="text/css" href="profile.css">
 		<%
 		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");
+		%> 
+		<script>
+		console.log("userID in profile.jsp: " + <%= userID%>);
+		</script>
+		<%
+		}
 		%>
 		<script>
 			function logOut(){
