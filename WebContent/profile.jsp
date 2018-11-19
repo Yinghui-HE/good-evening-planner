@@ -77,8 +77,10 @@
 			<div id="evenings">
 			
 			</div>
-			<div id="pokes">
+			<div id="notifications">
 				<h2>Notifications</h2>
+				<table id = "pokes">
+				</table>
 			</div>
 <!-- 			<div id = "share">
 				<form name="chatform" onsubmit="return sendMessage();">
