@@ -36,9 +36,12 @@
 			        //document.getElementById("mychat").innerHTML += "Disconnected!";
 			    }
 			}
-			function sendMessage() {
-			    console.log(document.chatform.message.value + " Poked!");
-			    socket.send(document.chatform.message.value + " Poked!");
+			function sendMessage(id) {
+				<%session = request.getSession();
+					String username = (String)session.getAttribute("username");
+				%>
+			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
+			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    return false;
 			}
 			</script>
