@@ -162,7 +162,7 @@
 
 	<body>
 		<div id="header">
-			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
+			<h1 style="display: inline-block;">Good Evening</h1>
 		</div>
 		<div id="icon">
 			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
@@ -228,6 +228,7 @@
 							 <h4>Musicals <input type="radio" name="show" value="Musical"></h4>
 							 <h4>Comedy Show <input type="radio" name="show" value="Comedy"></h4>
 							 <h4>Theater <input type="radio" name="show" value="Theater"></h4>
+
 						</div>
 					</div>
 					<div class="quant">
@@ -238,7 +239,7 @@
 							<button class="bbutton2" type="button">Medium (5-8)</button>
 							<button class="bbutton2" type="button">Large (8+)</button>
 					</div>
-          
+
 					 <div class="quant">
 						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
 					</div>
