@@ -310,8 +310,6 @@ public class Servlet extends HttpServlet {
 				}
 			}
 
-			System.out.println("new option size" + options.size());
-
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 			System.out.println("Results: ");
 			for(int i = 0; i < result.size(); i++) {
@@ -349,13 +347,13 @@ public class Servlet extends HttpServlet {
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
 				for(int i = 0; i < 5; i++) {
-//					if(i < result.size()) {
-//						storeQuery += result.get(i).getID();
-//					}
-//					else {
-//						storeQuery += "-1";
-//					}
-//					if(i < 4) storeQuery += ", ";
+					if(i < result.size()) {
+						storeQuery += result.get(i).getID();
+					}
+					else {
+						storeQuery += "-1";
+					}
+					if(i < 4) storeQuery += ", ";
 				}
 				storeQuery += ");";
 				System.out.println(storeQuery);
