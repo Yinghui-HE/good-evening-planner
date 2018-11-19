@@ -6,7 +6,7 @@ public class Event {
 	private final static double UNPREFERRED_SCORE = 1;
     private final static double NORMAL_SCORE = 2;
 	private final static double PREFERRED_SCORE_MIN = 0.1;
-    private final static double PREFERRED_SIGHTSEEING_SCORE = 14;
+    private final static double PREFERRED_SIGHTSEEING_SCORE = 12;
 	private final static String RESTAURANT_TAG = "Restaurant";
 	private final static String MOVIE_TAG = "Movie";
 	private final static String EXHIBITION_TAG = "Exhibition";
@@ -77,7 +77,7 @@ public class Event {
 		else if(category.equals(EXHIBITION_TAG)) {
 			if(preferences.get(EXHIBITION_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
-			if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
+			else if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = NORMAL_SCORE;
 		}

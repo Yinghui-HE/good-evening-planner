@@ -145,7 +145,7 @@
 						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true); 
 
 				xhttp.send();
-				window.location.href="results.jsp"
+				//window.location.href="results.jsp"
 			}				
 
 		}
