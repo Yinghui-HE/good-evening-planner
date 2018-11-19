@@ -66,7 +66,7 @@ public class Servlet extends HttpServlet {
         		PreparedStatement ps1 = null;
         		try {
         			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
         			//Insert data about user if the user doesn't exists
         			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
@@ -117,6 +117,9 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
+        	//session
+    		HttpSession session = request.getSession();
+    		session.setAttribute("userID", userID);
 
 		}
 
@@ -144,7 +147,7 @@ public class Servlet extends HttpServlet {
         		PreparedStatement ps = null;
         		try {
         			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
         			//Insert data about user if the user doesn't exists
         			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
@@ -199,10 +202,14 @@ public class Servlet extends HttpServlet {
         			}
         		}
         	}
-
+        	//session
+    		HttpSession session = request.getSession();
+    		session.setAttribute("userID", userID);
 		}
 		else if(request.getParameter("guest") != null) {
-			userID = -1;
+			//session
+			HttpSession session = request.getSession();
+			session.setAttribute("userID", -1);
 		}
 
 		else if (request.getParameter("Restaurant") != null) {
@@ -214,7 +221,7 @@ public class Servlet extends HttpServlet {
 	    		PreparedStatement ps = null;
 				try {
 	    			Class.forName("com.mysql.jdbc.Driver");
-	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
 	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
 	    			rs = ps.executeQuery();
 	    			int i = 0;
@@ -347,7 +354,7 @@ public class Servlet extends HttpServlet {
 			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
 				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
 				storeQuery += userID + ", ";
 				storeQuery += eveningStart + ", ";
@@ -385,7 +392,6 @@ public class Servlet extends HttpServlet {
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
-			//TODO
             Connection conn = null;
             Statement st = null;
             ResultSet rs = null;
@@ -395,9 +401,10 @@ public class Servlet extends HttpServlet {
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
                 HttpSession session = request.getSession();
-                //int userID = (int)session.getAttribute("userID");
+                userID = (int)session.getAttribute("userID");
+                System.out.println("in display history, userID: " + userID);
                 int userIDNow = 1;
                 ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
                 rs = ps.executeQuery();
@@ -476,10 +483,8 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 
-		System.out.println("userID: " + userID);
-		//session
-		HttpSession session = request.getSession();
-		session.setAttribute("userID", userID);
+		System.out.println("userID: " + (int)request.getAttribute("userID"));
+		
 	}
 
 
