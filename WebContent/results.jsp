@@ -46,11 +46,15 @@
 							ArrayList<Event> events = (ArrayList<Event>)session.getAttribute("result");
 							for(int i = 0; i < events.size(); i++){
 							Event e = events.get(i);
+							String start =  Integer.toString(e.getStartTime());
+							String startTime = start.substring(0,2) + ":" + start.substring(2, 4);
+							String end =  Integer.toString(e.getEndTime());
+							String endTime = end.substring(0,2) + ":" + end.substring(2, 4);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
-										<div id="img"></div>
-										<div id="startTime">Start Time: <%= e.getStartTime()%></div>
-										<div id="endTime">End Time: <%= e.getEndTime()%></div>
+										<div id="img"><img src=<%= e.getImage() %>></div>
+										<div id="startTime">Start Time: <%= startTime%></div>
+										<div id="endTime">End Time: <%= endTime%></div>
 				 						<div id="location"> <%= e.getLocation()%></div>
 										<div id="category">Category: <%= e.getCategory()%></div>
 										<div id="subCat">Sub Category: <%= e.getSubcategory()%></div>
