@@ -65,9 +65,6 @@
 				%>
 			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
-			    <%
-					}
-				%>
 			    return false;
 			    <%}%>
 			}
