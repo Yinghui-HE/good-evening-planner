@@ -473,6 +473,7 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if(request.getParameter("logOutUser") != null) {
+			System.out.println("logged-out");
 			userID = -1;
 		}
 
