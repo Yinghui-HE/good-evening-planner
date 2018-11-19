@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="welcome.css">
 	</head>
 	<body id="documentBody">
-		<a href="home.jsp">
+		<a href="index.jsp">
 <!-- 		<div id="header">
 		</div> -->
 		<div id="body">
@@ -32,11 +32,4 @@
 		</div>
 		</a>
 	</body>
-	<script>
-		var time = 3000;
-		function slideshow(){
-			setTimeout("slideshow()", time)
-		}
-		/* window.onload = slideshow; */
-	</script>
 </html>

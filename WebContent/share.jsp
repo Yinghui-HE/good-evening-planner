@@ -8,14 +8,6 @@
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="results.css">
-		<script>
-			function save(){
-				
-			}
-			function share(){
-				
-			}
-		</script>
 	</head>
 	<%
 	session = request.getSession();
@@ -35,8 +27,7 @@
 		</div>
 		<div id="body">
 			<div id="title">
-				<h2>Your Evening is Ready</h2>
-				<h3>Are you?</h3>
+				<h2>Cameron's Evening</h2>
 			</div>
 			<div id="results">
 				<h2>Results</h2>
@@ -63,12 +54,9 @@
 					%>
 				</div>
 			</div>
-			<div id="redo">
-				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
-			</div>
+
 			<div id="saveShare">
-				<button id="share" style="font-size: 24px;" onclick="share()">Share</button>
-				<button id="save" style="font-size: 24px;" onclick="save()"> Save</button>
+				<button id="save" style="font-size: 24px;"> Save</button>
 			</div>
 		</div>
 		<div id="footer">

@@ -7,16 +7,36 @@
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="profile.css">
+		
+		<script>
+			function logOut(){
+				if(session.getAttribute("userID") == null){
+					var xhttp = new XMLHttpRequest();
+					xhttp.open("GET", "Servlet?logOutUser=true", true); 
+					xhttp.send();
+					window.location.href="index.jsp"
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<div id="header">
-			<p>User</p>
+			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
-		<div id="evenings">
-		
+		<div id="icon">
+			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
 		</div>
-		<div id="pokes">
-			<h2>Notifications</h2>
+		<br>
+		<div id="body">
+			<div id="evenings">
+			
+			</div>
+			<div id="pokes">
+				<h2>Notifications</h2>
+			</div>
+			<div id="logout">
+				<button style="float: right;" onclick="logOut()">Log Out</button>
+			</div>
 		</div>
 		<div id="footer">
 			<h6>CSCI201 Final Project</h6>
