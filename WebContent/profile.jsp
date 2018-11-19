@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
-<%@ page import="goodevening.ServerSocket.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -115,6 +114,7 @@
 	<script>
 	document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
 	</script>
+
 	<% 
 	}
 	%>

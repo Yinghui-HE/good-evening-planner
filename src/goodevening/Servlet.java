@@ -430,6 +430,7 @@ public class Servlet extends HttpServlet {
           
                     pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("</tr>");
+
                 }
                 pw.println("</table>");
                 pw.flush();
@@ -471,6 +472,7 @@ public class Servlet extends HttpServlet {
 		}
 
 		else if(request.getParameter("logOutUser") != null) {
+			System.out.println("logged-out");
 			userID = -1;
 		}
 
