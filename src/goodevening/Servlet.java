@@ -201,7 +201,7 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 
-		else if (request.getParameter("restaurant") != null) {
+		else if (request.getParameter("Restaurant") != null) {
 			System.out.println("in planning");
 			//fetch all events if not fetched yet
 			if(allEvents.isEmpty()) {
@@ -252,11 +252,11 @@ public class Servlet extends HttpServlet {
 
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
-			preferences.add(request.getParameter("restaurant"));
-			preferences.add(request.getParameter("movie"));
-			preferences.add(request.getParameter("exhibition"));
-			preferences.add(request.getParameter("shopping"));
-			preferences.add(request.getParameter("sightseeing"));
+			preferences.add(request.getParameter("Restaurant"));
+			preferences.add(request.getParameter("Movie"));
+			preferences.add(request.getParameter("Exhibition"));
+			preferences.add(request.getParameter("Shopping"));
+			preferences.add(request.getParameter("Sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
@@ -310,8 +310,6 @@ public class Servlet extends HttpServlet {
 				}
 			}
 
-			System.out.println("new option size" + options.size());
-
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 			System.out.println("Results: ");
 			for(int i = 0; i < result.size(); i++) {
@@ -349,13 +347,13 @@ public class Servlet extends HttpServlet {
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
 				for(int i = 0; i < 5; i++) {
-//					if(i < result.size()) {
-//						storeQuery += result.get(i).getID();
-//					}
-//					else {
-//						storeQuery += "-1";
-//					}
-//					if(i < 4) storeQuery += ", ";
+					if(i < result.size()) {
+						storeQuery += result.get(i).getID();
+					}
+					else {
+						storeQuery += "-1";
+					}
+					if(i < 4) storeQuery += ", ";
 				}
 				storeQuery += ");";
 				System.out.println(storeQuery);
