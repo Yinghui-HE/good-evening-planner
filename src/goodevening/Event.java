@@ -77,7 +77,7 @@ public class Event {
 		else if(category.equals(EXHIBITION_TAG)) {
 			if(preferences.get(EXHIBITION_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
-			if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
+			else if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = NORMAL_SCORE;
 		}
