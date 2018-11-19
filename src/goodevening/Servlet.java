@@ -410,7 +410,7 @@ public class Servlet extends HttpServlet {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
                     int eveningId = rs.getInt("eveningID");
-                    pw.println("<button onclick=sendMessage("+eveningId+")>Share Event</button>");
+                    //pw.println("<button onclick=sendMessage("+eveningId+")>Share Event</button>");
                     pw.println("<div id=\""+ eveningId + "\">");
                     pw.println("<tr>");
                     pw.println("<th class='title'>" + startTime + "</th>");
@@ -431,7 +431,7 @@ public class Servlet extends HttpServlet {
                     }
                     pw.println("<th class='title'>" + endTime + "</th>");
                     pw.println("</tr>");
-                    pw.println("</div");
+                    pw.println("</div>");
                 }
                 pw.println("</table>");
                 pw.flush();

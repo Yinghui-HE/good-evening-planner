@@ -36,10 +36,12 @@
 			        //document.getElementById("mychat").innerHTML += "Disconnected!";
 			    }
 			}
-			function sendMessage(id) {
+			function sendMessage() {
 				<%session = request.getSession();
 					String username = (String)session.getAttribute("username");
 				%>
+				//socket.send(document.chatform.user.value + document.chatform.message.value);
+				
 			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
 			    return false;
@@ -51,7 +53,7 @@
 			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
 		</div>
 		<div id="icon">
-			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
+			<img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/>
 		</div>
 		<br>
 		<div id="body">
@@ -63,6 +65,7 @@
 			</div>
 			<div id = "share">
 				<form name="chatform" onsubmit="return sendMessage();">
+				<input type="text" name="user" value="Type Here" /><br />
 				<input type="text" name="message" value="Type Here" /><br />
 				<input type="submit" name="submit" value="Send Message"/><br />
 				</form>
