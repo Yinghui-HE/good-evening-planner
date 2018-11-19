@@ -50,7 +50,6 @@ h3{
 	flex-grow: 1;
 	width: 80%;
 	height: 800px;
-	/* background-color: #2d2ca3; */
 	border: ridge;
 	border-color: #E7DFDD;
 	margin: 10px;
@@ -63,7 +62,6 @@ h3{
 	flex-grow: 1;
 	width: 80%;
 	height: 100px;
-	/* background-color: #2d2ca3; */
 	border: ridge;
 	border-color: #E7DFDD;
 	margin: 10px;
@@ -84,7 +82,6 @@ button{
 	flex-grow: 1;
 	width: 80%;
 	height: 100px;
-	/* background-color: #2d2ca3; */
 	border: ridge;
 	border-color: #E7DFDD;
 	margin: 10px;
@@ -96,9 +93,10 @@ button{
     width: 30%;
     height: 50px;
     margin: 20px;
-    font-size: 24px;
-    text-align: center;
-}
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}	
 
 #save{
 	background-color: #F1CB98;

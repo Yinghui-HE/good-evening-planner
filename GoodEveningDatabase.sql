@@ -46,10 +46,10 @@ INSERT INTO Users(userID, username, userPassword)
 	VALUES (1, 'will', 'dog');
 
 -- Inserting Sightseeing events
-INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
-	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 60, 'Sightseeing', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
-					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 60, 'Sightseeing', 0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
-                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 60, 'Sightseeing', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 120, 'Sightseeing', 'Urban', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
+					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 120, 'Sightseeing', 'Urban',0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
+                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
                     
 -- Inserting Restaurants
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
@@ -71,14 +71,14 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
                     
 -- Inserting Exhibitions
 
-INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
-	VALUES ('Getty Center','1200 Getty Center Dr, Los Angeles, CA 90049', 120, 'Exhibition', 0, 'http://news.getty.edu/content/1208/images/gettyvillaatnightcollegenight.jpg'),
-					('Natural History Museum', '900 W Exposition Blvd, Los Angeles, CA 90007', 120, 'Exhibition', 0, 'https://www.ioes.ucla.edu/wp-content/uploads/nhmla_pic.jpg'),
-                    ('The Broad', '221 S Grand Ave, Los Angeles, CA 90012', 120, 'Exhibition', 0, 'http://www.detourla.com/uploads/9/6/6/6/9666388/1588894_orig.jpg'),
-                    ('Petersen Automotive Museum', '6060 Wilshire Blvd, Los Angeles, CA 90036', 120, 'Exhibition', 0, 'https://static1.squarespace.com/static/5468083be4b06c4ea4b49a81/56959e422399a3e236acc20f/56959e81c21b863e1119c0b4/1452646023097/2C9A2926-L.jpg'),
-                    ('California Science Center', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Exhibition', 0, 'https://bizbash-production.imgix.net/content/resource/ResourceImage/big/1-samueloschinspaceshuttleendeavourdisplaypavilion-photobynadinefrogerphotography.jpg?auto=format'),
-                    ('Annenberg Space for Photography', '2000 Avenue of the Stars #10, Los Angeles, CA 90067', 120, 'Exhibition', 0, 'https://annenbergphotospace.org/wp-content/uploads/2017/12/placeholder-1920x1000-hero.jpg'),
-                    ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg');
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Getty Center','1200 Getty Center Dr, Los Angeles, CA 90049', 120, 'Exhibition', 'Art', 0, 'http://news.getty.edu/content/1208/images/gettyvillaatnightcollegenight.jpg'),
+					('Natural History Museum', '900 W Exposition Blvd, Los Angeles, CA 90007',  120, 'Exhibition', 'History',0, 'https://www.ioes.ucla.edu/wp-content/uploads/nhmla_pic.jpg'),
+                    ('The Broad', '221 S Grand Ave, Los Angeles, CA 90012', 120, 'Exhibition', 'Art', 0, 'http://www.detourla.com/uploads/9/6/6/6/9666388/1588894_orig.jpg'),
+                    ('Petersen Automotive Museum', '6060 Wilshire Blvd, Los Angeles, CA 90036', 120, 'Exhibition', 'Science', 0, 'https://static1.squarespace.com/static/5468083be4b06c4ea4b49a81/56959e422399a3e236acc20f/56959e81c21b863e1119c0b4/1452646023097/2C9A2926-L.jpg'),
+                    ('California Science Center', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Exhibition', 'Science', 0, 'https://bizbash-production.imgix.net/content/resource/ResourceImage/big/1-samueloschinspaceshuttleendeavourdisplaypavilion-photobynadinefrogerphotography.jpg?auto=format'),
+                    ('Annenberg Space for Photography', '2000 Avenue of the Stars #10, Los Angeles, CA 90067', 120, 'Exhibition', 'Art',  0, 'https://annenbergphotospace.org/wp-content/uploads/2017/12/placeholder-1920x1000-hero.jpg'),
+                    ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 'Art', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg');
 
 
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
