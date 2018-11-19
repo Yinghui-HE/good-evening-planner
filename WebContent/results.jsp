@@ -16,6 +16,16 @@
 	<%
 	}
 	%>
+	<script>
+		xhttp.onreadystatechange = function(){
+			eventResults = this.responseText;
+			if(eventResults.length != 0) {
+					document.getElementById("events").innerHTML = this.responseText;	
+				}		
+			}
+		}
+		xhttp.send();
+	</script>
 	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display:inline-block">Good Evening</h1></a>
@@ -30,7 +40,8 @@
 			</div>
 			<div id="results">
 				<h2>Results</h2>
-				<div id="eventItem">
+				<div id="events">
+<!-- 				<div id="eventItem">
 					<div id="eventTitle">Spiderman: Homecoming</div>
 					<div id="img"><img src="spiderman.jpg" style="height: 150px"></div>
 					<div id="startTime">7:00pm</div>
@@ -38,6 +49,7 @@
 					<div id="location">Location: LA Live</div>
 					<div id="category">Category: Movie</div>
 					<div id="subCat">Sub Category: Action</div>
+				</div> -->
 				</div>
 			</div>
 			<div id="redo">

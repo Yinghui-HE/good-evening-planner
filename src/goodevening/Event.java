@@ -108,12 +108,12 @@ public class Event {
 
 	//used for responding to front end
 	public String getHTMLItem() {
-		String html = "<li> <div>" + eventSummary + "</div>"
-					+ "<div>" + startTime + "</div>"
-					+ "<div>" + endTime + "</div>"
-					+ "<div>" + location + "</div>"
-					+ "<div>" + category + "</div>"
-					+ "<div>" + subCategory + "</div>"
+		String html = "<li> <div id=\"eventTitle\">" + eventSummary + "</div>"
+					+ "<div id=\"startTime\">" + startTime + "</div>"
+					+ "<div id=\"endTime\">" + endTime + "</div>"
+					+ "<div id=\"location\">" + location + "</div>"
+					+ "<div id=\"category\">" + category + "</div>"
+					+ "<div id=\"subCat\">" + subCategory + "</div>"
 					+ "</li>";
 					//TODO: add <img>
 		return html;

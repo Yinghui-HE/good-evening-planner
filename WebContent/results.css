@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body{
-	background-color: #192231;
+	background: linear-gradient(to bottom, #102343 0%, #7b5f7b 100%);
 }
 #header{
 	width: 80%;
@@ -31,7 +31,9 @@ h1{
 	width: 80%;
 	text-align: center;
 	verticle-align: middle;
-	background-color: #2d2ca3;
+	/* background-color: #2d2ca3; */
+	border: ridge;
+	border-color: #E7DFDD;
 	margin: 10px;
 	height: 300px;
 }
@@ -48,7 +50,9 @@ h3{
 	flex-grow: 1;
 	width: 80%;
 	height: 800px;
-	background-color: #2d2ca3;
+	/* background-color: #2d2ca3; */
+	border: ridge;
+	border-color: #E7DFDD;
 	margin: 10px;
 	text-align: center;
 	overflow-x: hidden;
@@ -59,7 +63,9 @@ h3{
 	flex-grow: 1;
 	width: 80%;
 	height: 100px;
-	background-color: #2d2ca3;
+	/* background-color: #2d2ca3; */
+	border: ridge;
+	border-color: #E7DFDD;
 	margin: 10px;
 	font-size: 24px;
 	text-align: center;
@@ -78,7 +84,9 @@ button{
 	flex-grow: 1;
 	width: 80%;
 	height: 100px;
-	background-color: #2d2ca3;
+	/* background-color: #2d2ca3; */
+	border: ridge;
+	border-color: #E7DFDD;
 	margin: 10px;
 	
 }
@@ -122,12 +130,12 @@ h6{
 	color:#FFF8E8;
 }
 #eventItem{
-	background-color: #2d2ca3;
+	/* background-color: #2d2ca3; */
     color: #FFF8E8;
     padding: 18px;
     width: 100%;
-    border: ridge;
-    border-color: #1A1A59;
+/*     border: ridge;
+    border-color: #1A1A59; */
     text-align: left;
     outline: none;
     font-size: 32px;
