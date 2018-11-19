@@ -30,6 +30,12 @@
 					
 				}
 			}
+			function logIn(){
+				window.location.href="index.jsp";
+			}
+			function planning(){
+				window.location.href="planning.jsp";
+			}
 		</script>
 		<script>
 			/*
@@ -63,12 +69,13 @@
 					}
 				%>
 			    return false;
+			    <%}%>
 			}
 			</script>
 	</head>
 	<body onload="connectToServer()">
 		<div id="header">
-			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
+			<h1 style="display: inline-block;">Good Evening</h1>
 		</div>
 		<div id="icon">
 			<img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/>
@@ -88,8 +95,18 @@
 				<input type="submit" name="submit" value="Send Message"/><br />
 				</form>
 			</div> -->
-			<div id="logout">
-				<button id="log-out" onclick="logOut()">Log Out</button>
+			<div id="buttons">
+				<button id="planning" onclick="planning()">Plan Your Evening</button>
+				<%
+				if(session.getAttribute("userID") != null) { 
+					if((int)session.getAttribute("userID") != -1){
+					%>
+						<button id="log-out" onclick="logOut()">Log Out</button>
+				<%	}else{ %>
+						<button id="log-in" onclick="logIn()">Log In</button>
+					<%}}
+				%>
+				
 			</div>
 		</div>
 		<div id="footer">
@@ -139,6 +156,7 @@
 
 	<% 
 	}}
+
 	%>
 	
 	
