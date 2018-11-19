@@ -7,7 +7,9 @@
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="profile.css">
-		
+		<%
+		session = request.getSession();
+		%>
 		<script>
 			function logOut(){
 				if(session.getAttribute("userID") == null){
@@ -100,23 +102,22 @@
 	
 	
 	<%
-	session = request.getSession();
-	int userID = (int)session.getAttribute("userID");
-	if(userID != -1) {
-			
-	%> 
-	<script>
-	loadTable();
-	</script>
-	<%
-	} else{
-		%>
-	<script>
-	document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
-	</script>
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+		if(userID != -1) {
+		%> 
+		<script>
+		loadTable();
+		</script>
+		<%
+		} else{
+			%>
+		<script>
+		document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
+		</script>
 
 	<% 
-	}
+	}}
 	%>
 	
 	

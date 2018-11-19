@@ -13,7 +13,9 @@
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
 	%>
+	
 	<script>
+		console.log("userID in planning page: " + <%=userID%>);
 		function submitPlan(){
 			console.log("In submitPlan");
 			/*
@@ -150,6 +152,7 @@
 					window.location.href="results.jsp";
 				}
 				xhttp.send();
+			}
 		}
 	</script>
 
