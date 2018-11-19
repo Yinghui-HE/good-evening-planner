@@ -310,24 +310,33 @@ public class Servlet extends HttpServlet {
 			}
 
 			System.out.println("new option size" + options.size());
-			ArrayList<Event> result = new AlgorithmThread(options).run();
-			System.out.println("Results: ");
-			for(int i = 0; i < result.size(); i++) {
-				System.out.println(i + " " + result.get(i).getSummary());
-			}
-
-			if(result.isEmpty()) {
-				out.println("<div id="sad-face"></div>");
-				return;  //don't need to store
-			}
-			else {
-				out.print("<ul>");
-				for(Event e : result) {
-					out.println(e.getHTMLItem());
-				}
-				out.print("</ul>");
-			}
-
+//			ArrayList<Event> result = new AlgorithmThread(options).run();
+//			System.out.println("Results: ");
+//			for(int i = 0; i < result.size(); i++) {
+//				System.out.println(i + " " + result.get(i).getSummary());
+//			}
+//
+//			if(result.isEmpty()) {
+//				out.println("<div id=sad-face></div>");
+//				return;  //don't need to store
+//			}
+//			else {
+//				out.print("<ul>");
+//				for(Event e : result) {
+//					out.println(e.getHTMLItem());
+//				}
+//				out.print("</ul>");
+//			}
+			/*
+			 Save arraylist to session variable instead of printwriter 
+			 */
+			response.setContentType("text/html");
+			ArrayList<Event> test = new ArrayList<Event>();
+			test.add(new Event(1,"Final Exam",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
+			test.add(new Event(1,"Final Exam 2",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
+			HttpSession session = request.getSession();
+			session.setAttribute("result", test);
+			
 			//store to database
 			Connection conn = null;
 			ResultSet rs = null;
@@ -340,27 +349,29 @@ public class Servlet extends HttpServlet {
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
 				for(int i = 0; i < 5; i++) {
-					if(i < result.size()) {
-						storeQuery += result.get(i).getID();
-					}
-					else {
-						storeQuery += "-1";
-					}
-					if(i < 4) storeQuery += ", ";
+//					if(i < result.size()) {
+//						storeQuery += result.get(i).getID();
+//					}
+//					else {
+//						storeQuery += "-1";
+//					}
+//					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");"
+				storeQuery += ");";
 				System.out.println(storeQuery);
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
+			
+				
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-					if(ps != null) {
-						ps.close();
-					}
+//					if(ps != null) {
+//						ps.close();
+//					}
 					if(conn != null) {
 						conn.close();
 					}
