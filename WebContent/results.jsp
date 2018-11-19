@@ -34,7 +34,7 @@
 
 	<body>
 		<div id="header">
-			<a href="index.jsp"><h1 style="display:inline-block">Good Evening</h1></a>
+			<h1 style="display:inline-block">Good Evening</h1>
 		</div>
 		<div id="icon">
 			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"></a>

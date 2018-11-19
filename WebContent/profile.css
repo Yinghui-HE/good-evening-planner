@@ -32,15 +32,16 @@ body{
 }
 #pokes{
 	/* flex-grow: 1; */
-	width: 40%;
+	width: 90%;
 	height: 300px;
 	text-align: center;
 	verticle-align: middle;
 	margin: 10px;
 	border: double;
 	border-color:#E7DFDD;
+	overflow-y: scroll;
 }
-#logout{
+#buttons{
 	flex-grow: 2;
 	width: 40%;
 	height: 50px;
@@ -65,7 +66,19 @@ button{
     color: #FFF8E8;
     width: 30%;
     height: 50px;
+}
+#log-in{
+	background-color: #4543ff;
+    color: #FFF8E8;
+    width: 30%;
+    height: 50px;
 }	
+#planning{
+	background-color: #4543ff;
+    color: #FFF8E8;
+    width: 30%;
+    height: 50px;
+}
 h1{
 	font-family: Apple Chancery;
 	font-size: 72px;
