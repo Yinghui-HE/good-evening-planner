@@ -91,6 +91,8 @@ public class Servlet extends HttpServlet {
         			else if(error == false) //data exist and no error
     				{
         				userID = rs.getInt("userID");
+        				HttpSession session = request.getSession();
+        				session.setAttribute("username", username);
         				out.println("success");
         			}
 
@@ -176,6 +178,8 @@ public class Servlet extends HttpServlet {
             			{
             				userID = rs.getInt("userID");
             				rs.close();
+            				HttpSession session = request.getSession();
+            				session.setAttribute("username", username);
             			}
         			}
         		} catch (SQLException sqle) {
@@ -405,6 +409,9 @@ public class Servlet extends HttpServlet {
                 while(rs.next()) {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
+                    int eveningId = rs.getInt("eveningID");
+                    pw.println("<button onclick=sendMessage("+eveningId+")>Share Event</button>");
+                    pw.println("<div id=\""+ eveningId + "\">");
                     pw.println("<tr>");
                     pw.println("<th class='title'>" + startTime + "</th>");
                     for(int i = 1; i <= 5; i++) {
@@ -424,6 +431,7 @@ public class Servlet extends HttpServlet {
                     }
                     pw.println("<th class='title'>" + endTime + "</th>");
                     pw.println("</tr>");
+                    pw.println("</div");
                 }
                 pw.println("</table>");
                 pw.flush();
