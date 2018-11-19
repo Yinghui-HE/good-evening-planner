@@ -31,9 +31,10 @@ public class Event {
 	private String subCategory;
 	private double score = -1;
 
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
+	public Event(int eventID, String eventSummary, String image, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
+		this.image = image;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.duration = duration;
