@@ -1,25 +1,34 @@
 @charset "UTF-8";
 
 body{
-	display: flex;
-	padding: 30px;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	background-color: #09093B;
+	background: linear-gradient(to bottom, #102343 0%, #7b5f7b 100%);
 }
 
 #header{
-	flex-grow:1;
-	width: 100%;
+	width: 80%;
 	height: 50px;
+	margin-top: 0px;
+	padding-bottom: 20px;
+	padding-left: 10px;
 }
 #evenings{
 	flex-grow: 1;
 	width: 60%;
 	height: 600px;
 	margin: 10px;
-	background-color: #1A1A59;
 	overflow: scroll;
+	border: double;
+	border-color:#E7DFDD;
+}
+#icon{
+	widht: 20%;
+	height: 50px;
+}
+#body{
+	display: flex;
+	padding: 30px;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 
 #pokes{
@@ -27,11 +36,14 @@ body{
 	width: 30%;
 	text-align: center;
 	verticle-align: middle;
-	background-color: #1A1A59;
 	margin: 10px;
+	border: double;
+	border-color:#E7DFDD;
 }
 h1{
-	color: #FFBE66;
+	font-family: Apple Chancery;
+	font-size: 72px;
+	color: #D4A56A;
 }
 h2{
 	color: #FFF8E8;
@@ -50,7 +62,6 @@ p{
 	text-align: center;
 }
 #footer{
-
 	flex-grow: 1;
 	width: 100%;
 	height: 100px;
