@@ -250,6 +250,8 @@ public class Servlet extends HttpServlet {
 	    		}
 			}
 
+			userID = Integer.parseInt(request.getParameter("userID"));
+			System.out.println("userID in planning: " + userID);
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
 			preferences.add(request.getParameter("Restaurant"));
@@ -356,7 +358,6 @@ public class Servlet extends HttpServlet {
 					if(i < 4) storeQuery += ", ";
 				}
 				storeQuery += ");";
-				System.out.println(storeQuery);
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
 			

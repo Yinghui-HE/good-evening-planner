@@ -46,10 +46,10 @@ INSERT INTO Users(userID, username, userPassword)
 	VALUES (1, 'will', 'dog');
 
 -- Inserting Sightseeing events
-INSERT INTO EveningEvents (title, location, duration, category, timeDependant, pictureURL)
-	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 60, 'Sightseeing', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
-					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 60, 'Sightseeing', 0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
-                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 60, 'Sightseeing', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 120, 'Sightseeing', 'Urban', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
+					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 120, 'Sightseeing', 'Urban',0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
+                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
                     
 -- Inserting Restaurants
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)

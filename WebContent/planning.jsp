@@ -8,6 +8,12 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="planning.css">
 	</head>
+	<%
+	session = request.getSession();
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+	%> 
+
 	<script>
 		function submitPlan(){
 			console.log("In submitPlan");
@@ -142,23 +148,19 @@
 				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
 						"&eveningEnd="+eveningEnd+"&Restaurant="+restaurant+
 						"&Movie="+movie+"&Exhibition="+exhibition+
-						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true); 
+						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping+"&userID="+<%=userID%>, true); 
 
 				xhttp.send();
-/* 				window.location.href="results.jsp"
- */			}				
+				window.location.href="results.jsp"
+ 		}				
 
 		}
 	</script>
-	
-	<%
-	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");
-	%> 
-	<%
+		<%
 	}
 	%>
+	
+
 	
 	<body>
 		<div id="header">
