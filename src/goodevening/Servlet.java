@@ -1,4 +1,4 @@
-package goodevening;
+ package goodevening;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -311,6 +311,7 @@ public class Servlet extends HttpServlet {
 			}
 
 			System.out.println("new option size" + options.size());
+
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 			System.out.println("Results: ");
 			for(int i = 0; i < result.size(); i++) {
@@ -318,7 +319,7 @@ public class Servlet extends HttpServlet {
 			}
 
 			if(result.isEmpty()) {
-				out.println("<div id="sad-face"></div>");
+				out.println("<div id=sad-face></div>");
 				return;  //don't need to store
 			}
 			else {
@@ -328,6 +329,16 @@ public class Servlet extends HttpServlet {
 				}
 				out.print("</ul>");
 			}
+			/*
+			 Save arraylist to session variable instead of printwriter 
+			 */
+			response.setContentType("text/html");
+			ArrayList<Event> test = new ArrayList<Event>();
+			test.add(new Event(1,"Final Exam",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
+			test.add(new Event(1,"Final Exam 2",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
+			HttpSession session = request.getSession();
+			session.setAttribute("result", result);
+			
 
 			//store to database
 			Connection conn = null;
@@ -341,27 +352,29 @@ public class Servlet extends HttpServlet {
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
 				for(int i = 0; i < 5; i++) {
-					if(i < result.size()) {
-						storeQuery += result.get(i).getID();
-					}
-					else {
-						storeQuery += "-1";
-					}
-					if(i < 4) storeQuery += ", ";
+//					if(i < result.size()) {
+//						storeQuery += result.get(i).getID();
+//					}
+//					else {
+//						storeQuery += "-1";
+//					}
+//					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");"
+				storeQuery += ");";
 				System.out.println(storeQuery);
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
+			
+				
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-					if(ps != null) {
-						ps.close();
-					}
+//					if(ps != null) {
+//						ps.close();
+//					}
 					if(conn != null) {
 						conn.close();
 					}
@@ -386,7 +399,7 @@ public class Servlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 //int userID = (int)session.getAttribute("userID");
                 int userIDNow = 1;
-                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow);
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");

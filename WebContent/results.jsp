@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
+<%@ page import="goodevening.Event" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,6 +17,21 @@
 	<%
 	}
 	%>
+<%-- <% List<Event> events = (ArrayList<Event>)request.getAttribute("result");
+ 
+	if(events != null){
+	    for(Event e : events)
+	    {
+	        %> <h1>Success</h1>
+	        <%
+	    }
+	}
+	else{
+        %> <h1>Fail</h1>
+        <%
+	}
+ 
+%> --%>
 	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display:inline-block">Good Evening</h1></a>
@@ -30,14 +46,27 @@
 			</div>
 			<div id="results">
 				<h2>Results</h2>
-				<div id="eventItem">
-					<div id="eventTitle">Spiderman: Homecoming</div>
-					<div id="img"><img src="spiderman.jpg" style="height: 150px"></div>
-					<div id="startTime">7:00pm</div>
-					<div id="endTime">9:00pm</div>
-					<div id="location">Location: LA Live</div>
-					<div id="category">Category: Movie</div>
-					<div id="subCat">Sub Category: Action</div>
+				<div id="events">
+					<%
+						if(session.getAttribute("result") != null){
+							ArrayList<Event> events = (ArrayList<Event>)session.getAttribute("result");
+							for(int i = 0; i < events.size(); i++){
+							Event e = events.get(i);
+							%> 	 	<div id="eventItem">
+										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
+										<div id="img"></div>
+										<div id="startTime">Start Time: <%= e.getStartTime()%></div>
+										<div id="endTime">End Time: <%= e.getEndTime()%></div>
+				 						<div id="location"> <%= e.getLocation()%></div>
+										<div id="category">Category: <%= e.getCategory()%></div>
+										<div id="subCat">Sub Category: <%= e.getSubcategory()%></div>
+									</div>
+					        <%
+						}}else{
+							%> <h1>No Events Found</h1>
+					        <%
+						}
+					%>
 				</div>
 			</div>
 			<div id="redo">
