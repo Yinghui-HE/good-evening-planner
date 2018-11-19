@@ -1,4 +1,4 @@
-package goodevening;
+ package goodevening;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private ArrayList<Event> allEvents;  //global. Pull once
+    private ArrayList<Event> allEvents = new ArrayList<Event>();  //global. Pull once
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +37,7 @@ public class Servlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in service");
 		String username = "";
-		int userID = 0;
+		int userID = -1;
 		PrintWriter out = response.getWriter();
 
 
@@ -57,51 +57,65 @@ public class Servlet extends HttpServlet {
         		error = true;
         	}
 
-        	Connection conn = null;
-    		Statement st = null;
-    		ResultSet rs = null;
-    		PreparedStatement ps = null;
-    		try {
-    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
+        	if(error == false) {
+        		Connection conn = null;
+        		Statement st = null;
+        		ResultSet rs = null;
+        		ResultSet rs1 = null;
+        		PreparedStatement ps = null;
+        		PreparedStatement ps1 = null;
+        		try {
+        			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
 
-    			//Insert data about user if the user doesn't exists
-    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=? AND u.userPassword=?");
-    			ps.setString(1, username);
-    			ps.setString(2, password);
-    			rs = ps.executeQuery();
-    			ps.clearParameters();
-    			if(!rs.next()) //if data not exist
-    			{
-					out.println("Username and password do not match");
-					error = true;
-    			}
-    			else if(error == false) //data exist and no error
-				{
-    				userID = rs.getInt("userID");
-    				out.println("success");
-    			}
+        			//Insert data about user if the user doesn't exists
+        			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			ps.setString(1, username);
+        			rs = ps.executeQuery();
+        			ps.clearParameters();
+        			ps1 = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=? AND u.userPassword=?");
+        			ps1.setString(1, username);
+        			ps1.setString(2, password);
+        			rs1 = ps1.executeQuery();
+        			ps1.clearParameters();
+        			if(!rs.next()) //if the username doesn't exist
+        			{
+        				out.println("User doesn't exist.");
+    					error = true;
+        			}
+        			else if(!rs1.next()) //if data not match
+        			{
+    					out.println("Username and password do not match.");
+    					error = true;
+        			}
+        			else if(error == false) //data exist and no error
+    				{
+        				userID = rs.getInt("userID");
+        				out.println("success");
+        			}
 
 
-    		} catch (SQLException sqle) {
-    			System.out.println("sqle: " + sqle.getMessage());
-    		} catch (ClassNotFoundException cnfe) {
-    			System.out.println("cnfe: " + cnfe.getMessage());
-    		} finally {
-    			try {
-    				if(rs != null) {
-    					rs.close();
-    				}
-    				if(st != null) {
-    					st.close();
-    				}
-    				if(conn != null) {
-    					conn.close();
-    				}
-    			} catch (SQLException sqle) {
-    				System.out.println("sqle closing conn: " + sqle.getMessage());
-    			}
-    		}
+        		} catch (SQLException sqle) {
+        			System.out.println("sqle: " + sqle.getMessage());
+        		} catch (ClassNotFoundException cnfe) {
+        			System.out.println("cnfe: " + cnfe.getMessage());
+        		} finally {
+        			try {
+        				if(rs != null) {
+        					rs.close();
+        				}
+        				if(st != null) {
+        					st.close();
+        				}
+        				if(conn != null) {
+        					conn.close();
+        				}
+        			} catch (SQLException sqle) {
+        				System.out.println("sqle closing conn: " + sqle.getMessage());
+        			}
+        		}
+        	}
+
 		}
 
 		else if(request.getParameter("register") != null) {
@@ -122,70 +136,74 @@ public class Servlet extends HttpServlet {
         		error = true;
         	}
 
+        	if(error == false) {
+        		Connection conn = null;
+        		ResultSet rs = null;
+        		PreparedStatement ps = null;
+        		try {
+        			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+        			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
 
-        	Connection conn = null;
-    		ResultSet rs = null;
-    		PreparedStatement ps = null;
-    		try {
-    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
-    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false"); // use the last driver used in the memory (URI)
-
-    			//Insert data about user if the user doesn't exists
-    			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
-    			ps.setString(1, username);
-    			rs = ps.executeQuery();
-    			ps.clearParameters();
-    			if(!rs.next()) //if data not exist
-    			{
-    				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
-    				ps.setString(1, username);
-    				ps.setString(2, password);
-    				ps.executeUpdate();
-    				ps.clearParameters();
-    				rs.close();
-    			}
-    			else //data exist, print error message
-    			{
-    				out.println("User already exists");
-    				error = true;
-    			}
-
-    			if(error == false)
-    			{
-    				out.println("success");
-    				ps.close();
-    				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+        			//Insert data about user if the user doesn't exists
+        			ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
         			ps.setString(1, username);
         			rs = ps.executeQuery();
         			ps.clearParameters();
-        			if(rs.next()) //if data exist
+        			if(!rs.next()) //if data not exist
         			{
-        				userID = rs.getInt("userID");
+        				ps = conn.prepareStatement("INSERT INTO Users (username, userPassword) VALUES(?,?);");
+        				ps.setString(1, username);
+        				ps.setString(2, password);
+        				ps.executeUpdate();
+        				ps.clearParameters();
         				rs.close();
         			}
-    			}
-    		} catch (SQLException sqle) {
-    			System.out.println("sqle: " + sqle.getMessage());
-    		} catch (ClassNotFoundException cnfe) {
-    			System.out.println("cnfe: " + cnfe.getMessage());
-    		} finally {
-    			try {
-    				if(ps != null) {
-    					ps.close();
-    				}
-    				if(conn != null) {
-    					conn.close();
-    				}
-    			} catch (SQLException sqle) {
-    				System.out.println("sqle closing conn: " + sqle.getMessage());
-    			}
-    		}
+        			else //data exist, print error message
+        			{
+        				out.println("User already exists");
+        				error = true;
+        			}
+
+        			if(error == false)
+        			{
+        				out.println("success");
+        				ps.close();
+        				ps = conn.prepareStatement("SELECT * FROM Users u WHERE u.username=?");
+            			ps.setString(1, username);
+            			rs = ps.executeQuery();
+            			ps.clearParameters();
+            			if(rs.next()) //if data exist
+            			{
+            				userID = rs.getInt("userID");
+            				rs.close();
+            			}
+        			}
+        		} catch (SQLException sqle) {
+        			System.out.println("sqle: " + sqle.getMessage());
+        		} catch (ClassNotFoundException cnfe) {
+        			System.out.println("cnfe: " + cnfe.getMessage());
+        		} finally {
+        			try {
+        				if(ps != null) {
+        					ps.close();
+        				}
+        				if(conn != null) {
+        					conn.close();
+        				}
+        			} catch (SQLException sqle) {
+        				System.out.println("sqle closing conn: " + sqle.getMessage());
+        			}
+        		}
+        	}
+
 		}
 		else if(request.getParameter("guest") != null) {
 			userID = -1;
 		}
 
 		else if (request.getParameter("restaurant") != null) {
+			System.out.println("in planning");
+			//fetch all events if not fetched yet
 			if(allEvents.isEmpty()) {
 				Connection conn = null;
 	    		ResultSet rs = null;
@@ -195,11 +213,12 @@ public class Servlet extends HttpServlet {
 	    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
 	    			ps = conn.prepareStatement("SELECT * FROM EveningEvents");
 	    			rs = ps.executeQuery();
-	    			while(rs.next())
-	    			{
+	    			int i = 0;
+	    			while(rs.next()) {
+	    				i++;
 						boolean timeDependent = false;
-						if(rs.getInt("timeDependent") == 1) timeDependent = true;
-	    				Event e = new Event(rs.getInt("UserId"),
+						if(rs.getInt("timeDependant") == 1) timeDependent = true;
+	    				Event e = new Event(rs.getInt("eventID"),
 											rs.getString("title"),
 											rs.getInt("startTime"),
 											rs.getInt("endTime"),
@@ -208,8 +227,10 @@ public class Servlet extends HttpServlet {
 											timeDependent,
 											rs.getString("category"),
 											rs.getString("subCategory"));
+	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
+					System.out.println(i);
 	    		} catch (SQLException sqle) {
 	    			System.out.println("sqle: " + sqle.getMessage());
 	    		} catch (ClassNotFoundException cnfe) {
@@ -233,13 +254,23 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("restaurant"));
 			preferences.add(request.getParameter("movie"));
 			preferences.add(request.getParameter("exhibition"));
-			preferences.add(request.getParameter("concert"));
-			preferences.add(request.getParameter("outdoor"));
+			preferences.add(request.getParameter("shopping"));
+			preferences.add(request.getParameter("sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
+
+		    System.out.println("Preference: ");
+		    for(int i = 0; i < preferences.size(); i++)
+		    {
+		    	System.out.print(i);
+		    	System.out.println(preferences.get(i));
+		    }
+
 			//insert valid events (scores set) to options
 			int eveningDuration = computeDuration(eveningStart, eveningEnd);
+			System.out.println("duration: " + eveningDuration);
+			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
 				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
 					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
@@ -250,6 +281,7 @@ public class Servlet extends HttpServlet {
 				}
 			}
 			int optionsNum = options.size();
+			System.out.println("option size: " + optionsNum);
 
 			//insert non-time-dependent events possibilities
 			for(int i = 0; i < optionsNum; i++) {
@@ -257,8 +289,7 @@ public class Servlet extends HttpServlet {
 				if(!(temp.isTimeDependent())) {
 					int newStart = eveningStart;
 					int newEnd = addTime(eveningStart, temp.getDuration());
-					options.remove(i);
-					i--;
+
 					//insert many possibilities of non-time-dependent events
 					while(newEnd <= eveningEnd) {
 						Event newOption = new Event(temp);
@@ -268,23 +299,156 @@ public class Servlet extends HttpServlet {
 						newStart = addTime(newStart, 20);
 						newEnd = addTime(newEnd, 20);
 					}
-					//TODO: testing needed
 				}
 			}
-			ArrayList<Event> result = new AlgorithmThread(options).run();
-
-			out.print("<ul>");
-			for(Event e : result) {
-				out.println(e.getHTMLItem());
+			//clean up original non-time-dependent events.
+			for(int i = 0; i < options.size(); i++) {
+				if(options.get(i).getStartTime() == 0) {
+					options.remove(i);
+					i--;
+				}
 			}
-			out.print("</ul>");
 
-			//TODO: store to database
+			System.out.println("new option size" + options.size());
+			ArrayList<Event> result = new AlgorithmThread(options).run();
+			System.out.println("Results: ");
+			for(int i = 0; i < result.size(); i++) {
+				System.out.println(i + " " + result.get(i).getSummary());
+			}
+
+			if(result.isEmpty()) {
+				out.println("<div id="sad-face"></div>");
+				return;  //don't need to store
+			}
+			else {
+				out.print("<ul>");
+				for(Event e : result) {
+					out.println(e.getHTMLItem());
+				}
+				out.print("</ul>");
+			}
+
+			//store to database
+			Connection conn = null;
+			ResultSet rs = null;
+			Statement st = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
+				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
+				storeQuery += userID + ", ";
+				storeQuery += eveningStart + ", ";
+				storeQuery += eveningEnd + ", ";
+				for(int i = 0; i < 5; i++) {
+					if(i < result.size()) {
+						storeQuery += result.get(i).getID();
+					}
+					else {
+						storeQuery += "-1";
+					}
+					if(i < 4) storeQuery += ", ";
+				}
+				storeQuery += ");"
+				System.out.println(storeQuery);
+				st = conn.createStatement();
+				st.executeUpdate(storeQuery);
+			} catch (SQLException sqle) {
+				System.out.println("sqle: " + sqle.getMessage());
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println("cnfe: " + cnfe.getMessage());
+			} finally {
+				try {
+					if(ps != null) {
+						ps.close();
+					}
+					if(conn != null) {
+						conn.close();
+					}
+				} catch (SQLException sqle) {
+					System.out.println("sqle closing conn: " + sqle.getMessage());
+				}
+			}
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
 			//TODO
-		}
+            Connection conn = null;
+            Statement st = null;
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            PreparedStatement ps2 = null;
+            ResultSet rs2 = null;
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=harvey&useSSL=false");
+                HttpSession session = request.getSession();
+                //int userID = (int)session.getAttribute("userID");
+                int userIDNow = 1;
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
+                rs = ps.executeQuery();
+                PrintWriter pw = response.getWriter();
+                pw.println("<h1>Past Evenings</h1>");
+                pw.println("<table style='width:100%'");
+
+
+                while(rs.next()) {
+                    String startTime = rs.getString("startTime");
+                    String endTime = rs.getString("endTime");
+                    pw.println("<tr>");
+                    pw.println("<th class='title'>" + startTime + "</th>");
+                    for(int i = 1; i <= 5; i++) {
+                        int currEventID = rs.getInt("eventID" + i);
+                        if(currEventID >= 0) {
+                            //Now need to get info of this event based on the id - will probably need to store it all somewhere, possibly a GoodEvening object??
+                            ps2 = conn.prepareStatement("SELECT * FROM EveningEvents WHERE eventID=" + currEventID);
+                            rs2 = ps2.executeQuery();
+                            if(rs2.next()) {
+                                String picURL = rs2.getString("pictureURL");
+                                String title = rs2.getString("title");
+
+                                pw.println("<th class='title'><div class='container'><img src='" + picURL + "' width='100' height='100' class='resultimage'><div class='overlay'>" + title + "</div></div></th>");
+                            }
+                        }
+
+                    }
+                    pw.println("<th class='title'>" + endTime + "</th>");
+                    pw.println("</tr>");
+                }
+                pw.println("</table>");
+                pw.flush();
+                pw.close();
+
+
+
+
+
+
+            }catch(SQLException sqle) {
+                System.out.println("sqle: " + sqle.getMessage());
+            } catch(ClassNotFoundException cnfe){
+                System.out.println("cnfe: " + cnfe.getMessage());
+            } finally {
+                try {
+                    if(ps != null) {
+                        ps.close();
+                    }
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(st != null) {
+                        st.close();
+                    }
+                    if(conn != null) {
+                        conn.close();
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("sqle closing streams: " + sqle.getMessage());
+                }
+            }
+        }
+
 
 		else if(request.getParameter("pokeUser") != null) {
 			//TODO
@@ -302,19 +466,19 @@ public class Servlet extends HttpServlet {
 
 
 	//add time (in minutes) to start time
-	private int addTime(int start, int time) {
-		int end = start + time / 60 * 100 + time % 60;
-		return end + (end % 100 / 60) * (100 - 60);
+	private static int addTime(int start, int time) {
+		int end = start / 100 * 60 + start % 100 + time;
+		return end / 60 * 100 + end % 60;
 	}
 
-	private int minusTime(int end, int time) {
-		int start = end - time / 60 * 100 + time % 60;
-		return start + (start % 100 / 60) * (100 - 60);
+	private static int minusTime(int end, int time) {
+		int start = end / 100 * 60 + end % 100 - time;
+		return start / 60 * 100 + start % 60;
 	}
 
-	private int computeDuration(int start, int end) {
+	private static int computeDuration(int start, int end) {
 		start = start / 100 * 60 + start % 100;
-		end = end / 100 * 60 + start % 100;
+		end = end / 100 * 60 + end % 100;
 		return end - start;
 	}
 
@@ -329,8 +493,8 @@ class AlgorithmThread {
     private int[] compatible;
 
     public AlgorithmThread(ArrayList<Event> events) {
-		for(Event e : eventsIn) {
-            events.add(new Event(e));
+		for(Event e : events) {
+            this.events.add(new Event(e));
         }  //events is not sorted, but only contain valid events
     }
 
@@ -343,10 +507,10 @@ class AlgorithmThread {
         for(int i = 0; i < compatible.length; i++) {
             compatible[i] = -1;
             int currentStart = events.get(i).getStartTime();
-            //half an hour for transportation
-            if(currentStart % 100 < 30)
+            //20 min for transportation
+            if(currentStart % 100 < 20)
                 currentStart = currentStart - 100 + 60;
-            currentStart -= 30;
+            currentStart -= 20;
 
             for(int j = 0; j < i; j++) {
                 if(events.get(j).getEndTime() <= currentStart) compatible[i] = j;
@@ -355,11 +519,11 @@ class AlgorithmThread {
         }
 
         //filling out the OPT array
-		OPT = new double[events.size()];
+		OPT = new double[events.size() + 1];
         OPT[0] = 0;
-        for(int i = 1; i < events.size(); i++) {
-            double scoreWith = events.get(i).getScore();
-            if(compatible[i] > -1) scoreWith += OPT[compatible[i]];
+        for(int i = 1; i < events.size() + 1; i++) {
+            double scoreWith = events.get(i - 1).getScore();
+            if(compatible[i - 1] > -1) scoreWith += OPT[compatible[i - 1] + 1];
             double scoreWithout = OPT[i - 1];
 			if(scoreWith > scoreWithout)
 				OPT[i] = scoreWith;
@@ -368,18 +532,21 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size() - 1, evening);
+        getEveningEvent(events.size(), evening);
         return evening;
     }
 
     //trace back to insert events that maximize scoring
     private void getEveningEvent(int i, ArrayList<Event> evening) {
-        if(i == 0) return;
+        if(i < 0) return;
         else if(compatible[i] > -1 &&
-                events.get(i).getScore() + OPT[compatible[i]] > OPT[i - 1]) {
+                events.get(i).getScore() + OPT[compatible[i] + 1] > OPT[i]) {
             getEveningEvent(compatible[i], evening);
-            evening.add(events.get(i));
+            evening.add(new Event(events.get(i)));
         }
+		else if(compatible[i] < 0 && events.get(i).getScore() > OPT[i]) {
+			evening.add(new Event(events.get(i)));
+		}
         else {
             getEveningEvent(i - 1, evening);
         }
