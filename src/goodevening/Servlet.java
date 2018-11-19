@@ -395,7 +395,7 @@ public class Servlet extends HttpServlet {
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=harvey&useSSL=false");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&useSSL=false");
                 HttpSession session = request.getSession();
                 //int userID = (int)session.getAttribute("userID");
                 int userIDNow = 1;
@@ -410,10 +410,8 @@ public class Servlet extends HttpServlet {
                     String startTime = rs.getString("startTime");
                     String endTime = rs.getString("endTime");
                     int eveningId = rs.getInt("eveningID");
-                    pw.println("<button onclick=sendMessage("+eveningId+")>Share Event</button>");
-                    pw.println("<div id=\""+ eveningId + "\">");
-                    pw.println("<tr>");
-                    pw.println("<th class='title'>" + startTime + "</th>");
+                    pw.println("<tr id='"+ eveningId + "'>");
+                    pw.println("<th class='title'>" + startTime + "<br>-<br>" + endTime + "</th>");
                     for(int i = 1; i <= 5; i++) {
                         int currEventID = rs.getInt("eventID" + i);
                         if(currEventID >= 0) {
@@ -429,9 +427,9 @@ public class Servlet extends HttpServlet {
                         }
 
                     }
-                    pw.println("<th class='title'>" + endTime + "</th>");
+          
+                    pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("</tr>");
-                    pw.println("</div");
                 }
                 pw.println("</table>");
                 pw.flush();

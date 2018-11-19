@@ -102,17 +102,18 @@
 	
 	<%
 	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");	
+	int userID = (int)session.getAttribute("userID");
+	if(userID != -1) {
+			
 	%> 
 	<script>
-	document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
+	loadTable();
 	</script>
 	<%
 	} else{
 		%>
 	<script>
-		guestDisplay();
+	document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
 	</script>
 	<% 
 	}
