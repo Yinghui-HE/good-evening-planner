@@ -8,6 +8,11 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="planning.css">
 	</head>
+	<%
+	session = request.getSession();
+	if(session.getAttribute("userID") != null) {
+		int userID = (int)session.getAttribute("userID");
+	%>
 	<script>
 		function submitPlan(){
 			console.log("In submitPlan");
@@ -129,33 +134,25 @@
 				//Submit Form
 				console.log("Submitting planning form");
 				var xhttp = new XMLHttpRequest();
-				if(1){
-					console.log("Start Time: " + eveningStart);
-					console.log("End Time: " + eveningEnd);
-					console.log("Shopping: " + shopping);
-					console.log("Restaurant: " + restaurant);
-					console.log("Sightseeing: " + sightseeing);
-					console.log("Exhibition: " + exhibition);
-					console.log("Movie: " + movie);
-					console.log("Live shows: " + liveshow);
-				}
+				console.log("Start Time: " + eveningStart);
+				console.log("End Time: " + eveningEnd);
+				console.log("Shopping: " + shopping);
+				console.log("Restaurant: " + restaurant);
+				console.log("Sightseeing: " + sightseeing);
+				console.log("Exhibition: " + exhibition);
+				console.log("Movie: " + movie);
+				console.log("Live shows: " + liveshow);
 				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
 						"&eveningEnd="+eveningEnd+"&Restaurant="+restaurant+
 						"&Movie="+movie+"&Exhibition="+exhibition+
 						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true);
-
+				xhttp.onreadystatechange = function(){
+					window.location.href="results.jsp";
+				}
 				xhttp.send();
-/* 				//window.location.href="results.jsp"
- */			}
-
 		}
 	</script>
 
-	<%
-	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");
-	%>
 	<%
 	}
 	%>
