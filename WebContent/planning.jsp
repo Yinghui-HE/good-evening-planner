@@ -105,7 +105,11 @@
 			    if(liveshowTypes[i].checked){
 			    	liveshow= liveshowTypes[i].value;
 			    }
+<<<<<<< HEAD
 			    
+=======
+			}    
+>>>>>>> fa8fdbbfba4ae4dad96ca61c23cb1ff5335f0c34
 			/*
 				Print error message if necessary 
 			*/
@@ -142,9 +146,22 @@
 						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+
 						"&movie="+movie+"&exhibition="+exhibition+
 						"&liveshow="+liveshow+"&sightseeing="+sightseeing+"&shopping="+shopping, true); 
+<<<<<<< HEAD
 				}
 				
 			}
+=======
+/* 				xhttp.onreadystatechange = function(){
+					evening = this.responseText;
+					console.log(evening);
+					document.getElementById("logInError").innerHTML = this.responseText;	
+
+				} */
+				xhttp.send();
+			}
+				
+
+>>>>>>> fa8fdbbfba4ae4dad96ca61c23cb1ff5335f0c34
 		}
 	</script>
 	
