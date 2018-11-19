@@ -30,7 +30,7 @@ body{
 	border: double;
 	border-color:#E7DFDD;
 }
-#pokes{
+#notifications{
 	/* flex-grow: 1; */
 	width: 90%;
 	height: 300px;
@@ -74,7 +74,7 @@ button{
     height: 50px;
 }	
 #planning{
-	background-color: #4543ff;
+	background-color: #F1B198;
     color: #FFF8E8;
     width: 30%;
     height: 50px;
