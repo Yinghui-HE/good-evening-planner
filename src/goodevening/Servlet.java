@@ -317,7 +317,7 @@ public class Servlet extends HttpServlet {
 			}
 
 			if(result.isEmpty()) {
-				out.println("<div id="sad-face"></div>");
+//				out.println("<div id="sad-face"></div>");
 				return;  //don't need to store
 			}
 			else {
@@ -348,7 +348,7 @@ public class Servlet extends HttpServlet {
 					}
 					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");"
+				storeQuery += ");";
 				System.out.println(storeQuery);
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
@@ -358,9 +358,9 @@ public class Servlet extends HttpServlet {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-					if(ps != null) {
-						ps.close();
-					}
+//					if(ps != null) {
+//						ps.close();
+//					}
 					if(conn != null) {
 						conn.close();
 					}
