@@ -205,7 +205,7 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 
-		else if (request.getParameter("restaurant") != null) {
+		else if (request.getParameter("Restaurant") != null) {
 			System.out.println("in planning");
 			//fetch all events if not fetched yet
 			if(allEvents.isEmpty()) {
@@ -224,6 +224,7 @@ public class Servlet extends HttpServlet {
 						if(rs.getInt("timeDependant") == 1) timeDependent = true;
 	    				Event e = new Event(rs.getInt("eventID"),
 											rs.getString("title"),
+											rs.getString("pictureURL"),
 											rs.getInt("startTime"),
 											rs.getInt("endTime"),
 											rs.getInt("duration"),
@@ -253,13 +254,15 @@ public class Servlet extends HttpServlet {
 	    		}
 			}
 
+			userID = Integer.parseInt(request.getParameter("userID"));
+			System.out.println("userID in planning: " + userID);
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
-			preferences.add(request.getParameter("restaurant"));
-			preferences.add(request.getParameter("movie"));
-			preferences.add(request.getParameter("exhibition"));
-			preferences.add(request.getParameter("shopping"));
-			preferences.add(request.getParameter("sightseeing"));
+			preferences.add(request.getParameter("Restaurant"));
+			preferences.add(request.getParameter("Movie"));
+			preferences.add(request.getParameter("Exhibition"));
+			preferences.add(request.getParameter("Shopping"));
+			preferences.add(request.getParameter("Sightseeing"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
@@ -313,8 +316,6 @@ public class Servlet extends HttpServlet {
 				}
 			}
 
-			System.out.println("new option size" + options.size());
-
 			ArrayList<Event> result = new AlgorithmThread(options).run();
 			System.out.println("Results: ");
 			for(int i = 0; i < result.size(); i++) {
@@ -336,9 +337,6 @@ public class Servlet extends HttpServlet {
 			 Save arraylist to session variable instead of printwriter 
 			 */
 			response.setContentType("text/html");
-			ArrayList<Event> test = new ArrayList<Event>();
-			test.add(new Event(1,"Final Exam",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
-			test.add(new Event(1,"Final Exam 2",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
 			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
 			
@@ -355,16 +353,15 @@ public class Servlet extends HttpServlet {
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
 				for(int i = 0; i < 5; i++) {
-//					if(i < result.size()) {
-//						storeQuery += result.get(i).getID();
-//					}
-//					else {
-//						storeQuery += "-1";
-//					}
-//					if(i < 4) storeQuery += ", ";
+					if(i < result.size()) {
+						storeQuery += result.get(i).getID();
+					}
+					else {
+						storeQuery += "-1";
+					}
+					if(i < 4) storeQuery += ", ";
 				}
 				storeQuery += ");";
-				System.out.println(storeQuery);
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
 			
@@ -553,7 +550,7 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size()-1, evening);
+        getEveningEvent(events.size() - 1, evening);
         return evening;
     }
 

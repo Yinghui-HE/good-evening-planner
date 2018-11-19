@@ -7,12 +7,12 @@ public class Event {
     private final static double NORMAL_SCORE = 2;
 	private final static double PREFERRED_SCORE_MIN = 0.1;
     private final static double PREFERRED_SIGHTSEEING_SCORE = 14;
-	private final static String RESTAURANT_TAG = "restaurant";
-	private final static String MOVIE_TAG = "movie";
-	private final static String EXHIBITION_TAG = "exhibition";
-	private final static String SHOPPING_TAG = "shopping";
-	private final static String SIGHTSEEING_TAG = "sightseeing";
-	private final static String SHOW_TAG = "show";
+	private final static String RESTAURANT_TAG = "Restaurant";
+	private final static String MOVIE_TAG = "Movie";
+	private final static String EXHIBITION_TAG = "Exhibition";
+	private final static String SHOPPING_TAG = "Shopping";
+	private final static String SIGHTSEEING_TAG = "Sightseeing";
+	private final static String SHOW_TAG = "Show";
 	private final static int RESTAURANT_INDEX = 0;
 	private final static int MOVIE_INDEX = 1;
 	private final static int EXHIBITION_INDEX = 2;
@@ -31,9 +31,10 @@ public class Event {
 	private String subCategory;
 	private double score = -1;
 
-	public Event(int eventID, String eventSummary, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
+	public Event(int eventID, String eventSummary, String image, int startTime, int endTime, int duration, String location, Boolean timeDependent, String category, String subCategory) {
 		this.eventID = eventID;
 		this.eventSummary = eventSummary;
+		this.image = image;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.duration = duration;
@@ -76,7 +77,7 @@ public class Event {
 		else if(category.equals(EXHIBITION_TAG)) {
 			if(preferences.get(EXHIBITION_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
-			if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
+			else if(subCategory.equals(preferences.get(EXHIBITION_INDEX)))
 				score = PREFERRED_SIGHTSEEING_SCORE;
 			else score = NORMAL_SCORE;
 		}
@@ -121,6 +122,8 @@ public class Event {
 	
 	public String getSubcategory() { return subCategory; }
 
+	public String getImage() { return image; }
+	
 	public void setStartTime(int newStartTime) {
 		if(!timeDependent) startTime = newStartTime;
 	}
