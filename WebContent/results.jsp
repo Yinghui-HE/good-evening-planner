@@ -75,6 +75,7 @@
 			</div>
 			<div id="saveShare">
 				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
+
 				<%
 				if(session.getAttribute("eveningID") != null) {
 					int eveningID = (int)session.getAttribute("eveningID"); 
