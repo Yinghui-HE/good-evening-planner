@@ -232,7 +232,6 @@ public class Servlet extends HttpServlet {
 											timeDependent,
 											rs.getString("category"),
 											rs.getString("subCategory"));
-	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
 					System.out.println(i);
@@ -263,6 +262,7 @@ public class Servlet extends HttpServlet {
 			preferences.add(request.getParameter("Exhibition"));
 			preferences.add(request.getParameter("Shopping"));
 			preferences.add(request.getParameter("Sightseeing"));
+			preferences.add(request.getParameter("Show"));
 			int eveningStart = Integer.parseInt(request.getParameter("eveningStart"));
 		    int eveningEnd = Integer.parseInt(request.getParameter("eveningEnd"));
 
@@ -284,6 +284,7 @@ public class Servlet extends HttpServlet {
 				{
 					Event temp = new Event(e);
 					temp.setScore(preferences);
+                    System.out.println(temp.getCategory() + temp.getSubcategory() + temp.getScore());
 					options.add(temp);
 				}
 			}
@@ -322,7 +323,7 @@ public class Servlet extends HttpServlet {
 				System.out.println(i + " " + result.get(i).getSummary());
 			}
 
-			if(result.isEmpty()) {
+			if(result == null || result.isEmpty()) {
 				out.println("<div id=sad-face></div>");
 				return;  //don't need to store
 			}
@@ -334,16 +335,15 @@ public class Servlet extends HttpServlet {
 				out.print("</ul>");
 			}
 			/*
-			 Save arraylist to session variable instead of printwriter 
+			 Save arraylist to session variable instead of printwriter
 			 */
 			response.setContentType("text/html");
 			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
-			
+
 
 			//store to database
 			Connection conn = null;
-			ResultSet rs = null;
 			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
@@ -364,17 +364,17 @@ public class Servlet extends HttpServlet {
 				storeQuery += ");";
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
-			
-				
+
+
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-//					if(ps != null) {
-//						ps.close();
-//					}
+					if(st != null) {
+						st.close();
+					}
 					if(conn != null) {
 						conn.close();
 					}
@@ -519,7 +519,6 @@ class AlgorithmThread {
     public ArrayList<Event> run() {
 		if(events.isEmpty()) return null;
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //FIXME: make sure this is increasing order
         //filling out compatible array
 		compatible = new int[events.size()];
         for(int i = 0; i < compatible.length; i++) {
