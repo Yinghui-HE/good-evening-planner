@@ -232,7 +232,6 @@ public class Servlet extends HttpServlet {
 											timeDependent,
 											rs.getString("category"),
 											rs.getString("subCategory"));
-	    				System.out.println(e.getSummary());
 						allEvents.add(e);
 	    			}
 					System.out.println(i);
@@ -285,6 +284,7 @@ public class Servlet extends HttpServlet {
 				{
 					Event temp = new Event(e);
 					temp.setScore(preferences);
+                    System.out.println(temp.getCategory() + temp.getSubcategory() + temp.getScore());
 					options.add(temp);
 				}
 			}
@@ -344,7 +344,6 @@ public class Servlet extends HttpServlet {
 
 			//store to database
 			Connection conn = null;
-			ResultSet rs = null;
 			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
@@ -373,9 +372,9 @@ public class Servlet extends HttpServlet {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-//					if(ps != null) {
-//						ps.close();
-//					}
+					if(st != null) {
+						st.close();
+					}
 					if(conn != null) {
 						conn.close();
 					}
@@ -520,7 +519,6 @@ class AlgorithmThread {
     public ArrayList<Event> run() {
 		if(events.isEmpty()) return null;
         events.sort((e1, e2) -> e1.getEndTime() - e2.getEndTime());
-        //FIXME: make sure this is increasing order
         //filling out compatible array
 		compatible = new int[events.size()];
         for(int i = 0; i < compatible.length; i++) {
