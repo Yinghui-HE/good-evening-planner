@@ -53,17 +53,17 @@
 							for(int i = 0; i < events.size(); i++){
 							Event e = events.get(i);
 							%> 	 	<div id="eventItem">
-										<div id="eventTitle"><%= e.getSummary()%></div>
+										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
 										<div id="img"></div>
-										<div id="startTime"><%= e.getStartTime()%></div>
-										<div id="endTime"><%= e.getEndTime()%></div>
-				 						<%-- <div id="location"><%= e.getLocation()%></div>
+										<div id="startTime">Start Time: <%= e.getStartTime()%></div>
+										<div id="endTime">End Time: <%= e.getEndTime()%></div>
+				 						<div id="location"> <%= e.getLocation()%></div>
 										<div id="category">Category: <%= e.getCategory()%></div>
-										<div id="subCat">Sub Category: <%= e.getSubCategory()%></div> --%>
+										<div id="subCat">Sub Category: <%= e.getSubcategory()%></div>
 									</div>
 					        <%
 						}}else{
-							%> <h1>Not Success</h1>
+							%> <h1>No Events Found</h1>
 					        <%
 						}
 					%>

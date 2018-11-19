@@ -311,23 +311,23 @@ public class Servlet extends HttpServlet {
 
 			System.out.println("new option size" + options.size());
 
-//			ArrayList<Event> result = new AlgorithmThread(options).run();
-//			System.out.println("Results: ");
-//			for(int i = 0; i < result.size(); i++) {
-//				System.out.println(i + " " + result.get(i).getSummary());
-//			}
-//
-//			if(result.isEmpty()) {
-//				out.println("<div id=sad-face></div>");
-//				return;  //don't need to store
-//			}
-//			else {
-//				out.print("<ul>");
-//				for(Event e : result) {
-//					out.println(e.getHTMLItem());
-//				}
-//				out.print("</ul>");
-//			}
+			ArrayList<Event> result = new AlgorithmThread(options).run();
+			System.out.println("Results: ");
+			for(int i = 0; i < result.size(); i++) {
+				System.out.println(i + " " + result.get(i).getSummary());
+			}
+
+			if(result.isEmpty()) {
+				out.println("<div id=sad-face></div>");
+				return;  //don't need to store
+			}
+			else {
+				out.print("<ul>");
+				for(Event e : result) {
+					out.println(e.getHTMLItem());
+				}
+				out.print("</ul>");
+			}
 			/*
 			 Save arraylist to session variable instead of printwriter 
 			 */
@@ -336,7 +336,7 @@ public class Servlet extends HttpServlet {
 			test.add(new Event(1,"Final Exam",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
 			test.add(new Event(1,"Final Exam 2",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
 			HttpSession session = request.getSession();
-			session.setAttribute("result", test);
+			session.setAttribute("result", result);
 			
 
 			//store to database
@@ -545,7 +545,7 @@ class AlgorithmThread {
         }
 
         ArrayList<Event> evening = new ArrayList<>();
-        getEveningEvent(events.size(), evening);
+        getEveningEvent(events.size()-1, evening);
         return evening;
     }
 
