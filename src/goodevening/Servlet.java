@@ -260,7 +260,9 @@ public class Servlet extends HttpServlet {
 	    		}
 			}
 
-			userID = Integer.parseInt(request.getParameter("userID"));
+			//session
+    		HttpSession session = request.getSession();
+			userID = (int)session.getAttribute("userID");
 			System.out.println("userID in planning: " + userID);
 			//get user inputs, store in an ArrayList
 			ArrayList<String> preferences = new ArrayList<>();
@@ -345,7 +347,6 @@ public class Servlet extends HttpServlet {
 			 Save arraylist to session variable instead of printwriter
 			 */
 			response.setContentType("text/html");
-			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
 
 
@@ -355,7 +356,7 @@ public class Servlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
-				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5) VALUES(";
+				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(";
 				storeQuery += userID + ", ";
 				storeQuery += eveningStart + ", ";
 				storeQuery += eveningEnd + ", ";
@@ -368,10 +369,9 @@ public class Servlet extends HttpServlet {
 					}
 					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ");";
+				storeQuery += ", 0);";
 				st = conn.createStatement();
 				st.executeUpdate(storeQuery);
-
 
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
@@ -405,8 +405,7 @@ public class Servlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 userID = (int)session.getAttribute("userID");
                 System.out.println("in display history, userID: " + userID);
-                int userIDNow = 1;
-                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userIDNow + " AND inUse=1");
+                ps = conn.prepareStatement("SELECT * FROM EveningHistory WHERE userID=" + userID + " AND inUse=1");
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
@@ -443,11 +442,6 @@ public class Servlet extends HttpServlet {
                 pw.flush();
                 pw.close();
 
-
-
-
-
-
             }catch(SQLException sqle) {
                 System.out.println("sqle: " + sqle.getMessage());
             } catch(ClassNotFoundException cnfe){
@@ -482,8 +476,12 @@ public class Servlet extends HttpServlet {
 			System.out.println("logged-out");
 			userID = -1;
 		}
-
-		System.out.println("userID: " + (int)request.getAttribute("userID"));
+		else if(request.getParameter("save") != null) {
+			//TODO
+		}
+		//session
+		HttpSession session = request.getSession();
+		System.out.println("userID: " + (int)session.getAttribute("userID"));
 		
 	}
 

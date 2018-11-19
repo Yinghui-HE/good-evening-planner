@@ -47,9 +47,9 @@
 							for(int i = 0; i < events.size(); i++){
 							Event e = events.get(i);
 							String start =  Integer.toString(e.getStartTime());
-							String startTime = start.substring(0,2) + ":" + start.substring(2, 4);
+							String startTime = start.substring(0,2) + ":" + start.substring(2);
 							String end =  Integer.toString(e.getEndTime());
-							String endTime = end.substring(0,2) + ":" + end.substring(2, 4);
+							String endTime = end.substring(0,2) + ":" + end.substring(2);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
 										<div id="img"><img src=<%= e.getImage() %>></div>
