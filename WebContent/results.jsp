@@ -8,14 +8,32 @@
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="results.css">
+		<%
+		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");
+		%> 
 		<script>
-			function save(eveningID){
-				var xhttp = new XMLHttpRequest();
-				xhttp.open("GET", "Servlet?save=true", false); 
-				xhttp.onreadystatechange = function(){
-					window.location.href = "profile.jsp";
+		console.log("userID in result.jsp: " + <%= userID%>);
+		</script>
+		<%
+		}
+		%>
+		<script>
+			function save(eveningID, userID){
+				if(userID != -1) {
+					var xhttp = new XMLHttpRequest();
+					xhttp.open("GET", "Servlet?save=true", false); 
+					xhttp.onreadystatechange = function(){
+						window.location.href = "profile.jsp";
+					}
+					xhttp.send();
 				}
-				xhttp.send();
+				else
+				{
+					document.getElementById("saveError").innerHTML = "You need to log in to save the evening.";
+				}
+				
 			}
 			function retry(){
 				document.location.href = "planning.jsp";
@@ -78,13 +96,15 @@
 
 				<%
 				if(session.getAttribute("eveningID") != null) {
-					int eveningID = (int)session.getAttribute("eveningID"); 
+					int eveningID = (int)session.getAttribute("eveningID");
+					int userID = (int)session.getAttribute("userID");
 				%>
 				
-				<button id="save" style="font-size: 24px;" onclick="save(<%=eveningID%>)"> Save</button>
+				<button id="save" style="font-size: 24px;" onclick="save(<%=eveningID%>, <%=userID%>)"> Save</button>
 				<%	
 				}
 				%>
+				<h4 id="saveError"></h4>
 			</div>
 		</div>
 		<div id="footer">
