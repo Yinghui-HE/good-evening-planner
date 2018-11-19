@@ -9,8 +9,13 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="results.css">
 		<script>
-			function save(){
-				
+			function save(eveningID){
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("GET", "Servlet?save=true", false); 
+				xhttp.onreadystatechange = function(){
+					window.location.href = "profile.jsp";
+				}
+				xhttp.send();
 			}
 			function share(){
 				
@@ -21,6 +26,7 @@
 	session = request.getSession();
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
+		
 	%> 
 	<%
 	}
@@ -72,7 +78,15 @@
 			</div>
 			<div id="saveShare">
 				<button id="share" style="font-size: 24px;" onclick="share()">Share</button>
-				<button id="save" style="font-size: 24px;" onclick="save()"> Save</button>
+				<%
+				if(session.getAttribute("eveningID") != null) {
+					int eveningID = (int)session.getAttribute("eveningID"); 
+				%>
+				
+				<button id="save" style="font-size: 24px;" onclick="save(<%=eveningID%>)"> Save</button>
+				<%	
+				}
+				%>
 			</div>
 		</div>
 		<div id="footer">

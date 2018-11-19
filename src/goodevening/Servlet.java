@@ -394,7 +394,7 @@ public class Servlet extends HttpServlet {
 		        }
 		        rs.close();
 		        System.out.println("just inserted evening's ID: " + eveningID);
-
+		        session.setAttribute("eveningID", eveningID);
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			} catch (ClassNotFoundException cnfe) {
@@ -499,11 +499,46 @@ public class Servlet extends HttpServlet {
 			userID = -1;
 		}
 		else if(request.getParameter("save") != null) {
-			//TODO
+			Connection conn = null;
+    		Statement st = null;
+    		ResultSet rs = null;
+    		PreparedStatement ps = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
+
+    			//Insert data about user if the user doesn't exists
+    			ps = conn.prepareStatement("UPDATE EveningHistory SET inUse=1 WHERE eveningID=?");
+    			ps.setInt(1, (int)request.getSession().getAttribute("eveningID"));
+    			ps.executeUpdate();
+
+    		}catch(SQLException sqle) {
+                System.out.println("sqle: " + sqle.getMessage());
+            } catch(ClassNotFoundException cnfe){
+                System.out.println("cnfe: " + cnfe.getMessage());
+            } finally {
+                try {
+                    if(ps != null) {
+                        ps.close();
+                    }
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(st != null) {
+                        st.close();
+                    }
+                    if(conn != null) {
+                        conn.close();
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("sqle closing streams: " + sqle.getMessage());
+                }
+            }
 		}
-		//session
-		HttpSession session = request.getSession();
-		System.out.println("userID: " + (int)session.getAttribute("userID"));
+//		//session
+//		HttpSession session = request.getSession();
+//		System.out.println("userID: " + (int)session.getAttribute("userID"));
 		
 	}
 
