@@ -352,7 +352,7 @@ public class Servlet extends HttpServlet {
 			int eveningID = -1;
 			//store to database
 			Connection conn = null;
-			Statement st = null;
+			//Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
@@ -401,9 +401,6 @@ public class Servlet extends HttpServlet {
 				System.out.println("cnfe: " + cnfe.getMessage());
 			} finally {
 				try {
-					if(st != null) {
-						st.close();
-					}
 					if(conn != null) {
 						conn.close();
 					}
@@ -455,7 +452,7 @@ public class Servlet extends HttpServlet {
                         }
 
                     }
-          
+
                     pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("</tr>");
 
@@ -504,7 +501,7 @@ public class Servlet extends HttpServlet {
 		//session
 		HttpSession session = request.getSession();
 		System.out.println("userID: " + (int)session.getAttribute("userID"));
-		
+
 	}
 
 
