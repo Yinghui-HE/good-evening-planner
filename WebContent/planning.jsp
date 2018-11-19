@@ -145,12 +145,12 @@
 						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true);
 
 				xhttp.send();
-/* 				window.location.href="results.jsp"
+/* 				//window.location.href="results.jsp"
  */			}
 
 		}
 	</script>
-	
+
 	<%
 	session = request.getSession();
 	if(session.getAttribute("userID") != null) {
