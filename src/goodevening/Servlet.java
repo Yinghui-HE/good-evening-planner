@@ -431,7 +431,7 @@ public class Servlet extends HttpServlet {
                     }
                     pw.println("<th class='title'>" + endTime + "</th>");
                     pw.println("</tr>");
-                    pw.println("</div");
+                    pw.println("</div>");
                 }
                 pw.println("</table>");
                 pw.flush();
