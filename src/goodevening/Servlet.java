@@ -333,9 +333,6 @@ public class Servlet extends HttpServlet {
 			 Save arraylist to session variable instead of printwriter 
 			 */
 			response.setContentType("text/html");
-//			ArrayList<Event> test = new ArrayList<Event>();
-//			test.add(new Event(1,"Final Exam",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
-//			test.add(new Event(1,"Final Exam 2",1600, 2000, 4, "LVL 201", false, "Sightseeing", "Urban"));
 			HttpSession session = request.getSession();
 			session.setAttribute("result", result);
 			
