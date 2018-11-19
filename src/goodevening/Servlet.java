@@ -349,29 +349,51 @@ public class Servlet extends HttpServlet {
 			response.setContentType("text/html");
 			session.setAttribute("result", result);
 
-
+			int eveningID = -1;
 			//store to database
 			Connection conn = null;
 			Statement st = null;
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
-				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(";
-				storeQuery += userID + ", ";
-				storeQuery += eveningStart + ", ";
-				storeQuery += eveningEnd + ", ";
+//				String storeQuery = "INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(";
+//				storeQuery += userID + ", ";
+//				storeQuery += eveningStart + ", ";
+//				storeQuery += eveningEnd + ", ";
+//				for(int i = 0; i < 5; i++) {
+//					if(i < result.size()) {
+//						storeQuery += result.get(i).getID();
+//					}
+//					else {
+//						storeQuery += "-1";
+//					}
+//					if(i < 4) storeQuery += ", ";
+//				}
+//				storeQuery += ", 0);";
+//				st = conn.createStatement();
+//				st.executeUpdate(storeQuery);
+				PreparedStatement ps = conn.prepareStatement("INSERT INTO EveningHistory(userID, startTime, endTime, eventID1, eventID2, eventID3, eventID4, eventID5, inUse) VALUES(?,?,?,?,?,?,?,?,?);",
+                        Statement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, userID);
+				ps.setInt(2, eveningStart);
+				ps.setInt(3, eveningEnd);
 				for(int i = 0; i < 5; i++) {
 					if(i < result.size()) {
-						storeQuery += result.get(i).getID();
+						ps.setInt(i+4, result.get(i).getID());
 					}
 					else {
-						storeQuery += "-1";
+						ps.setInt(i+4, -1);
 					}
-					if(i < 4) storeQuery += ", ";
 				}
-				storeQuery += ", 0);";
-				st = conn.createStatement();
-				st.executeUpdate(storeQuery);
+				ps.setInt(9, 0);
+				ps.executeUpdate();
+//				ps.executeQuery();
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()){
+		            eveningID =rs.getInt(1);
+		        }
+		        rs.close();
+		        System.out.println("just inserted evening's ID: " + eveningID);
 
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
