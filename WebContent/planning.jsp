@@ -98,7 +98,7 @@
 			    }
 			}
 
-			var liveshowTypes = document.getElementsByName('liveshow');
+			var liveshowTypes = document.getElementsByName('show');
 			var liveshow = "";
 			for(i = 0; i < liveshowTypes.length; i++){
 			    if(liveshowTypes[i].checked){
@@ -140,11 +140,12 @@
 					console.log("Live shows: " + liveshow);
 				}
 				xhttp.open("GET", "Servlet?eveningStart="+eveningStart+
-						"&eveningEnd="+eveningEnd+"&restaurant="+restaurant+
-						"&movie="+movie+"&exhibition="+exhibition+
-						"&liveshow="+liveshow+"&sightseeing="+sightseeing+"&shopping="+shopping, true); 
+						"&eveningEnd="+eveningEnd+"&Restaurant="+restaurant+
+						"&Movie="+movie+"&Exhibition="+exhibition+
+						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping, true); 
 
-				xhttp.send();	
+				xhttp.send();
+				window.location.href="results.jsp"
 			}				
 
 		}
@@ -186,8 +187,8 @@
 					<div class="quant">
 						<button class="accordion" type="button">Sightseeing</button>
 						<div class="panel">
-							 <h4>Outdoors <input type="radio" name="sightseeing" value="outdoors"></h4>
-							 <h4>Urban <input type="radio" name="sightseeing" value="urban"></h4>
+							 <h4>Outdoors <input type="radio" name="sightseeing" value="Outdoors"></h4>
+							 <h4>Urban <input type="radio" name="sightseeing" value="Urban"></h4>
 						</div>
 						<button class="accordion" type="button">Shopping</button>
 						<div class="panel">
@@ -197,36 +198,36 @@
 						</div>
 						<button class="accordion" type="button">Exhibition</button>
 						<div class="panel">
-							 <h4>Art <input type="radio" name="exhibition" value="art"> </h4>
-							 <h4>History <input type="radio" name="exhibition" value="history"></h4>
-							 <h4>Science <input type="radio" name="exhibition" value="science"></h4>
+							 <h4>Art <input type="radio" name="exhibition" value="Art"> </h4>
+							 <h4>History <input type="radio" name="exhibition" value="History"></h4>
+							 <h4>Science <input type="radio" name="exhibition" value="Science"></h4>
 						</div>
 						<button class="accordion" type="button">Movie</button>
 						<div class="panel">
-							 <h4>Action <input type="radio" name="movie" value="action"></h4>
-							 <h4>Animated <input type="radio" name="movie" value="animated"></h4>
-							 <h4>Comedy <input type="radio" name="movie" value="comedy"></h4>
-							 <h4>Drama <input type="radio" name="movie" value="drama"></h4>
-							 <h4>Horror <input type="radio" name="movie" value="horror"></h4>
-							 <h4>Romantic <input type="radio" name="movie" value="romantic"></h4>
+							 <h4>Action <input type="radio" name="movie" value="Action"></h4>
+							 <h4>Animated <input type="radio" name="movie" value="Animated"></h4>
+							 <h4>Comedy <input type="radio" name="movie" value="Comedy"></h4>
+							 <h4>Drama <input type="radio" name="movie" value="Drama"></h4>
+							 <h4>Horror <input type="radio" name="movie" value="Horror"></h4>
+							 <h4>Romantic <input type="radio" name="movie" value="Romantic"></h4>
 						</div>
 						<button class="accordion" type="button">Restaurant</button>
 						<div class="panel">
-							 <h4>Italian <input type="radio" name="restaurant" value="italian"></h4>
-							 <h4>Asian <input type="radio" name="restaurant" value="asian"></h4>
-							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="koreanbarbecue"></h4>
-							 <h4>Mexican <input type="radio" name="restaurant" value="mexican"></h4>
-							 <h4>Seafood <input type="radio" name="restaurant" value="seafood"></h4>
-							 <h4>Mixed <input type="radio" name="restaurant" value="mixed"></h4>
-							 <h4>Steakhouse <input type="radio" name="restaurant" value="steakhouse"></h4>
-							 <h4>French <input type="radio" name="restaurant" value="french"></h4>
-							 <h4>Californian <input type="radio" name="restaurant" value="californian"></h4>
+							 <h4>Italian <input type="radio" name="restaurant" value="Italian"></h4>
+							 <h4>Asian <input type="radio" name="restaurant" value="Asian"></h4>
+							 <h4>Korean Barbecue<input type="radio" name="restaurant" value="Koreanbarbecue"></h4>
+							 <h4>Mexican <input type="radio" name="restaurant" value="Mexican"></h4>
+							 <h4>Seafood <input type="radio" name="restaurant" value="Seafood"></h4>
+							 <h4>Mixed <input type="radio" name="restaurant" value="Mixed"></h4>
+							 <h4>Steakhouse <input type="radio" name="restaurant" value="Steakhouse"></h4>
+							 <h4>French <input type="radio" name="restaurant" value="French"></h4>
+							 <h4>Californian <input type="radio" name="restaurant" value="Californian"></h4>
 						</div>	
 						<button class="accordion" type="button">Live Shows</button>
 						<div class="panel">
-							 <h4>Musicals <input type="radio" name="liveshow" value="musical"></h4>
-							 <h4>Comedy Show <input type="radio" name="liveshow" value="comedy"></h4>
-							 <h4>Theater <input type="radio" name="liveshow" value="theater"></h4>
+							 <h4>Musicals <input type="radio" name="show" value="Musical"></h4>
+							 <h4>Comedy Show <input type="radio" name="show" value="Comedy"></h4>
+							 <h4>Theater <input type="radio" name="show" value="Theater"></h4>
 						</div>	
 					</div>			
 					<div class="quant">
