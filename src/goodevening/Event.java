@@ -122,6 +122,8 @@ public class Event {
 	
 	public String getSubcategory() { return subCategory; }
 
+	public String getImage() { return image; }
+	
 	public void setStartTime(int newStartTime) {
 		if(!timeDependent) startTime = newStartTime;
 	}

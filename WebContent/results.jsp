@@ -17,21 +17,6 @@
 	<%
 	}
 	%>
-<%-- <% List<Event> events = (ArrayList<Event>)request.getAttribute("result");
- 
-	if(events != null){
-	    for(Event e : events)
-	    {
-	        %> <h1>Success</h1>
-	        <%
-	    }
-	}
-	else{
-        %> <h1>Fail</h1>
-        <%
-	}
- 
-%> --%>
 	<body>
 		<div id="header">
 			<a href="index.jsp"><h1 style="display:inline-block">Good Evening</h1></a>
@@ -54,7 +39,7 @@
 							Event e = events.get(i);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
-										<div id="img"></div>
+										<div id="img"><img src=<%= e.getImage() %>></div>
 										<div id="startTime">Start Time: <%= e.getStartTime()%></div>
 										<div id="endTime">End Time: <%= e.getEndTime()%></div>
 				 						<div id="location"> <%= e.getLocation()%></div>

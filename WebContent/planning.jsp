@@ -149,14 +149,16 @@
 						"&eveningEnd="+eveningEnd+"&Restaurant="+restaurant+
 						"&Movie="+movie+"&Exhibition="+exhibition+
 						"&Show="+liveshow+"&Sightseeing="+sightseeing+"&Shopping="+shopping+"&userID="+<%=userID%>, true); 
-
+				xhttp.onreadystatechange = function(){
+					window.location.href="results.jsp";
+				}
 				xhttp.send();
-				window.location.href="results.jsp"
+				
  		}				
 
 		}
 	</script>
-		<%
+	<%
 	}
 	%>
 	
