@@ -18,7 +18,7 @@ CREATE TABLE EveningEvents (
     startTime INT(11), -- start time (only needed for movies) - need to figure out how to store as int
     endTime INT(11), -- end time (only needed for movies) - need to figure out how to store as int
     category VARCHAR(200) NOT NULL, -- category of event
-    subCategory VARCHAR(200), -- subcategory inside category (not needed for every event)
+    subCategory VARCHAR(200) NOT NULL, -- subcategory inside category (not needed for every event)
     timeDependant INT(2), -- 1 if time dependant, 0 if not time dependant,
     pictureURL VARCHAR(500)
 );
