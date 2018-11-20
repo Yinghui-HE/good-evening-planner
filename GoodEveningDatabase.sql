@@ -134,6 +134,18 @@ INSERT INTO EveningEvents (title, location, duration, startTime, endTime, catego
                     ('Overlord (2018)', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 109, 1720, 1909, 'Movie', 'Horror', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Overlord-Poster-2.jpg');
 
 
+-- Inserting Shopping
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Westfield Century City', '10250 Santa Monica Blvd, Los Angeles, CA 90067', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/media/activities/shopping/westfield_century_city_nordstrom_rendering.jpg'),
+					('The Bloc', '700 S Flower St Suite 2600, Los Angeles, CA 90017', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Bloc.jpg'),
+                    ('Hollywood & Highland', '6801 Hollywood Blvd #170, Los Angeles, CA 90028', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Hollywood%20and%20Highland.jpg'),
+                    ('The Grove', '189 The Grove Dr, Los Angeles, CA 90036', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/Activities/Shopping/Grove%201.jpg'),
+                    ('Beverly Center', '8500 Beverly Blvd, Los Angeles, CA 90048', 120, 'Shopping', '$$$', 0, 'http://dailytrojan.com/wp-content/uploads/2012/09/FNO-at-Beverly-Center_web.jpg'),
+                    ('The Americana', '889 Americana Way, Glendale, CA 91210', 120, 'Shopping', '$$$', 0, 'https://brianamontalban.files.wordpress.com/2013/03/americana-21.jpg'),
+                    ('Glendale Galleria', '100 W Broadway, Glendale, CA 91210', 120, 'Shopping', '$$', 0, 'https://c2.staticflickr.com/4/3272/3053770105_83db62d2b9_z.jpg'),
+                    ('Santa Monica Place', '395 Santa Monica Place, Santa Monica, CA 90401', 120, 'Shopping', '$$$', 0, 'http://cdn.archinect.net/images/1200x/mm/mmzh6jy9we33a8z9.jpg'),
+                    ('Westfield Topanga', '6600 Topanga Canyon Blvd, Canoga Park, CA 91303', 120, 'Shopping', '$$', 0, 'http://www.fuscoe.com/wp-content/uploads/2014/08/westfield-topanga-new-4.jpg'),
+                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg');
                     
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
     VALUES (1, 1830, 2100, 1, 2, 1, 3, 4, 1),
