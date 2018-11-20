@@ -8,15 +8,7 @@
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
-	<%
-	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");
-	%>
-	<script>
-	var userID = <%= userID%>
-	</script>
-	<%} %>
+
 	<script>
 	console.log("userID in index: " + userID);
 	function CheckLogIn(){
@@ -72,14 +64,6 @@
 	}
 	</script>
 	
-	<%
-	session = request.getSession();
-	if(session.getAttribute("userID") != null) {
-		int userID = (int)session.getAttribute("userID");
-	%> 
-	<%
-	}
-	%>
 	
 	<body>
 		<div id="header">
