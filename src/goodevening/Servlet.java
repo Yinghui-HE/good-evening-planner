@@ -421,8 +421,10 @@ public class Servlet extends HttpServlet {
 
 
                 while(rs.next()) {
-                    String startTime = rs.getString("startTime");
-                    String endTime = rs.getString("endTime");
+                    String start = rs.getString("startTime");
+                    String startTime = start.substring(0,2) + ":" + start.substring(2);
+                    String end = rs.getString("endTime");
+                    String endTime = end.substring(0,2) + ":" + end.substring(2);
                     int eveningId = rs.getInt("eveningID");
                     pw.println("<tr id='"+ eveningId + "'>");
                     pw.println("<th class='title'>" + startTime + "<br>-<br>" + endTime + "</th>");
