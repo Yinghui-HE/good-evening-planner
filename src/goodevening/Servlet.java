@@ -289,7 +289,7 @@ public class Servlet extends HttpServlet {
 			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
 				if(e.getDuration() <= eveningDuration &&
-					e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
+					e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd)
 				{
 					Event temp = new Event(e);
 					temp.setScore(preferences);
