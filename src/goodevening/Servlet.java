@@ -308,14 +308,18 @@ public class Servlet extends HttpServlet {
 					int newEnd = addTime(eveningStart, temp.getDuration());
 
 					//insert many possibilities of non-time-dependent events
-					while(newEnd <= eveningEnd) {
-						Event newOption = new Event(temp);
-						newOption.setStartTime(newStart);
-						newOption.setEndTime(newEnd);
-						options.add(newOption);
-						newStart = addTime(newStart, 20);
-						newEnd = addTime(newEnd, 20);
-					}
+                    while(newEnd <= eveningEnd) {
+    					Event newOption = new Event(temp);
+    					newOption.setStartTime(newStart);
+    					newOption.setEndTime(newEnd);
+                        int passedMin = timeToMin(minusTime(newStart, timeToMin(eveningStart)));
+                        if(passedMin / newOption.getDuration() % 2 == 1) {
+                            newOption.reduceScore();
+                        }
+    					options.add(newOption);
+    					newStart = addTime(newStart, 20);
+    					newEnd = addTime(newEnd, 20);
+    				}
 				}
 			}
 			//clean up original non-time-dependent events.
@@ -396,7 +400,7 @@ public class Servlet extends HttpServlet {
 					}
 				}
 			}
-			
+
     	}
 
 		else if(request.getParameter("displayHistory") != null) {
@@ -441,7 +445,7 @@ public class Servlet extends HttpServlet {
                         }
 
                     }
-          
+
                     pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("</tr>");
 
@@ -525,24 +529,30 @@ public class Servlet extends HttpServlet {
 //		//session
 //		HttpSession session = request.getSession();
 //		System.out.println("userID: " + (int)session.getAttribute("userID"));
-		
+
 	}
 
+    private static int timeToMin(int start) {
+        return start / 100 * 60 + start % 100;
+    }
 
-	//add time (in minutes) to start time
-	private static int addTime(int start, int time) {
-		int end = start / 100 * 60 + start % 100 + time;
-		return end / 60 * 100 + end % 60;
+    private static int minToTime(int min) {
+        return min / 60 * 100 + min % 60;
+    }
+
+    private static int addTime(int start, int time) {  //time is in minute
+		int end = timeToMin(start) + time;
+		return minToTime(end);
 	}
 
-	private static int minusTime(int end, int time) {
-		int start = end / 100 * 60 + end % 100 - time;
-		return start / 60 * 100 + start % 60;
+	private static int minusTime(int end, int time) {  //time is in minute
+		int start = timeToMin(end) - time;
+		return minToTime(start);
 	}
 
 	private static int computeDuration(int start, int end) {
-		start = start / 100 * 60 + start % 100;
-		end = end / 100 * 60 + end % 100;
+		start = timeToMin(start);
+		end = timeToMin(end);
 		return end - start;
 	}
 
