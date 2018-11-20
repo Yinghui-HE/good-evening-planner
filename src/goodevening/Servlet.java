@@ -288,8 +288,8 @@ public class Servlet extends HttpServlet {
 			System.out.println("duration: " + eveningDuration);
 			ArrayList<Event> options = new ArrayList<>();
 			for(Event e : allEvents) {
-				if(e.getDuration() <= eveningDuration && (!e.isTimeDependent() ||
-					e.isTimeDependent() && e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
+				if(e.getDuration() <= eveningDuration &&
+					e.getStartTime() >= eveningStart && e.getEndTime() <= eveningEnd))
 				{
 					Event temp = new Event(e);
 					temp.setScore(preferences);
