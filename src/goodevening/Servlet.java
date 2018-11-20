@@ -421,7 +421,7 @@ public class Servlet extends HttpServlet {
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
-                pw.println("<table style='width:100%'");
+                pw.println("<table style='width:100%'>");
 
 
                 while(rs.next()) {
