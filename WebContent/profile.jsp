@@ -68,6 +68,10 @@
 			    return false;
 			    <%}%>
 			}
+			
+			function saveEvening(id) {
+				
+			}
 			</script>
 	</head>
 	<body onload="connectToServer()">

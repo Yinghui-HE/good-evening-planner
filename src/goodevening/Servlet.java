@@ -443,6 +443,7 @@ public class Servlet extends HttpServlet {
                     }
           
                     pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
+                    pw.println("<th class='title' onclick=saveEvening("+eveningId+") >Click to Save this Evening</th>");
                     pw.println("</tr>");
 
                 }
@@ -493,7 +494,47 @@ public class Servlet extends HttpServlet {
     			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
     			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
 
-    			//Insert data about user if the user doesn't exists
+    			//Update the inUse in table EveningHistory
+    			ps = conn.prepareStatement("UPDATE EveningHistory SET inUse=1 WHERE eveningID=?");
+    			ps.setInt(1, (int)request.getSession().getAttribute("eveningID"));
+    			ps.executeUpdate();
+
+    		}catch(SQLException sqle) {
+                System.out.println("sqle: " + sqle.getMessage());
+            } catch(ClassNotFoundException cnfe){
+                System.out.println("cnfe: " + cnfe.getMessage());
+            } finally {
+                try {
+                    if(ps != null) {
+                        ps.close();
+                    }
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(st != null) {
+                        st.close();
+                    }
+                    if(conn != null) {
+                        conn.close();
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("sqle closing streams: " + sqle.getMessage());
+                }
+            }
+		}
+		else if(request.getParameter("saveEvening") != null) {
+			int eveningID = Integer.parseInt(request.getParameter("eveningID"));
+			userID = (int)request.getSession().getAttribute("userID");
+			Connection conn = null;
+    		Statement st = null;
+    		ResultSet rs = null;
+    		PreparedStatement ps = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver"); // get driver for database
+    			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/GoodEveningDatabase?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false"); // use the last driver used in the memory (URI)
+
+
     			ps = conn.prepareStatement("UPDATE EveningHistory SET inUse=1 WHERE eveningID=?");
     			ps.setInt(1, (int)request.getSession().getAttribute("eveningID"));
     			ps.executeUpdate();
