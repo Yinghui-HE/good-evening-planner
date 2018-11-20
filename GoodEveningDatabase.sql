@@ -116,6 +116,16 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
                     ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 'Art', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg', 1700, 1900);
 
 
+
+-- Inserting Shows
+INSERT INTO EveningEvents (title, location, startTime, endTime, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Laugh Factory - Open Mic', '8001 Sunset Blvd, Los Angeles, CA 90046',1800, 2000, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Laugh Factory - The Kevin Nealon Show', '8001 Sunset Blvd, Los Angeles, CA 90046',1930, 2130, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Laugh Factory - Rubee Tuesdays', '8001 Sunset Blvd, Los Angeles, CA 90046',2130, 2330, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Justin Timberlake', '1111 S Figueroa St, Los Angeles, CA 90015',2000, 2300, 180, 'Show', 'Musical', 1, 'https://cdn.vox-cdn.com/thumbor/iABmw4hnIYEFsEZ_ZNX3WeBhIzE=/0x0:500x375/1200x800/filters:focal(0x0:500x375)/cdn.vox-cdn.com/uploads/chorus_image/image/38828982/3337043313_ffc7a8a6ec-thumb.0.jpg'),
+					('Jorja Smith', '3790 Wilshire Blvd, Los Angeles, CA 90010',1900, 2100, 120, 'Show', 'Musical', 1, 'https://mavenprodcontent.blob.core.windows.net/media/TheWiltern/ImageGalleryWidget/VenueInfo_Gallery/Wiltern.07.jpg'),
+					('Valley of the Heart', '135 N Grand Ave, Los Angeles, CA 90012',2000, 2200, 120, 'Show', 'Theater', 1, 'https://c1.staticflickr.com/7/6023/5975400992_61cf2f9eff_b.jpg');
+
 -- Inserting Movies
 INSERT INTO EveningEvents (title, location, duration, startTime, endTime, category, subCategory, timeDependant, pictureURL)
 	VALUES ('Ralph Breaks the Internet', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 112, 1800, 1948, 'Movie', 'Animated', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Ralph-Breaks-the-Internet-Wreck-It-Ralph-2-poster-3.jpg'),
@@ -135,17 +145,20 @@ INSERT INTO EveningEvents (title, location, duration, startTime, endTime, catego
 
 
 -- Inserting Shopping
-INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
-	VALUES ('Westfield Century City', '10250 Santa Monica Blvd, Los Angeles, CA 90067', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/media/activities/shopping/westfield_century_city_nordstrom_rendering.jpg'),
-					('The Bloc', '700 S Flower St Suite 2600, Los Angeles, CA 90017', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Bloc.jpg'),
-                    ('Hollywood & Highland', '6801 Hollywood Blvd #170, Los Angeles, CA 90028', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Hollywood%20and%20Highland.jpg'),
-                    ('The Grove', '189 The Grove Dr, Los Angeles, CA 90036', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/Activities/Shopping/Grove%201.jpg'),
-                    ('Beverly Center', '8500 Beverly Blvd, Los Angeles, CA 90048', 120, 'Shopping', '$$$', 0, 'http://dailytrojan.com/wp-content/uploads/2012/09/FNO-at-Beverly-Center_web.jpg'),
-                    ('The Americana', '889 Americana Way, Glendale, CA 91210', 120, 'Shopping', '$$$', 0, 'https://brianamontalban.files.wordpress.com/2013/03/americana-21.jpg'),
-                    ('Glendale Galleria', '100 W Broadway, Glendale, CA 91210', 120, 'Shopping', '$$', 0, 'https://c2.staticflickr.com/4/3272/3053770105_83db62d2b9_z.jpg'),
-                    ('Santa Monica Place', '395 Santa Monica Place, Santa Monica, CA 90401', 120, 'Shopping', '$$$', 0, 'http://cdn.archinect.net/images/1200x/mm/mmzh6jy9we33a8z9.jpg'),
-                    ('Westfield Topanga', '6600 Topanga Canyon Blvd, Canoga Park, CA 91303', 120, 'Shopping', '$$', 0, 'http://www.fuscoe.com/wp-content/uploads/2014/08/westfield-topanga-new-4.jpg'),
-                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg');
+INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL, startTime, endTime)
+	VALUES ('Westfield Century City', '10250 Santa Monica Blvd, Los Angeles, CA 90067', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/media/activities/shopping/westfield_century_city_nordstrom_rendering.jpg', 1800, 2000),
+					('The Bloc', '700 S Flower St Suite 2600, Los Angeles, CA 90017', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Bloc.jpg', 1800, 2000),
+                    ('Hollywood & Highland', '6801 Hollywood Blvd #170, Los Angeles, CA 90028', 120, 'Shopping', '$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/activities/shopping/shopping_malls_marketplaces/Hollywood%20and%20Highland.jpg', 1900, 2100),
+                    ('The Grove', '189 The Grove Dr, Los Angeles, CA 90036', 120, 'Shopping', '$$$', 0, 'https://www.discoverlosangeles.com/sites/default/files/styles/article_section/public/media/Activities/Shopping/Grove%201.jpg', 1900, 2100),
+                    ('Beverly Center', '8500 Beverly Blvd, Los Angeles, CA 90048', 120, 'Shopping', '$$$', 0, 'http://dailytrojan.com/wp-content/uploads/2012/09/FNO-at-Beverly-Center_web.jpg', 2000, 2200),
+                    ('The Americana', '889 Americana Way, Glendale, CA 91210', 120, 'Shopping', '$$$', 0, 'https://brianamontalban.files.wordpress.com/2013/03/americana-21.jpg', 1700, 1900),
+                    ('Glendale Galleria', '100 W Broadway, Glendale, CA 91210', 120, 'Shopping', '$$', 0, 'https://c2.staticflickr.com/4/3272/3053770105_83db62d2b9_z.jpg', 1700, 1900),
+                    ('Santa Monica Place', '395 Santa Monica Place, Santa Monica, CA 90401', 120, 'Shopping', '$$$', 0, 'http://cdn.archinect.net/images/1200x/mm/mmzh6jy9we33a8z9.jpg', 2100, 2300),
+                    ('Westfield Topanga', '6600 Topanga Canyon Blvd, Canoga Park, CA 91303', 120, 'Shopping', '$$', 0, 'http://www.fuscoe.com/wp-content/uploads/2014/08/westfield-topanga-new-4.jpg', 2000, 2200),
+                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg', 1800, 2000),
+                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg', 1900, 2100),
+                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg', 2000, 2200),
+                    ('Citadel Outlets', '100 Citadel Dr, Commerce, CA 90040', 120, 'Shopping', '$', 0, 'http://www.lasplash.com/uploads/a6cb/5655deef9018d-citadel-outlets-moonlight-madness-1.jpg', 1700, 1900);
                     
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
     VALUES (1, 1830, 2100, 1, 2, 1, 3, 4, 1),
