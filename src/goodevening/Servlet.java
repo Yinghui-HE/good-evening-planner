@@ -442,14 +442,16 @@ public class Servlet extends HttpServlet {
                                 String picURL = rs2.getString("pictureURL");
                                 String title = rs2.getString("title");
 
-                                pw.println("<th class='title'><div class='container'><img src='" + picURL + "' width='100' height='100' class='resultimage'><div class='overlay'>" + title + "</div></div></th>");
+                                pw.println("<th class='title'><div class='container'><img src='" + picURL + "' width='143' height='100' class='resultimage'><div class='overlay'>" + title + "</div></div></th>");
                             }
                         }
 
                     }
-          
-                    pw.println("<th class='title' id='share' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
-                    pw.println("<th class='title' onclick=saveEvening("+eveningId+") >Click to Save this Evening</th>");
+
+
+                    pw.println("<th class='title' onclick=sendMessage("+eveningId+") id='share" + eveningId + "'>Click to Share this Evening</th>");
+                    pw.println("<th class='title' onclick=saveEvening("+eveningId+") id='save" + eveningId + "' style='visibility: hidden'>Click to Save this Evening</th>");
+
                     pw.println("</tr>");
 
                 }
