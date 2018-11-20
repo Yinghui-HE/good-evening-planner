@@ -76,7 +76,7 @@
 							String endTime = end.substring(0,2) + ":" + end.substring(2);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
-										<div id="img"><img src=<%= e.getImage() %>></div>
+										<div id="img"><img style="width: 80%" src=<%= e.getImage() %>></div>
 										<div id="startTime">Start Time: <%= startTime%></div>
 										<div id="endTime">End Time: <%= endTime%></div>
 				 						<div id="location"> <%= e.getLocation()%></div>
