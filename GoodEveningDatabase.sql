@@ -116,6 +116,16 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
                     ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 'Art', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg', 1700, 1900);
 
 
+
+-- Inserting Shows
+INSERT INTO EveningEvents (title, location, startTime, endTime, duration, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Laugh Factory - Open Mic', '8001 Sunset Blvd, Los Angeles, CA 90046',1800, 2000, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Laugh Factory - The Kevin Nealon Show', '8001 Sunset Blvd, Los Angeles, CA 90046',1930, 2130, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Laugh Factory - Rubee Tuesdays', '8001 Sunset Blvd, Los Angeles, CA 90046',2130, 2330, 120, 'Show', 'Comedy', 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Laugh_Factory_at_Night.jpg/1200px-Laugh_Factory_at_Night.jpg'),
+					('Justin Timberlake', '1111 S Figueroa St, Los Angeles, CA 90015',2000, 2300, 180, 'Show', 'Musical', 1, 'https://cdn.vox-cdn.com/thumbor/iABmw4hnIYEFsEZ_ZNX3WeBhIzE=/0x0:500x375/1200x800/filters:focal(0x0:500x375)/cdn.vox-cdn.com/uploads/chorus_image/image/38828982/3337043313_ffc7a8a6ec-thumb.0.jpg'),
+					('Jorja Smith', '3790 Wilshire Blvd, Los Angeles, CA 90010',1900, 2100, 120, 'Show', 'Musical', 1, 'https://mavenprodcontent.blob.core.windows.net/media/TheWiltern/ImageGalleryWidget/VenueInfo_Gallery/Wiltern.07.jpg'),
+					('Valley of the Heart', '135 N Grand Ave, Los Angeles, CA 90012',2000, 2200, 120, 'Show', 'Theater', 1, 'https://c1.staticflickr.com/7/6023/5975400992_61cf2f9eff_b.jpg');
+
 -- Inserting Movies
 INSERT INTO EveningEvents (title, location, duration, startTime, endTime, category, subCategory, timeDependant, pictureURL)
 	VALUES ('Ralph Breaks the Internet', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 112, 1800, 1948, 'Movie', 'Animated', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Ralph-Breaks-the-Internet-Wreck-It-Ralph-2-poster-3.jpg'),
