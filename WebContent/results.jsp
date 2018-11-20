@@ -8,12 +8,35 @@
 		<meta charset="UTF-8">
 		<title>Good Evening</title>
 		<link rel="stylesheet" type="text/css" href="results.css">
+		<%
+		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");
+		%> 
 		<script>
-			function save(){
+		console.log("userID in result.jsp: " + <%= userID%>);
+		</script>
+		<%
+		}
+		%>
+		<script>
+			function save(eveningID, userID){
+				if(userID != -1) {
+					var xhttp = new XMLHttpRequest();
+					xhttp.open("GET", "Servlet?save=true", false); 
+					xhttp.onreadystatechange = function(){
+						window.location.href = "profile.jsp";
+					}
+					xhttp.send();
+				}
+				else
+				{
+					document.getElementById("saveError").innerHTML = "You need to log in to save the evening.";
+				}
 				
 			}
-			function share(){
-				
+			function retry(){
+				document.location.href = "planning.jsp";
 			}
 		</script>
 	</head>
@@ -21,6 +44,7 @@
 	session = request.getSession();
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
+		
 	%> 
 	<%
 	}
@@ -28,7 +52,7 @@
 
 	<body>
 		<div id="header">
-			<a href="index.jsp"><h1 style="display:inline-block">Good Evening</h1></a>
+			<h1 style="display:inline-block">Good Evening</h1>
 		</div>
 		<div id="icon">
 			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"></a>
@@ -67,12 +91,19 @@
 					%>
 				</div>
 			</div>
-			<div id="redo">
-				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
-			</div>
 			<div id="saveShare">
-				<button id="share" style="font-size: 24px;" onclick="share()">Share</button>
-				<button id="save" style="font-size: 24px;" onclick="save()"> Save</button>
+				<button id="retry" style="font-size: 24px;" onclick="retry();">Retry</button>
+				<%
+				if(session.getAttribute("eveningID") != null) {
+					int eveningID = (int)session.getAttribute("eveningID");
+					int userID = (int)session.getAttribute("userID");
+				%>
+				
+				<button id="save" style="font-size: 24px;" onclick="save(<%=eveningID%>, <%=userID%>)"> Save</button>
+				<%	
+				}
+				%>
+				<h4 id="saveError"></h4>
 			</div>
 		</div>
 		<div id="footer">
@@ -80,9 +111,4 @@
 			<h6>Yinghui (Linda) He, Guancheng “Ivan” Qiu, Cameron Haseyama, Will DuCharme, Gaurav Malhotra</h6>	
 		</div>
 	</body>
-	<script>
-		function retry(){
-			document.location.href = "planning.jsp";
-		}
-	</script>
 </html>

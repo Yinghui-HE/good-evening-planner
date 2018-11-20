@@ -9,6 +9,14 @@
 		<link rel="stylesheet" type="text/css" href="profile.css">
 		<%
 		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");
+		%> 
+		<script>
+		console.log("userID in profile.jsp: " + <%= userID%>);
+		</script>
+		<%
+		}
 		%>
 		<script>
 			function logOut(){
@@ -22,14 +30,22 @@
 					
 				}
 			}
+			function logIn(){
+				window.location.href="index.jsp";
+			}
+			function planning(){
+				window.location.href="planning.jsp";
+			}
 		</script>
 		<script>
+			/*
+			* Multithreading code: Broadcast shared evenings to all other users
+			*/
     		var socket;
-    
 			function connectToServer() {
 			    socket = new WebSocket("ws://localhost:8080/good-evening-planner/ws");
 			    socket.onopen = function(event) {
-			        //document.getElementById("newsfeed").innerHTML += "Connected!";
+			    	document.getElementById("pokes").innerHTML += "Connected";
 			    }
 			    socket.onmessage = function(event) {
 			        //location.reload();
@@ -37,45 +53,59 @@
 			        
 			    }
 			    socket.onclose = function(event) {
-			        //document.getElementById("mychat").innerHTML += "Disconnected!";
+			        document.getElementById("pokes").innerHTML += "Disconnected";
 			    }
 			}
+
 			function sendMessage(id) {
 				<%
 					String username = "";
 					if(session.getAttribute("username") != null) {
 					username = (String)session.getAttribute("username");
-					}
 				%>
-			    console.log(<%=username%> + ": " + document.getElementById(id).innerHTML);
-			    socket.send(<%=username%> + ": " + document.getElementById(id).innerHTML);
+			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
+			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    return false;
+			    <%}%>
 			}
 			</script>
 	</head>
 	<body onload="connectToServer()">
 		<div id="header">
-			<a href="index.jsp"><h1 style="display: inline-block;">Good Evening</h1></a>
+			<h1 style="display: inline-block;">Good Evening</h1>
 		</div>
 		<div id="icon">
-			<a href="profile.jsp"><img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/></a>
+			<img src="user.png" style="width: 50px; padding-right: 50px; margin-bottom: 0px; float: right;"/>
 		</div>
 		<br>
 		<div id="body">
 			<div id="evenings">
 			
 			</div>
-			<div id="pokes">
+			<div id="notifications">
 				<h2>Notifications</h2>
+				<table id = "pokes">
+				</table>
 			</div>
-			<div id = "share">
+<!-- 			<div id = "share">
 				<form name="chatform" onsubmit="return sendMessage();">
+				<input type="text" name="user" value="Type Here" /><br />
 				<input type="text" name="message" value="Type Here" /><br />
 				<input type="submit" name="submit" value="Send Message"/><br />
 				</form>
-			</div>
-			<div id="logout">
-				<button style="float: right;" onclick="logOut()">Log Out</button>
+			</div> -->
+			<div id="buttons">
+				<button id="planning" onclick="planning()">Plan Your Evening</button>
+				<%
+				if(session.getAttribute("userID") != null) { 
+					if((int)session.getAttribute("userID") != -1){
+					%>
+						<button id="log-out" onclick="logOut()">Log Out</button>
+				<%	}else{ %>
+						<button id="log-in" onclick="logIn()">Log In</button>
+					<%}}
+				%>
+				
 			</div>
 		</div>
 		<div id="footer">
@@ -108,6 +138,7 @@
 	
 	
 	<%
+
 	if(session.getAttribute("userID") != null) {
 		int userID = (int)session.getAttribute("userID");
 		if(userID != -1) {
@@ -124,6 +155,7 @@
 
 	<% 
 	}}
+
 	%>
 	
 	
