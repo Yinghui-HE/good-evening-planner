@@ -448,8 +448,10 @@ public class Servlet extends HttpServlet {
 
                     }
 
+
                     pw.println("<th class='title' onclick=sendMessage("+eveningId+") id='share" + eveningId + "'>Click to Share this Evening</th>");
                     pw.println("<th class='title' onclick=saveEvening("+eveningId+") id='save" + eveningId + "' style='visibility: hidden'>Click to Save this Evening</th>");
+
                     pw.println("</tr>");
 
                 }

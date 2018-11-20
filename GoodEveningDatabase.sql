@@ -49,7 +49,20 @@ INSERT INTO Users(userID, username, userPassword)
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
 	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 120, 'Sightseeing', 'Urban', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
 					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 120, 'Sightseeing', 'Urban',0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
-                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg');
+                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg'),
+                    ('The Wisdom Tree Trail', 'Tree of Life Trail, Los Angeles, CA 90068', 120, 'Sightseeing','Outdoors', 0, 'https://cdn2.lamag.com/wp-content/uploads/sites/6/2016/03/52WisdomTree-1.jpg'),
+					('George F Canyon', '27305 Palos Verdes Dr East, Rolling Hills Estates', 120, 'Sightseeing', 'Outdoors', 0, 'https://media.timeout.com/images/104085830/630/472/image.jpg'),
+					('Echo Mountain', 'Echo Mountain (Mount Lowe Railroad Trail), Altadena, CA 91001', 120, 'Sightseeing', 'Outdoors', 0, 'https://images1.laweekly.com/imager/u/745xauto/6044483/echo-mountain-best-night-hike-clarissa-wei.jpg'),
+					('Runyon Canyon', '2000 N Fuller Ave, Los Angeles, CA 90046', 120, 'Sightseeing', 'Outdoors', 0, 'http://1.bp.blogspot.com/-uAKPHQLKg5A/WIqI3MccHpI/AAAAAAAAB3E/xpQKUiH__cEDMs_UuDURjreWBUnbsQ0GgCK4B/s1600/IMG_8353.JPG'),
+					('Hollywood Walk of Fame', 'N Highland Ave & Hollywood Boulevard, Los Angeles, CA 90028', 120, 'Sightseeing', 'Urban', 0, 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/GbbtDTW/hollywood-walk-of-fame-stars-at-dusk-timelapse_ny_ssayh__F0013.png'),
+					('Pacific Park', 'Pacific Park, 380 Santa Monica Pier, Santa Monica, CA', 120, 'Sightseeing', 'Urban', 0, 'https://ssl.c.photoshelter.com/img-get2/I0000CsAXftKLbaU/fit=1000x750/04-Santa-Monica-Pier-Pacific-Park-Entrance.jpg'),
+					('Universal CityWalk', 'Universal City Walk, 100 Universal City Plaza, Universal City, CA', 120, 'Sightseeing', 'Urban', 0, 'https://www.travelingmom.com/wp-content/uploads/2016/05/78.jpg'),
+					('The Bradbury Building', '304 S Broadway, Los Angeles, CA 90013', 120, 'Sightseeing', 'Urban', 0, 'https://media.timeout.com/images/102931906/630/472/image.jpg'),
+					('Santa Monica Stairs', '4th St & Adelaide Dr, Santa Monica, CA 90402', 120, 'Sightseeing', 'Urban', 0, 'http://www.ambrosehotel.com/wp-content/uploads/2017/06/Santa-Monica-Summer.jpg'),
+					('Space Shuttle Endeavor', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Sightseeing', 'Urban', 0, 'https://www.travelcaffeine.com/wp-content/uploads/2017/03/space-shuttle-endeavour-california-science-center-los-angeles-20170306361.jpg'),
+					('Downtown LA Art Walk', '4th St & Spring St, Los Angeles, CA 90013', 120, 'Sightseeing', 'Urban', 0, 'https://culturela.org/wp-content/uploads/2017/02/418034_304725559582175_1754485111_n.jpg'),
+					('Chinatown', '943 N Broadway, Los Angeles, CA 90012', 120, 'Sightseeing', 'Urban', 0, 'http://www.welikela.com/wp-content/uploads/2018/08/chinatown-summer-nights-2.jpg');
+
                     
 -- Inserting Restaurants
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
@@ -67,8 +80,11 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
                     ('Spago', '176 N Canon Dr, Beverly Hills, CA 90210', 90, 'Restaurant', 'Californian', 0, 'https://beverlyhillsmagazine.com/wp-content/uploads/SPAGO-Beverly-Hills-Restaurant-Beverly-Hills-restaurant-beverly-hills-magazine-7.jpg'),
                     ('Wolfgang Puck', '800 W Olympic Blvd, Los Angeles, CA 90015', 90, 'Restaurant', 'Californian', 0, 'https://ritzcarlton-h.assetsadobe.com/is/image/content/dam/the-ritz-carlton/hotels/usa-and-canada/california/los-angeles/dining/RCLOSAN_00159.png?$XlargeViewport100pct$'),
                     ('Broken Spanish', '1050 S Flower St, Los Angeles, CA 90015', 90, 'Restaurant', 'Mexican', 0, 'https://archinect.imgix.net/uploads/kx/kxauqchk3q4qsve7.jpg?fit=crop&auto=compress%2Cformat&w=615'),
-                    ('Guelaguetza', '3014 W Olympic Blvd, Los Angeles, CA 90006', 90, 'Restaurant', 'Mexican', 0, 'https://static1.squarespace.com/static/568b10bd841aba419c386869/569865149cadb68b382731b3/5698671869a91abbe6d8205f/1452828446985/IMG_2347.jpg?format=1500w');
-                    
+                    ('Guelaguetza', '3014 W Olympic Blvd, Los Angeles, CA 90006', 90, 'Restaurant', 'Mexican', 0, 'https://static1.squarespace.com/static/568b10bd841aba419c386869/569865149cadb68b382731b3/5698671869a91abbe6d8205f/1452828446985/IMG_2347.jpg?format=1500w'),
+                    ('Parks BBQ', '955 S Vermont Ave G, Los Angeles, CA 90006', 90, 'Restaurant', 'Koreanbarbecue', 0, 'https://c1.staticflickr.com/8/7189/6942927829_f00f0628de_b.jpg'),
+					('Shibumi', '815 S Hill St, Los Angeles, CA 90014', 90, 'Restaurant', 'Asian', 0, 'http://www.whiteguide-nordic.com/sites/default/files/imagecache/lightbox/bs_shibumi_bar-press.jpg'),
+					('Orsa and Winston', '122 W 4th St, Los Angeles, CA 90013', 90, 'Restaurant', 'Asian', 0, 'https://cdn.vox-cdn.com/thumbor/_gi59G0sjThxV_xhqtpfq84xM0g=/77x0:1470x1045/1200x800/filters:focal(77x0:1470x1045)/cdn.vox-cdn.com/uploads/chorus_image/image/44359928/orsa_winston.0.0.jpg');
+      
 -- Inserting Exhibitions
 
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
@@ -83,7 +99,7 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
 
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
     VALUES (1, 1830, 2100, 1, 2, 1, 3, 4, 1),
-                    (1,1900, 2300, 3, 4, 1, 2, 4, 1),
+                    (1, 1900, 2300, 3, 4, 1, 2, 4, 1),
                     (1, 1830, 2000, 1, 2, 1, 3, 4, 1),
                     (1, 1935, 2300, 3, 4, 1, 2, 4,1),
                     (1, 1930, 2300, 3, 4, 1, 2, 4,0);
