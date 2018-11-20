@@ -68,6 +68,21 @@
 			    return false;
 			    <%}%>
 			}
+			
+			function saveEvening(id) {
+				<%
+					if(session.getAttribute("username") != null) {
+					username = (String)session.getAttribute("username");
+				%>
+				console.log("<%=username%>" + "is saving event" + id);
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("GET", "Servlet?saveEvening=true&eveningID="+id, true); 
+				xhttp.onreadystatechange = function(){
+					alert("Evening saved");
+				}
+				xhttp.send();
+				<%}%>
+			}
 			</script>
 	</head>
 	<body onload="connectToServer()">
