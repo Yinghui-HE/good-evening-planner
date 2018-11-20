@@ -49,19 +49,19 @@ INSERT INTO Users(userID, username, userPassword)
 INSERT INTO EveningEvents (title, location, duration, category, subCategory, timeDependant, pictureURL)
 	VALUES ('Griffith Observatory', '2800 E Observatory Rd Los Angeles, CA 90027', 120, 'Sightseeing', 'Urban', 0, 'https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg'),
 					('OUE Skyscape LA', '633 W Fifth St Los Angeles, CA 90071', 120, 'Sightseeing', 'Urban',0, 'https://images.musement.com/cover/0001/100/thumb_99883_cover_header.jpeg?w=900'),
-                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg')
+                    ('Urban Lights at LACMA', '5905 Wilshire Blvd Los Angeles, CA 90036', 120, 'Sightseeing', 'Urban', 0, 'https://a.scpr.org/i/f7c2a257da1ffad304ae1b93fd1158d7/105035-eight.jpg'),
                     ('The Wisdom Tree Trail', 'Tree of Life Trail, Los Angeles, CA 90068', 120, 'Sightseeing','Outdoors', 0, 'https://cdn2.lamag.com/wp-content/uploads/sites/6/2016/03/52WisdomTree-1.jpg'),
 					('George F Canyon', '27305 Palos Verdes Dr East, Rolling Hills Estates', 120, 'Sightseeing', 'Outdoors', 0, 'https://media.timeout.com/images/104085830/630/472/image.jpg'),
 					('Echo Mountain', 'Echo Mountain (Mount Lowe Railroad Trail), Altadena, CA 91001', 120, 'Sightseeing', 'Outdoors', 0, 'https://images1.laweekly.com/imager/u/745xauto/6044483/echo-mountain-best-night-hike-clarissa-wei.jpg'),
 					('Runyon Canyon', '2000 N Fuller Ave, Los Angeles, CA 90046', 120, 'Sightseeing', 'Outdoors', 0, 'http://1.bp.blogspot.com/-uAKPHQLKg5A/WIqI3MccHpI/AAAAAAAAB3E/xpQKUiH__cEDMs_UuDURjreWBUnbsQ0GgCK4B/s1600/IMG_8353.JPG'),
 					('Hollywood Walk of Fame', 'N Highland Ave & Hollywood Boulevard, Los Angeles, CA 90028', 120, 'Sightseeing', 'Urban', 0, 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/GbbtDTW/hollywood-walk-of-fame-stars-at-dusk-timelapse_ny_ssayh__F0013.png'),
 					('Pacific Park', 'Pacific Park, 380 Santa Monica Pier, Santa Monica, CA', 120, 'Sightseeing', 'Urban', 0, 'https://ssl.c.photoshelter.com/img-get2/I0000CsAXftKLbaU/fit=1000x750/04-Santa-Monica-Pier-Pacific-Park-Entrance.jpg'),
-					('Universal CityWalk', 'Universal City Walk, 100 Universal City Plaza, Universal City, CA', 120, 'Urban', 0, 'https://www.travelingmom.com/wp-content/uploads/2016/05/78.jpg'),
-					('The Bradbury Building', '304 S Broadway, Los Angeles, CA 90013', 120, 'Urban', 0, 'https://media.timeout.com/images/102931906/630/472/image.jpg'),
-					('Santa Monica Stairs', '4th St & Adelaide Dr, Santa Monica, CA 90402', 120, 'Urban', 0, 'http://www.ambrosehotel.com/wp-content/uploads/2017/06/Santa-Monica-Summer.jpg'),
-					('Space Shuttle Endeavor', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Urban', 0, 'https://www.travelcaffeine.com/wp-content/uploads/2017/03/space-shuttle-endeavour-california-science-center-los-angeles-20170306361.jpg'),
-					('Downtown LA Art Walk', '4th St & Spring St, Los Angeles, CA 90013', 120, 'Urban', 0, 'https://culturela.org/wp-content/uploads/2017/02/418034_304725559582175_1754485111_n.jpg'),
-					('Chinatown', '943 N Broadway, Los Angeles, CA 90012', 120, 'Urban', 0, 'http://www.welikela.com/wp-content/uploads/2018/08/chinatown-summer-nights-2.jpg');
+					('Universal CityWalk', 'Universal City Walk, 100 Universal City Plaza, Universal City, CA', 120, 'Sightseeing', 'Urban', 0, 'https://www.travelingmom.com/wp-content/uploads/2016/05/78.jpg'),
+					('The Bradbury Building', '304 S Broadway, Los Angeles, CA 90013', 120, 'Sightseeing', 'Urban', 0, 'https://media.timeout.com/images/102931906/630/472/image.jpg'),
+					('Santa Monica Stairs', '4th St & Adelaide Dr, Santa Monica, CA 90402', 120, 'Sightseeing', 'Urban', 0, 'http://www.ambrosehotel.com/wp-content/uploads/2017/06/Santa-Monica-Summer.jpg'),
+					('Space Shuttle Endeavor', '700 Exposition Park Dr, Los Angeles, CA 90037', 120, 'Sightseeing', 'Urban', 0, 'https://www.travelcaffeine.com/wp-content/uploads/2017/03/space-shuttle-endeavour-california-science-center-los-angeles-20170306361.jpg'),
+					('Downtown LA Art Walk', '4th St & Spring St, Los Angeles, CA 90013', 120, 'Sightseeing', 'Urban', 0, 'https://culturela.org/wp-content/uploads/2017/02/418034_304725559582175_1754485111_n.jpg'),
+					('Chinatown', '943 N Broadway, Los Angeles, CA 90012', 120, 'Sightseeing', 'Urban', 0, 'http://www.welikela.com/wp-content/uploads/2018/08/chinatown-summer-nights-2.jpg');
 
                     
 -- Inserting Restaurants
