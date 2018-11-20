@@ -82,9 +82,9 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
 
 
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
-    VALUES (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4, 1),
-                    (1,'7:00 PM', '11:00 PM', 3, 4, 1, 2, 4, 1),
-                    (1, '6:30 PM', '10:00 PM', 1, 2, 1, 3, 4, 1),
-                    (1,'7:35 PM', '11:00 PM', 3, 4, 1, 2, 4,1),
-                    (1,'7:30 PM', '11:00 PM', 3, 4, 1, 2, 4,0);
+    VALUES (1, 1830, 2100, 1, 2, 1, 3, 4, 1),
+                    (1,1900, 2300, 3, 4, 1, 2, 4, 1),
+                    (1, 1830, 2000, 1, 2, 1, 3, 4, 1),
+                    (1, 1935, 2300, 3, 4, 1, 2, 4,1),
+                    (1, 1930, 2300, 3, 4, 1, 2, 4,0);
 

@@ -9,6 +9,14 @@
 		<link rel="stylesheet" type="text/css" href="profile.css">
 		<%
 		session = request.getSession();
+		if(session.getAttribute("userID") != null) {
+			int userID = (int)session.getAttribute("userID");
+		%> 
+		<script>
+		console.log("userID in profile.jsp: " + <%= userID%>);
+		</script>
+		<%
+		}
 		%>
 		<script>
 			function logOut(){
@@ -57,10 +65,22 @@
 				%>
 			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
-			    <%
-					}
-				%>
 			    return false;
+			}
+			
+			function saveEvening(id) {
+				<%
+					if(session.getAttribute("username") != null) {
+					username = (String)session.getAttribute("username");
+				%>
+				console.log("<%=username%>" + "is saving event" + id);
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("GET", "Servlet?saveEvening=true&eveningID="+id, true); 
+				xhttp.onreadystatechange = function(){
+					alert("Evening saved");
+				}
+				xhttp.send();
+				<%}%>
 			}
 			</script>
 	</head>
