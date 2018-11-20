@@ -67,7 +67,7 @@
 
 			    document.getElementById('save' + id).style.visibility="visible";
 			    document.getElementById('share' + id).style.visibility="hidden";
-			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
+			    socket.send("<h3>"+"<%=username%>" + ": " +"</h3>"+ document.getElementById(id).innerHTML);
 			    document.getElementById('share' + id).style.visibility="visible";
 			    document.getElementById('save' + id).style.visibility="hidden";
 

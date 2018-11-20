@@ -97,6 +97,25 @@ INSERT INTO EveningEvents (title, location, duration, category, subCategory, tim
                     ('Hammer Museum', '10899 Wilshire Blvd, Los Angeles, CA 90024', 120, 'Exhibition', 'Art', 0, 'https://media-cdn.tripadvisor.com/media/photo-s/0e/b1/8b/9f/hammer-museum-courtyard.jpg');
 
 
+-- Inserting Movies
+INSERT INTO EveningEvents (title, location, duration, startTime, endTime, category, subCategory, timeDependant, pictureURL)
+	VALUES ('Ralph Breaks the Internet', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 112, 1800, 1948, 'Movie', 'Animated', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Ralph-Breaks-the-Internet-Wreck-It-Ralph-2-poster-3.jpg'),
+					('Ralph Breaks the Internet', '189 The Grove Drive, Los Angeles, CA 90036', 112, 1600, 1748, 'Movie', 'Animated', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Ralph-Breaks-the-Internet-Wreck-It-Ralph-2-poster-3.jpg'),
+                    ('Instant Family', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 119, 1900, 2059, 'Movie', 'Comedy', 1, 'https://www.showbizjunkies.com/wp-content/uploads/2018/09/instant-family-poster-407x600.jpg'),
+                    ('Instant Family', '189 The Grove Drive, Los Angeles, CA 90036', 119, 2200, 2359, 'Movie', 'Comedy', 1, 'https://www.showbizjunkies.com/wp-content/uploads/2018/09/instant-family-poster-407x600.jpg'),
+                    ('A Star Is Born', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 135, 1700, 1915, 'Movie', 'Romantic', 1, 'https://upload.wikimedia.org/wikipedia/en/3/39/A_Star_is_Born.png'),
+                    ('A Star Is Born', '189 The Grove Drive, Los Angeles, CA 90036', 135, 1800, 2015, 'Movie', 'Romantic', 1, 'https://upload.wikimedia.org/wikipedia/en/3/39/A_Star_is_Born.png'),
+                    ('Fantastic Beasts: The Crimes of Grindelwald', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 134, 1900, 2114, 'Movie', 'Adventure', 1, 'https://img.solarcdn.ru/2018/11/16/poster/d3b5bd8e1644b744fcbeaf9becce54f7-fantastic-beasts-the-crimes-of-grindelwald.jpg'),
+                    ('Fantastic Beasts: The Crimes of Grindelwald', '189 The Grove Drive, Los Angeles, CA 90036', 134, 2230, 2444, 'Movie', 'Adventure', 1, 'https://img.solarcdn.ru/2018/11/16/poster/d3b5bd8e1644b744fcbeaf9becce54f7-fantastic-beasts-the-crimes-of-grindelwald.jpg'),
+					('Overlord (2018)', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 109, 1420, 1609, 'Movie', 'Adventure', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Overlord-Poster-2.jpg'),
+                    ('Overlord (2018)', '189 The Grove Drive, Los Angeles, CA 90036', 109, 2015, 2204, 'Movie', 'Adventure', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Overlord-Poster-2.jpg'),
+					('Bohemian Raphsody', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 135, 1900, 2115, 'Movie', 'Drama', 1, 'https://upload.wikimedia.org/wikipedia/en/2/2e/Bohemian_Rhapsody_poster.png'),
+                    ('Bohemian Raphsody', '189 The Grove Drive, Los Angeles, CA 90036', 135, 2230, 2445, 'Movie', 'Drama', 1, 'https://upload.wikimedia.org/wikipedia/en/2/2e/Bohemian_Rhapsody_poster.png'),
+                    ('Overlord (2018)', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 109, 2030, 2219, 'Movie', 'Horror', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Overlord-Poster-2.jpg'),
+                    ('Overlord (2018)', '1000 W. Olympic Blvd., Los Angeles, CA 90015', 109, 1720, 1909, 'Movie', 'Horror', 1, 'http://www.blackfilm.com/read/wp-content/uploads/2018/09/Overlord-Poster-2.jpg');
+
+
+                    
 INSERT INTO EveningHistory (userID, startTime, endTime, eventID1, eventID2 ,eventID3 ,eventID4 ,eventID5, inUse)
     VALUES (1, 1830, 2100, 1, 2, 1, 3, 4, 1),
                     (1, 1900, 2300, 3, 4, 1, 2, 4, 1),
