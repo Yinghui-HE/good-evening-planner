@@ -66,7 +66,6 @@
 			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    return false;
-			    <%}%>
 			}
 			
 			function saveEvening(id) {
@@ -102,13 +101,6 @@
 				<table id = "pokes">
 				</table>
 			</div>
-<!-- 			<div id = "share">
-				<form name="chatform" onsubmit="return sendMessage();">
-				<input type="text" name="user" value="Type Here" /><br />
-				<input type="text" name="message" value="Type Here" /><br />
-				<input type="submit" name="submit" value="Send Message"/><br />
-				</form>
-			</div> -->
 			<div id="buttons">
 				<button id="planning" onclick="planning()">Plan Your Evening</button>
 				<%
