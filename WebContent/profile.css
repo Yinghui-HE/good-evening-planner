@@ -148,3 +148,7 @@ th{
 .container:hover .overlay {
   opacity: 1;
 }
+
+#notificatoin #pokes #share {
+	display: none;
+}

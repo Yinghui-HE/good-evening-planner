@@ -444,7 +444,7 @@ public class Servlet extends HttpServlet {
 
                     }
           
-                    pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
+                    pw.println("<th class='title' id='share' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("<th class='title' onclick=saveEvening("+eveningId+") >Click to Save this Evening</th>");
                     pw.println("</tr>");
 
