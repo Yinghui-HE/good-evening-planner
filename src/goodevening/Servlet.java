@@ -304,29 +304,18 @@ public class Servlet extends HttpServlet {
 			for(int i = 0; i < optionsNum; i++) {
 				Event temp = options.get(i);
 				if(!(temp.isTimeDependent())) {
-					int newStart = eveningStart;
-					int newEnd = addTime(eveningStart, temp.getDuration());
-
-					//insert many possibilities of non-time-dependent events
-                    while(newEnd <= eveningEnd) {
+                    int newStart = addTime(temp.getStartTime(), 10);
+    				int newEnd = addTime(newStart, temp.getDuration());
+    				//insert many possibilities of non-time-dependent events
+                    while(newEnd <= eveningEnd && newStart <= addTime(newStart, temp.getDuration() + 10)) {
     					Event newOption = new Event(temp);
     					newOption.setStartTime(newStart);
     					newOption.setEndTime(newEnd);
                         int passedMin = timeToMin(minusTime(newStart, timeToMin(eveningStart)));
-                        if(passedMin / newOption.getDuration() % 2 == 1) {
-                            newOption.reduceScore();
-                        }
     					options.add(newOption);
-    					newStart = addTime(newStart, 20);
-    					newEnd = addTime(newEnd, 20);
+    					newStart = addTime(newStart, 10);
+    					newEnd = addTime(newEnd, 10);
     				}
-				}
-			}
-			//clean up original non-time-dependent events.
-			for(int i = 0; i < options.size(); i++) {
-				if(options.get(i).getStartTime() == 0) {
-					options.remove(i);
-					i--;
 				}
 			}
 
