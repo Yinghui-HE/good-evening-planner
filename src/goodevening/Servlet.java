@@ -421,7 +421,7 @@ public class Servlet extends HttpServlet {
                 rs = ps.executeQuery();
                 PrintWriter pw = response.getWriter();
                 pw.println("<h1>Past Evenings</h1>");
-                pw.println("<table style='width:100%'");
+                pw.println("<table style='width:100%'>");
 
 
                 while(rs.next()) {
@@ -447,8 +447,8 @@ public class Servlet extends HttpServlet {
                         }
 
                     }
-
-                    pw.println("<th class='title' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
+          
+                    pw.println("<th class='title' id='share' onclick=sendMessage("+eveningId+") >Click to Share this Evening</th>");
                     pw.println("<th class='title' onclick=saveEvening("+eveningId+") >Click to Save this Evening</th>");
                     pw.println("</tr>");
 
