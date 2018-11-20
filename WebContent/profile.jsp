@@ -66,6 +66,7 @@
 			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
 			    socket.send("<h3>"+"<%=username%>" +": " + "</h3>"+ document.getElementById(id).innerHTML);
 			    return false;
+			    <%}%>
 			}
 			
 			function saveEvening(id) {
