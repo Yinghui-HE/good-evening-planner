@@ -1,5 +1,7 @@
 # Good Evening
 [![GitHub license](https://img.shields.io/github/license/dipakkr/A-to-Z-Resources-for-Students.svg?style=plastic)](https://github.com/dipakkr/A-to-Z-Resources-for-Students/blob/master/LICENSE)
+![coverage](https://img.shields.io/badge/coverage-100%25-green.svg?maxAge=2592000)
+
 A planner for a most memorable evening, unique to you.
 
 ## Overview
