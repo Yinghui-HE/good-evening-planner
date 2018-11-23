@@ -311,7 +311,6 @@ public class Servlet extends HttpServlet {
     					Event newOption = new Event(temp);
     					newOption.setStartTime(newStart);
     					newOption.setEndTime(newEnd);
-                        int passedMin = timeToMin(minusTime(newStart, timeToMin(eveningStart)));
     					options.add(newOption);
     					newStart = addTime(newStart, 10);
     					newEnd = addTime(newEnd, 10);
