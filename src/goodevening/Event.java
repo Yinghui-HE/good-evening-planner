@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class Event {
 	private final static double UNPREFERRED_SCORE = 1;
-    private final static double NORMAL_SCORE = 2;
-	private final static double PREFERRED_SCORE_MIN = 0.1;
+    private final static double NORMAL_SCORE = 3;
+	private final static double PREFERRED_RESTAURANT_SCORE_MIN = 0.1;
+	private final static double PREFERRED_SHOW_SCORE_MIN = 0.15;
+	private final static double PREFERRED_MOVIE_SCORE_MIN = 0.15;
     private final static double PREFERRED_SIGHTSEEING_SCORE = 11;
 	private final static String RESTAURANT_TAG = "Restaurant";
 	private final static String MOVIE_TAG = "Movie";
@@ -64,14 +66,14 @@ public class Event {
 			if(preferences.get(RESTAURANT_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
 			else if(subCategory.equals(preferences.get(RESTAURANT_INDEX)))
-				score = duration * PREFERRED_SCORE_MIN;
+				score = duration * PREFERRED_RESTAURANT_SCORE_MIN;
 			else score = NORMAL_SCORE;
 		}
 		else if(category.equals(MOVIE_TAG)) {
 			if(preferences.get(MOVIE_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
 			else if(subCategory.equals(preferences.get(MOVIE_INDEX)))
-				score = duration * PREFERRED_SCORE_MIN;
+				score = duration * PREFERRED_MOVIE_SCORE_MIN;
 			else score = NORMAL_SCORE;
 		}
 		else if(category.equals(EXHIBITION_TAG)) {
@@ -99,7 +101,7 @@ public class Event {
 			if(preferences.get(SHOW_INDEX).equals(""))
 				score = UNPREFERRED_SCORE;
 			else if(subCategory.equals(preferences.get(SHOW_INDEX)))
-				score = duration * PREFERRED_SCORE_MIN;
+				score = duration * PREFERRED_SHOW_SCORE_MIN;
 			else score = NORMAL_SCORE;
 		}
 	}
@@ -145,5 +147,5 @@ public class Event {
 					+ "</li>";
 		return html;
 	}
-	
+
 }
