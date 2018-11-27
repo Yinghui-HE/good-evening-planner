@@ -60,7 +60,8 @@ input[type="button"]{
 	width: 50%;
 	text-align: center;
 	margin: 10px;
-	background-color: #171938;
+	border: ridge;
+	border-color: #E7DFDD;
 }
 h2{
 	text-align: center;
@@ -73,7 +74,8 @@ h2{
 	width: 90%;
 	height: 800px;
 	margin: 10px;
-	background-color: #171938;
+	border: ridge;
+	border-color: #E7DFDD;
 }
 
 h3{
