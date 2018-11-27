@@ -45,7 +45,7 @@
 			function connectToServer() {
 			    socket = new WebSocket("ws://localhost:8080/good-evening-planner/ws");
 			    socket.onopen = function(event) {
-			    	document.getElementById("pokes").innerHTML += "Connected";
+			    	
 			    }
 			    socket.onmessage = function(event) {
 			        //location.reload();
