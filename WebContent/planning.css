@@ -73,8 +73,11 @@ form{
     transition: 0.4s;
     background-color: #545993;
 }
-.active, .accordion:hover {
+.active, .accordion:hover{
     background-color: #102343;
+}
+.active, .bbutton2:hover{
+	background-color: #102343;
 }
 .panel {
     padding: 0 18px;
@@ -119,9 +122,7 @@ form{
     outline: none;
     font-size: 32px;
 }
-.bbutton2:hover, .bbutton2:active{
-	background-color: #4543ff;
-}
+
 input[type="text"]{
 	width: 20%;
 	margin: 5px;

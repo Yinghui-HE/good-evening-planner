@@ -65,9 +65,16 @@
 					
 				%>
 			    console.log("<%=username%>" + ": " + document.getElementById(id).innerHTML);
-			    socket.send("<%=username%>" + ": " + document.getElementById(id).innerHTML);
-					<%}%>
-					return false;
+
+			    document.getElementById('save' + id).style.visibility="visible";
+			    document.getElementById('share' + id).style.visibility="hidden";
+			    socket.send("<h3>"+"<%=username%>" + ": " +"</h3>"+ document.getElementById(id).innerHTML);
+			    document.getElementById('share' + id).style.visibility="visible";
+			    document.getElementById('save' + id).style.visibility="hidden";
+
+			    return false;
+			    <%}%>
+
 			}
 			
 			function saveEvening(id) {
@@ -98,9 +105,9 @@
 			<div id="evenings">
 			
 			</div>
-			<div id="notifications">
+			<div id="notifications" style='width: 90%'>
 				<h2>Notifications</h2>
-				<table id = "pokes">
+				<table id = "pokes" style="width: 100%">
 				</table>
 			</div>
 			<div id="buttons">
@@ -112,7 +119,8 @@
 						<button id="log-out" onclick="logOut()">Log Out</button>
 				<%	}else{ %>
 						<button id="log-in" onclick="logIn()">Log In</button>
-					<%}}
+					<%}
+				}
 				%>
 				
 			</div>
@@ -157,14 +165,13 @@
 		</script>
 		<%
 		} else{
-			%>
+		%>
 		<script>
 		document.getElementById("evenings").innerHTML = "<h1>Past Evenings</h1><br><h4>Log into an account to see your past evenings</h4>"
 		</script>
-
-	<% 
-	}}
-
+		<%
+		}
+	}
 	%>
 	
 	
