@@ -231,14 +231,14 @@
 
 						</div>
 					</div>
-					<div class="quant">
+<!-- 					<div class="quant">
 						Group Size:</div>
 						<div class="quant">
 							<button class="bbutton2" type="button">Individual (1)</button>
 							<button class="bbutton2" type="button">Small (2-4)</button>
 							<button class="bbutton2" type="button">Medium (5-8)</button>
 							<button class="bbutton2" type="button">Large (8+)</button>
-					</div>
+					</div> -->
 
 					 <div class="quant">
 						<button type="button" class="bbutton" style="text-align:center;" onclick="submitPlan()">Submit</button>
@@ -268,12 +268,14 @@
 			}
 			});
 		}
-
+	</script>
+	<script>
 		var btns = document.getElementsByClassName("bbutton2");
+		var i;
 		for (i = 0; i < btns.length; i++) {
-			  btns[i].addEventListener("click", function() {
+			btns[i].addEventListener("click", function() {
 				this.classList.toggle("active");
-			  });
+			});
 		}
-		</script>
+	</script>
 </html>

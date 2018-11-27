@@ -27,8 +27,7 @@ body{
 	height: 500px;
 	margin: 10px;
 	overflow: scroll;
-	border: double;
-	border-color:#E7DFDD;
+	background-color: #243468;
 }
 #notifications{
 	/* flex-grow: 1; */
@@ -37,8 +36,7 @@ body{
 	text-align: center;
 	verticle-align: middle;
 	margin: 10px;
-	border: double;
-	border-color:#E7DFDD;
+	background-color: #243468;
 	overflow-y: scroll;
 }
 #buttons{
