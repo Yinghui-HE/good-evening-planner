@@ -23,7 +23,6 @@ h1{
 	flex-direction: column;
 	justify-content: space-around;
 	padding: 30px;
-	height: 850px;
 }
 
 #title{
@@ -122,14 +121,13 @@ h6{
 	font-size: 24px;
 	font-family: ;
 	color:#FFF8E8;
-	float: left;
-	padding-left: 40px;
+	text-align:center;
 }
 #endTime{
 	font-size: 24px;
 	font-family: ;
 	color:#FFF8E8;
-	padding-left: 250px;
+	text-align:center;
 }
 #location{
 	font-size: 24px;
@@ -141,11 +139,11 @@ h6{
 	font-size: 24px;
 	font-family: ;
 	color:#FFF8E8;
-	padding-left: 40px;
+	text-align:center;
 }
 #subCat{
 	font-size: 24px;
 	font-family: ;
 	color:#FFF8E8;
-	padding-left: 40px;
+	text-align:center;
 }

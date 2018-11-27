@@ -76,12 +76,12 @@
 							String endTime = end.substring(0,2) + ":" + end.substring(2);
 							%> 	 	<div id="eventItem">
 										<div id="eventTitle">Summary: <%= e.getSummary()%></div>
-										<div id="img"><img style="width: 80%" src=<%= e.getImage() %>></div>
-										<div id="startTime">Start Time: <%= startTime%>   <br/></div>
-										<div id="endTime">End Time: <%= endTime%></div>
-				 						<div id="location"> <%= e.getLocation()%></div>
-										<div id="category">Category: <%= e.getCategory()%></div>
-										<div id="subCat">Sub Category: <%= e.getSubcategory()%></div>
+										<div id="img"><img style="height: 500px; display: block; margin: auto;" src=<%= e.getImage() %>></div>
+										<div id="startTime" style="text-align: center;">Start Time: <%= startTime%></div>
+										<div id="endTime" style="text-align: center;">End Time: <%= endTime%></div>
+				 						<div id="location" style="text-align: center;"> <%= e.getLocation()%></div>
+										<div id="category" style="text-align: center;">Category: <%= e.getCategory()%></div>
+										<div id="subCat" style="text-align: center;">Sub Category: <%= e.getSubcategory()%></div>
 									</div>
 					        <%
 						}}else{
